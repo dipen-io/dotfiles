@@ -29,7 +29,8 @@ alias ga='git add .'
 alias gj='git commit'
 alias dps='sudo docker ps -a'
 alias dim='sudo docker images'
-alias s='$HOME/script/pick_session.sh'
+# alias s='$HOME/script/pick_session.sh'
+ alias s='$HOME/script/python.py'
 
 # for emacs 
 export XDG_CONFIG_HOME="$HOME/.config"

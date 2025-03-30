@@ -1,84 +1,95 @@
-#!/usr/bin/env bash
+#!/usr/bin/zsh
 
-# File to store the session names
+# Configuration
 SESSION_FILE="$HOME/script/session_name"
+PROTECTED_SESSIONS=("backend" "frontend" "client" "server")  # Sessions that cannot be deleted
+TERMINAL="alacritty"  # Your terminal emulator
 
-# Ensure the session file exists
-touch "$SESSION_FILE"
+# Ensure session file exists
+mkdir -p "$(dirname "$SESSION_FILE")"
+touch "$SESSION_FILE" || { echo "Error: Cannot create $SESSION_FILE" >&2; exit 1 }
 
-# Read session names from the file
-AVAILABLE_SESSIONS=($(cat "$SESSION_FILE"))
+while true; do
+  # Load sessions
+  all_sessions=(${(f)"$(sort -u "$SESSION_FILE" | grep -v '^$')"})
+  running_sessions=(${(f)"$(tmux list-sessions 2>/dev/null | awk -F: '{print $1}')"})
 
-# Add "Enter a new session" option
-AVAILABLE_SESSIONS+=("Enter a new session")
-
-# Get a list of currently running TMUX sessions
-RUNNING_SESSIONS=$(tmux list-sessions 2>/dev/null | awk -F: '{print $1}')
-
-# Display the options vertically with letters
-echo "Select a TMUX session to open:"
-for ((i=0; i<${#AVAILABLE_SESSIONS[@]}; i++)); do
-    # Convert index to corresponding letter (a, b, c, ...)
-    LETTER=$(printf "\\$(printf '%03o' $((97 + i)))")
-    SESSION_NAME="${AVAILABLE_SESSIONS[$i]}"
-    
-    # Check if the session is running
-    if echo "$RUNNING_SESSIONS" | grep -wq "$SESSION_NAME"; then
-        echo "$LETTER) $SESSION_NAME (running..)"
+  # Build menu
+  menu_items=()
+  for session in $all_sessions; do
+    if (( $running_sessions[(Ie)$session] )); then
+      menu_items+=(" $session (running)")
     else
-        echo "$LETTER) $SESSION_NAME"
+      menu_items+=("$session")  # No indicator for stopped sessions
     fi
+  done
+  menu_items+=(" New session" " Kill session" "❌ Exit")
+
+  # Selection
+  selected=$(printf "%s\n" "${menu_items[@]}" | fzf --height=40% --reverse --prompt='TMUX session: ') || continue
+
+  # Extract action/session
+  selection_type=${selected[(w)2]}  # New/Kill/Exit or session name
+  session_name=${selected[(w)2]}
+
+  if [[ "$selection_type" == "Exit" ]]; then
+    exit 0
+
+  elif [[ "$selection_type" == "Kill" ]]; then
+    # Loop for Kill Session (stay in this menu if any sessions are running)
+    while true; do
+      running_sessions=(${(f)"$(tmux list-sessions 2>/dev/null | awk -F: '{print $1}')"})
+
+      # Only show running (killable) sessions
+      killable_sessions=(${running_sessions:|PROTECTED_SESSIONS})
+
+      if (( ${#killable_sessions[@]} == 0 )); then
+        echo "No running sessions available to kill"
+        break  # Go back to the main menu
+      fi
+
+      # Select session to kill
+      to_kill=$(printf "%s\n" "${killable_sessions[@]}" | \
+        fzf --height=40% --reverse --prompt='Select session to kill: ')
+
+      [[ -z "$to_kill" ]] && break  # Exit back to main menu if nothing selected
+
+      # Kill session
+      tmux kill-session -t "$to_kill" 2>/dev/null && \
+      sed -i "/^${to_kill}$/d" "$SESSION_FILE"
+      echo "Killed session: $to_kill"
+
+      # Refresh session list
+      running_sessions=(${(f)"$(tmux list-sessions 2>/dev/null | awk -F: '{print $1}')"})
+
+      if (( ${#running_sessions[@]} == 0 )); then
+        break  # Return to main menu if no sessions are left
+      fi
+
+      # Stay in Kill menu if there are still running sessions
+    done
+
+  elif [[ "$selection_type" == "New" ]]; then
+    # New session creation
+    while true; do
+      vared -p 'New session name: ' -c new_session
+      [[ -z $new_session ]] && continue
+      [[ $new_session =~ ^[a-zA-Z0-9_-]+$ ]] || { echo "Only alnum, -, _ allowed"; continue }
+      (( ${all_sessions[(Ie)$new_session]} )) && { echo "Exists!"; continue }
+      break
+    done
+    tmux new-session -s "$new_session" ${TMUX:+-d}
+    echo "$new_session" >> "$SESSION_FILE"
+    [[ -n $TMUX ]] && tmux switch-client -t "$new_session"
+
+  else
+    # Regular session attachment
+    if tmux has-session -t "$session_name" 2>/dev/null; then
+      [[ -n $TMUX ]] && tmux switch-client -t "$session_name" || tmux attach -t "$session_name"
+    else
+      tmux new-session -s "$session_name" ${TMUX:+-d}
+      [[ -n $TMUX ]] && tmux switch-client -t "$session_name"
+    fi
+  fi
 done
 
-# Read user input
-read -rp "Enter your choice (a, b, c, ...): " CHOICE
-
-# Convert the letter to an index
-INDEX=$(($(printf "%d" "'$CHOICE") - 97))
-
-# Validate the index
-if [[ $INDEX -ge 0 && $INDEX -lt ${#AVAILABLE_SESSIONS[@]} ]]; then
-    SESSION="${AVAILABLE_SESSIONS[$INDEX]}"
-    if [[ "$SESSION" != "Enter a new session" ]]; then
-        # Check if the session already exists
-        if tmux has-session -t "$SESSION" 2>/dev/null; then
-            # If inside a TMUX session, switch to the target session
-            if [[ -n "$TMUX" ]]; then
-                echo "Switching to existing session: $SESSION"
-                tmux switch-client -t "$SESSION"
-            else
-                # If not inside a TMUX session, attach to the target session
-                echo "Attaching to existing session: $SESSION"
-                tmux attach-session -t "$SESSION"
-            fi
-        else
-            # If the session does not exist, create it
-            if [[ -n "$TMUX" ]]; then
-                echo "Creating a new session in the background: $SESSION"
-                tmux new-session -d -s "$SESSION"  # Create in the background
-                tmux switch-client -t "$SESSION"   # Switch to the new session
-            else
-                echo "Creating and attaching to new session: $SESSION"
-                tmux new-session -s "$SESSION"
-            fi
-        fi
-    else
-        read -rp "Enter a new session name: " NEW_SESSION
-        if [[ -n "$NEW_SESSION" ]]; then
-            # Add new session name to file and start session
-            echo "$NEW_SESSION" >> "$SESSION_FILE"
-            if [[ -n "$TMUX" ]]; then
-                echo "Creating a new session in the background: $NEW_SESSION"
-                tmux new-session -d -s "$NEW_SESSION"  # Create in the background
-                tmux switch-client -t "$NEW_SESSION"   # Switch to the new session
-            else
-                echo "Creating and attaching to new session: $NEW_SESSION"
-                tmux new-session -s "$NEW_SESSION"
-            fi
-        else
-            echo "Invalid session name."
-        fi
-    fi
-else
-    echo "Invalid choice. Please try again."
-fi
