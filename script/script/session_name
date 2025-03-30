@@ -1,10 +1,7 @@
 backend
-frontend
 client
-server
 golang
 lua
+server
 typescript
-zig
-scripts
-javascript
+sc
