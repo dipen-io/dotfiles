@@ -4,6 +4,7 @@ export ZSH="$HOME/.oh-my-zsh"
 export PATH=$PATH:/usr/local/node/bin
 
 export PATH="/opt/zig:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 export EDITOR='nvim'
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -15,7 +16,7 @@ source $ZSH/oh-my-zsh.sh
 alias vim='nvim'
 alias vi='nvim'
 alias ..='cd ..'
-alias so='source'
+alias so='source /home/void/.zshrc'
 # alias tls='tmux ls'
 alias la='ls -a'
 alias ll='ls -la'
@@ -39,16 +40,20 @@ export EMACSDIR="$HOME/.config/emacs"
 # vim keybinding
 bindkey -v
 
-#auto reload .zshrc
-function auto_source_zshrc() {
-    local last_modified=$(stat -c %Y ~/.zshrc)
-    while true; do
-        sleep 2
-        local current_modified=$(stat -c %Y ~/.zshrc)
-        if [[ $current_modified != $last_modified ]]; then
-            source ~/.zshrc
-            echo ".zshrc reloaded at $(date)"
-            last_modified=$current_modified
-        fi
-    done
-}
+# Auto-reload .zshrc when it changes
+# auto_reload_zshrc() {
+#     local last_modified=$(stat -c %Y ~/.zshrc)
+#     while true; do
+#         sleep 2  # Check every 2 seconds (adjust if needed)
+#         local current_modified=$(stat -c %Y ~/.zshrc)
+#         if [[ $current_modified != $last_modified ]]; then
+#             source ~/.zshrc
+#             echo ".zshrc reloaded at $(date)"
+#             last_modified=$current_modified
+#         fi
+#     done
+# }
+#
+# # Run in the background
+# auto_reload_zshrc &
+
