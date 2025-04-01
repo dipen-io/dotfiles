@@ -182,3 +182,9 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.api.nvim_buf_set_keymap(0, 'n', 'q', ':q!<CR>', { noremap = true, silent = true })
     end
 })
+
+-- if fileType is xinitrc then it is treated as sh file
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+    pattern = ".xinitrc",
+    command = "set filetype=sh"
+})
