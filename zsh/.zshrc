@@ -57,3 +57,5 @@ bindkey -v
 # # Run in the background
 # auto_reload_zshrc &
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -115,17 +115,54 @@ return {
         event = "VeryLazy",
         config = function()
             require("noice").setup({
+
+                cmdline = {
+                    format = {
+                        search_down = {
+                            view = "cmdline",
+                            icon = "",
+                        },
+                    },
+                },
+                -- for search bar
+                routes = {
+                    {
+                        filter = {
+                            event = "msg_show",
+                            kind = "search_count",
+                        },
+                        opts = { skip = true },
+                    },
+                },
+                --for cmd-line
+                views = {
+                    cmdline_popup = {
+                        border = {
+                            style = "none",
+                            padding = { 2, 3 },
+                        },
+                        filter_options = {},
+                        win_options = {
+                            winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+                        },
+                    },
+                },
+                lsp = {
+                    override = {
+                        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                        ["vim.lsp.util.stylize_markdown"] = true,
+                        ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+                    },
+                    progress = {
+                        enabled = false, --disable  lsp message when first load
+                    },
+                },
                 presets = {
                     bottom_search = false,         -- use a classic bottom cmdline for search
                     command_palette = false,       --set true to top
                     long_message_to_split = false, -- long messages will be sent to a split
                     inc_rename = false,            -- enables an input dialog for inc-rename.nvim
                     lsp_doc_border = true,         -- add a border to hover docs and signature help
-                },
-                lsp = {
-                    progress = {
-                        enabled = false, --disable  lsp message when first load
-                    },
                 },
             })
         end,
