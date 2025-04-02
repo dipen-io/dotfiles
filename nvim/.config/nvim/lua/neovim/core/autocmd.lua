@@ -10,8 +10,12 @@ vim.api.nvim_create_autocmd("FileType", {
 -- Enable screen key
 vim.api.nvim_create_autocmd("VimEnter", {
     callback = function()
-        -- vim.cmd("Screenkey") // i don"t user this now
-        vim.cmd("ShowkeysToggle")
+        if vim.fn.exists(":ShowkeysToggle") == 2 then
+            -- vim.cmd("Screenkey") // i don"t user this now
+            vim.cmd("ShowkeysToggle")
+        else
+            vim.notify("ShowkeysToggle not found", vim.log.levels.WARN)
+        end
     end,
 })
 
