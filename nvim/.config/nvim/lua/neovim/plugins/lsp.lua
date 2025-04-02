@@ -2,7 +2,6 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-        'saghen/blink.cmp',
         "hrsh7th/cmp-nvim-lsp",
         { "antosha417/nvim-lsp-file-operations", config = true },
         {
@@ -73,7 +72,11 @@ return {
 
         -- used to enable autocompletion (assign to every lsp server config)
         -- local capabilities = cmp_nvim_lsp.default_capabilities()
-        local capabilities = require('blink.cmp').get_lsp_capabilities()
+        -- local capabilities = require('blink.cmp').get_lsp_capabilities()
+
+        -- new one
+        local original_capabilities = vim.lsp.protocol.make_client_capabilities()
+        local capabilities = require("blink.cmp").get_lsp_capabilities(original_capabilities)
 
         local signs = { Error = "E ", Warn = "W ", Hint = "H ", Info = "I " }
         -- local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
