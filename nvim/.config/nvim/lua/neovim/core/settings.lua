@@ -19,8 +19,9 @@ vim.opt.smoothscroll = true
 vim.opt.smartindent = true
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.hlsearch = true
+vim.opt.hlsearch = false
 vim.opt.incsearch = true
+--vim.o.timeoutlen = 200
 
 vim.opt.scrolloff = 8
 

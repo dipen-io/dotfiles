@@ -99,11 +99,6 @@ return {
             on_attach = on_attach,
             capabilities = capabilities,
         })
-        -- for nix
-        lspconfig.rnix.setup({
-            capabilities = capabilities,
-            on_attach = on_attach
-        })
         -- configure typescript server with plugin
         lspconfig["ts_ls"].setup({
             capabilities = capabilities,
