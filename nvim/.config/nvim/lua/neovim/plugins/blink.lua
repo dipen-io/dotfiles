@@ -10,14 +10,14 @@ return {
             preset = 'default',
             ['<C-k>'] = { 'select_prev', 'fallback' },
             ['<C-j>'] = { 'select_next', 'fallback' },
-            -- ['<CR>'] = { 'accept' },
+            ['<CR>'] = { 'accept', 'fallback' },
         },
 
         appearance = {
             nerd_font_variant = 'mono'
         },
 
-        completion = { documentation = { auto_show = false } },
+        completion = { documentation = { auto_show = true } },
 
         sources = {
             default = { 'lsp', 'path', 'snippets', 'buffer' },

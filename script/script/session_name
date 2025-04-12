@@ -1,10 +1,10 @@
 backend
 client
 golang
+javascript
 lua
+python
 server
 typescript
-sc
-dwm
-python
-javascript
+nvim
+tiktok
