@@ -26,7 +26,7 @@ alias ll='ls -la'
 alias e='exit'
 alias home='cd ~'
 alias c='cd'
-alias clr='clear'
+alias cl='clear'
 alias h='home'
 alias gs='git status'
 alias ga='git add .'
@@ -34,7 +34,7 @@ alias gj='git commit'
 alias dps='sudo docker ps -a'
 alias dim='sudo docker images'
 # alias s='$HOME/script/pick_session.sh'
- alias s='$HOME/script/python.py'
+alias s='$HOME/script/python.py'
 
 # for emacs 
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -42,23 +42,5 @@ export EMACSDIR="$HOME/.config/emacs"
 
 # vim keybinding
 bindkey -v
-
-# Auto-reload .zshrc when it changes
-# auto_reload_zshrc() {
-#     local last_modified=$(stat -c %Y ~/.zshrc)
-#     while true; do
-#         sleep 2  # Check every 2 seconds (adjust if needed)
-#         local current_modified=$(stat -c %Y ~/.zshrc)
-#         if [[ $current_modified != $last_modified ]]; then
-#             source ~/.zshrc
-#             echo ".zshrc reloaded at $(date)"
-#             last_modified=$current_modified
-#         fi
-#     done
-# }
-#
-# # Run in the background
-# auto_reload_zshrc &
-
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

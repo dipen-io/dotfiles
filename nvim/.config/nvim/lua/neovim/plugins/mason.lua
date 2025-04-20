@@ -37,7 +37,7 @@ return {
                 -- "tailwindcss",
                 -- "yamlls",
                 -- "emmet_ls",
-                -- "prettierd"
+                "prettierd"
             },
             automatic_installation = true,
         })
