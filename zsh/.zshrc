@@ -8,7 +8,7 @@ export PATH="$HOME/.local/bin:$PATH"
 export EDITOR='nvim'
 
 # for python tmp
-export TMPDIR=~/project/flask-ai/tmp
+# export TMPDIR=~/project/flask-ai/tmp
 # export MANPATH="/usr/local/man:$MANPATH"
 
 ZSH_THEME="robbyrussell"
@@ -36,6 +36,9 @@ alias dim='sudo docker images'
 # alias s='$HOME/script/pick_session.sh'
 alias s='$HOME/script/python.py'
 
+run() {
+    g++ "$1" -o a.out && ./a.out
+}
 # for emacs 
 export XDG_CONFIG_HOME="$HOME/.config"
 export EMACSDIR="$HOME/.config/emacs"

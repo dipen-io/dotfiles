@@ -4,6 +4,31 @@ local set = vim.keymap.set
 local api = vim.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }
 
+vim.keymap.set('n', '<leader>ii', function()
+    local filename = vim.fn.expand('%') -- Get current file name
+    local filetype = vim.bo.filetype    -- Get file type
+
+    -- Define commands based on file type
+    local commands = {
+        cpp = 'g++ ' .. filename .. ' -o a.out && ./a.out && rm a.out',
+        javascript = 'node ' .. filename,
+        js = 'node ' .. filename, -- Alternate for .js files
+    }
+
+    -- Get the appropriate command or show error
+    local cmd = commands[filetype]
+    if not cmd then
+        vim.notify("Unsupported file type: " .. filetype, vim.log.levels.ERROR)
+        return
+    end
+
+    -- Run in a split terminal at bottom
+    vim.cmd('belowright split | resize 10 | terminal ' .. cmd)
+end)
+
+-- Navigate paragraphs with [ and ] instead of { and }
+vim.keymap.set('n', '[', '{', { noremap = true, desc = "Jump to previous empty line" })
+vim.keymap.set('n', ']', '}', { noremap = true, desc = "Jump to next empty line" })
 
 -- Making new file or navigating
 api('n', '<leader>n', ':e <Space>', { noremap = true })

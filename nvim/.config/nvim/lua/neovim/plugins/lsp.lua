@@ -121,17 +121,36 @@ return {
             },
             jsonls = {},
 
-            -- Systems Programming
             clangd = {
-                cmd = { "clangd", "--background-index" },
                 filetypes = { "c", "cpp" },
-                root_dir = lspconfig.util.root_pattern(".clangd", ".git"),
-                settings = {
-                    clangd = {
-                        fallbackFlags = { "-std=c17" },
-                    },
+                cmd = {
+                    "clangd",
+                    "--background-index",  -- Index in background
+                    "--clang-tidy",        -- Enable clang-tidy
+                    "--header-insertion=never", -- Disable auto-inserting headers
+                    "--completion-style=detailed",
+                    "--query-driver=/usr/bin/clang++", -- Adjust path if needed
                 },
+                single_file_support = true,
+                root_dir = function(fname)
+                    return lspconfig.util.root_pattern(
+                        'compile_commands.json',
+                        'compile_flags.txt',
+                        '.git'
+                    )(fname) or vim.fn.getcwd()
+                end,
             },
+            -- Systems Programming
+            -- clangd = {
+            --     cmd = { "clangd", "--background-index" },
+            --     filetypes = { "c", "cpp" },
+            --     root_dir = lspconfig.util.root_pattern(".clangd", ".git"),
+            --     settings = {
+            --         clangd = {
+            --             fallbackFlags = { "-std=c17" },
+            --         },
+            --     },
+            -- },
             zls = {
                 filetypes = { "zig" },
             },

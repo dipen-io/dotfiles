@@ -1,7 +1,7 @@
 require("neovim.core.keymaps")
 require("neovim.core.settings")
 require("neovim.core.autocmd")
-require("neovim.core.Todo")
+-- require("neovim.core.Todo")
 require("neovim.lazy")
 
 -- This is good while im using vim-illuminate

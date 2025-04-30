@@ -3,8 +3,9 @@ client
 golang
 javascript
 lua
+nvim
 python
 server
-typescript
-nvim
 tiktok
+typescript
+ecomerce

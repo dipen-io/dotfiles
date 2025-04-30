@@ -6,17 +6,20 @@ vim.api.nvim_create_autocmd("FileType", {
     end
 })
 
-
--- Enable screen key
+-- shwo key
 vim.api.nvim_create_autocmd("VimEnter", {
     callback = function()
-        if vim.fn.exists(":ShowkeysToggle") == 2 then
-            -- vim.cmd("Screenkey") // i don"t user this now
-            vim.cmd("ShowkeysToggle")
-        else
-            vim.notify("ShowkeysToggle not found", vim.log.levels.WARN)
-        end
+        -- Wait a brief moment for plugins to load
+        vim.defer_fn(function()
+            if vim.fn.exists(":ShowkeysToggle") == 2 then
+                vim.cmd("ShowkeysToggle")
+            else
+                vim.notify("ShowkeysToggle not found - make sure showkeys.nvim is installed",
+                    vim.log.levels.WARN)
+            end
+        end, 100) -- 100ms delay
     end,
+    once = true   -- Only run once on startup
 })
 
 -- Keep the cursor position when yanking
