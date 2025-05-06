@@ -11,6 +11,7 @@ vim.keymap.set('n', '<leader>ii', function()
     -- Define commands based on file type
     local commands = {
         cpp = 'g++ ' .. filename .. ' -o a.out && ./a.out && rm a.out',
+        c = 'g++ ' .. filename .. ' -o a.out && ./a.out && rm a.out',
         javascript = 'node ' .. filename,
         js = 'node ' .. filename, -- Alternate for .js files
     }

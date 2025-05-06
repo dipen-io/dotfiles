@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+sudo mkdir $HOME/mnt/teest/
+echo Hello

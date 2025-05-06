@@ -35,6 +35,7 @@ alias dps='sudo docker ps -a'
 alias dim='sudo docker images'
 # alias s='$HOME/script/pick_session.sh'
 alias s='$HOME/script/python.py'
+alias todo='$HOME/script/todo'
 
 run() {
     g++ "$1" -o a.out && ./a.out

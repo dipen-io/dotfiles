@@ -113,6 +113,9 @@ return {
             eslint_d = {
                 filetypes = { "typescript", "javascript" },
             },
+            prismals = {
+                filetypes = { "prisma" }
+            },
             emmet_language_server = {
                 filetypes = {
                     "html", "templ", "css", "javascriptreact", "typescriptreact",
@@ -125,9 +128,9 @@ return {
                 filetypes = { "c", "cpp" },
                 cmd = {
                     "clangd",
-                    "--background-index",  -- Index in background
-                    "--clang-tidy",        -- Enable clang-tidy
-                    "--header-insertion=never", -- Disable auto-inserting headers
+                    "--background-index",              -- Index in background
+                    "--clang-tidy",                    -- Enable clang-tidy
+                    "--header-insertion=never",        -- Disable auto-inserting headers
                     "--completion-style=detailed",
                     "--query-driver=/usr/bin/clang++", -- Adjust path if needed
                 },
