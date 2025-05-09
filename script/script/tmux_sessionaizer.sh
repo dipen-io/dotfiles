@@ -29,7 +29,7 @@ has_session() {
 hydrate() {
     local session_name="$1"
     local dir="$2"
-    local config_files=("$dir/.tmux-sessionizer" "$HOME/.tmux-sessionizer" "$dir/.tmux.conf" "$HOME/.tmux.conf")
+    local config_files=("$dir/.tmux-sessionizer" "$HOME/script/yes" "$dir/.tmux.conf" "$HOME/.tmux.conf")
 
     for config in "${config_files[@]}"; do
         if [[ -f "$config" ]]; then
@@ -43,17 +43,11 @@ hydrate() {
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-selected=$(find -L /home/dinesh -mindepth 1 -maxdepth 2 -type d \( \
-     -path "/home/dinesh/dotfiles" -o \
-     -path "/home/dinesh/project" -o \
-     -path "/home/dinesh/project/*" -o \
-     -path "/home/dinesh/script" -o \
-     -path "/home/dinesh/script/*" -o \
-     -path "/home/dinesh/dev*" -o \
-     -path "/home/dinesh/lang*" -o \
-     -path "/home/dinesh/.config" -o \
-     -path "/home/dinesh/go/src" -o \
-     -path "/home/dinesh/go/src/*" \) -print | fzf --preview 'ls -lh --color=always {}' --preview-window=right:50%)
+selected=$(find -L /home/void -mindepth 1 -maxdepth 2 -type d \( \
+     -path "/home/void/dotfiles" -o \
+     -path "/home/void/project/*" -o \
+     -path "/home/void/dotfiles/script/*" -o \
+     -path "/home/void/Desktop/*" \) -print | fzf --preview 'ls -lh --color=always {}' --preview-window=right:50%)
 
          # -path "/home/dinesh/go/src/*" \) -print | fzf --preview 'echo "Files: $(ls -1 {} | wc -l)\nSize: $(du -sh {} | cut -f1)"' --preview-window=right:50%)
 fi
