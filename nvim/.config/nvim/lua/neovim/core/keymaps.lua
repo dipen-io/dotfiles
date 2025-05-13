@@ -12,6 +12,7 @@ vim.keymap.set('n', '<leader>ii', function()
     local commands = {
         cpp = 'g++ ' .. filename .. ' -o a.out && ./a.out && rm a.out',
         c = 'g++ ' .. filename .. ' -o a.out && ./a.out && rm a.out',
+        go = 'go run ' .. filename,
         javascript = 'node ' .. filename,
         js = 'node ' .. filename, -- Alternate for .js files
     }
@@ -27,6 +28,11 @@ vim.keymap.set('n', '<leader>ii', function()
     vim.cmd('belowright split | resize 10 | terminal ' .. cmd)
 end)
 
+vim.keymap.set("n", "<C-n>", "<cmd> silent !tmux neww /home/void/script/python.py<CR>",
+    { noremap = true, desc = "tmux selection command" })
+
+vim.keymap.set("n", "<C-f>", "<cmd> silent !tmux neww /home/void/script/tmux_sessionaizer.sh<CR>",
+    { noremap = true, desc = "tmux sessionizer" })
 -- Navigate paragraphs with [ and ] instead of { and }
 vim.keymap.set('n', '[', '{', { noremap = true, desc = "Jump to previous empty line" })
 vim.keymap.set('n', ']', '}', { noremap = true, desc = "Jump to next empty line" })

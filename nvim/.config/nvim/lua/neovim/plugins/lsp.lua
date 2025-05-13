@@ -110,11 +110,14 @@ return {
             eslint = {
                 filetypes = { "typescript", "javascript" },
             },
-            eslint_d = {
-                filetypes = { "typescript", "javascript" },
-            },
+            -- eslint_d = {
+            --     filetypes = { "typescript", "javascript" },
+            -- },
             prismals = {
                 filetypes = { "prisma" }
+            },
+            sqls = {
+                filetypes = { "sql" }
             },
             emmet_language_server = {
                 filetypes = {

@@ -7,6 +7,7 @@ return {
             vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
         end,
     },
+    { "github/copilot.vim" },
     {
         "daodejing/tabber.nvim",
         config = true,
@@ -91,7 +92,7 @@ return {
     --     dependencies = { "nvim-tree/nvim-web-devicons" },
     --     opts = {}
     -- },
-    { "junegunn/fzf",        build = "./install --all" },
+    { "junegunn/fzf", build = "./install --all" },
 
     -- This is my be replacement of which key
     {

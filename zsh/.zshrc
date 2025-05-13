@@ -36,6 +36,7 @@ alias dim='sudo docker images'
 # alias s='$HOME/script/pick_session.sh'
 alias s='$HOME/script/python.py'
 alias todo='$HOME/script/todo'
+alias tmux-sessionizer='/home/void/script/tmux_sessionaizer.sh'
 
 run() {
     g++ "$1" -o a.out && ./a.out
@@ -46,5 +47,8 @@ export EMACSDIR="$HOME/.config/emacs"
 
 # vim keybinding
 bindkey -v
+
+bindkey -s ^f "/home/void/script/tmux_sessionaizer.sh\n"
+bindkey -s ^n "/home/void/script/python.py\n"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

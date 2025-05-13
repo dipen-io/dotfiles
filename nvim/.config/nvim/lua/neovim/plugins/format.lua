@@ -30,7 +30,8 @@ return {
                 zsh = { "beautysh" },
                 zig = { "zig" },
                 python = { "black", "isort" },
-                rust = { "rustfmt", "rust" }
+                rust = { "rustfmt", "rust" },
+                sql = { "sql-formatter" }
             },
             formatters = {
                 injected = { options = { ignore_errors = true } },
