@@ -1,0 +1,44 @@
+[
+    {
+        // Use Ctrl+Shift+P to open the command palette and search for "Preferences: Open Keyboard Shortcuts (JSON)"
+      "key": "alt+m",
+      "command": "workbench.action.toggleMenuBar",
+      "when":"!menuBarVisible"
+    },
+    {
+        // Use Ctrl+Shift+P to open the command palette and search for "Preferences: Open Keyboard Shortcuts (JSON)"
+      "key": "alt+m",
+      "command": "workbench.action.toggleMenuBar",
+      "when":"menuBarVisible"
+    },
+
+    {
+      "key": "ctrl+shift+f",
+      "command": "workbench.view.search"
+    },
+    {
+        "key": "alt+n",
+        "command": "workbench.view.explorer",
+        "when": "!explorerViewletVisible"
+      },
+      {
+        "key": "alt+n",
+        "command": "workbench.action.closeSidebar",
+        "when": "explorerViewletVisible"
+      },
+    {
+      "key": "ctrl+shift+d",
+      "command": "workbench.view.debug"
+    },
+
+    //default keybinding for extensions view
+    {
+      "key": "ctrl+shift+x",
+      "command": "workbench.view.extensions"
+    },
+    {
+      "key": "ctrl+shift+t",
+      "command": "workbench.action.terminal.toggleTerminal"
+    }
+  ]
+  
