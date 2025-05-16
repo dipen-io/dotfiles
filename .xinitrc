@@ -19,7 +19,8 @@ xss-lock -- xsecurelock &  # Auto-lock the screen using xsecurelock
  dunst &
 picom --experimental-backends --config ~/.config/picom/picom.conf &
 xmodmap ~/.Xmodmap &
-feh --bg-scale /home/void/Desktop/wall/62.png &
+# feh --bg-scale /home/void/Desktop/wall/62.png &
+feh --bg-scale /home/void/dotfiles/code.svg &
 
 exec dwm
 

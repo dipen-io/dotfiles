@@ -7,6 +7,8 @@ export PATH="/opt/zig:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export EDITOR='nvim'
 
+alias chadwm='startx ~/.config/chadwm/scripts/run.sh'
+
 # for python tmp
 # export TMPDIR=~/project/flask-ai/tmp
 # export MANPATH="/usr/local/man:$MANPATH"
