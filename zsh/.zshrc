@@ -7,13 +7,18 @@ export PATH="/opt/zig:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export EDITOR='nvim'
 
+# alias for running the chadwm
 alias chadwm='startx ~/.config/chadwm/scripts/run.sh'
 
 # for python tmp
 # export TMPDIR=~/project/flask-ai/tmp
 # export MANPATH="/usr/local/man:$MANPATH"
 
-ZSH_THEME="robbyrussell"
+# ZSH_THEME="robbyrussell"
+# ZSH_THEME="bira" # this is good
+
+PROMPT='[%n] %~ '
+
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
