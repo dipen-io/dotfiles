@@ -6,4 +6,4 @@ font-family = "Iosevka"
 font-size = 17
 # background-opacity = 0.8
 gtk-titlebar = false
-
+border = false

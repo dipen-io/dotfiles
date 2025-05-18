@@ -1,8 +1,8 @@
 general.import = [
-    # "./themes/themes/xterm.toml"
+    "./themes/themes/xterm.toml"
     # "./themes/themes/kimbie_dark.toml"
     # "./themes/themes/hyper.toml"
-    "./themes/themes/chicago95.toml"
+    # "./themes/themes/chicago95.toml"
     # "./themes/themes/github_dark_default.toml" #not bad also
 ]
 [colors]
@@ -47,7 +47,7 @@ multiplier = 3
 # args = ["--login", "-c", "/home/dinesh/script/session.sh"]
 
 [window]
- # opacity = 0.9
+opacity = 0.5
 blur = true
 
 # Square corners
