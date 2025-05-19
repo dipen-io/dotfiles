@@ -7,6 +7,8 @@ export PATH="/opt/zig:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export EDITOR='nvim'
 
+# run the bar after the 5 second
+
 # alias for running the chadwm
 alias chadwm='startx ~/.config/chadwm/scripts/run.sh'
 

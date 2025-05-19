@@ -23,7 +23,7 @@ TERM = "xterm-256color"
 # TERM: screen-256color
 
 [font]
-size = 11
+size = 26
 # normal.family= "MesloLGS Nerd Font Mono"
 normal.family= "Iosevka"
 bold.family = "Iosevka"
