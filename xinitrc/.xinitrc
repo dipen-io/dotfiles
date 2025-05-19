@@ -1,4 +1,3 @@
- xrdb -load ~/.Xresources
 # xrdb merge ~/.Xresources 
 
 
@@ -20,15 +19,15 @@
 
 #xss-lock -- xsecurelock &  # Auto-lock the screen using xsecurelock
 dunst &
+setxkbmap -option
 xmodmap ~/.Xmodmap &
-feh --bg-scale /home/void/dotfiles/code.svg &
 # xset s 300 300  # Set screen timeout to 5 minutes
-xset r rate 200 50 &
-picom &
 
 #dash ~/.config/chadwm/scripts/bar.sh &
-# ~/.config/chadwm/scripts/bar.sh &
-while type chadwm >/dev/null; do chadwm && continue || break; done
- exec chadwm
- 
+# while type chadwm >/dev/null; do chadwm && continue || break; done
+#  exec chadwm
+
+# Just run your main startup script
+~/.config/chadwm/scripts/run.sh
+
 
