@@ -11,12 +11,13 @@ mem() {
 interval=0
 
 # load colors
-. ~/.config/chadwm/scripts/bar_themes/onedark
+# . ~/.config/chadwm/scripts/bar_themes/onedark
+. ~/.config/bar/bar_themes/onedark
 
 
 # It will check is ther any updates
 pkg_updates() {
-  updates=$(sudo /usr/sbin/xbps-install -un | wc -l)
+  updates=$(/usr/sbin/xbps-install -un | wc -l)
 
   if [ "$updates" -eq 0 ]; then
     echo "^c$green^  Fully Updated"

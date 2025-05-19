@@ -10,7 +10,7 @@ export EDITOR='nvim'
 # run the bar after the 5 second
 
 # alias for running the chadwm
-alias chadwm='startx ~/.config/chadwm/scripts/run.sh'
+# alias chadwm='startx ~/.config/chadwm/scripts/run.sh'
 
 # for python tmp
 # export TMPDIR=~/project/flask-ai/tmp
