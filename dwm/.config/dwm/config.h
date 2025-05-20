@@ -95,6 +95,7 @@ static const Rule rules[] = {
     { "Alacritty", NULL,      NULL,       1 << 1,          0,           0,           -1 }, // Tag 2
     { "St",        NULL,      NULL,       1 << 1,          0,           0,           -1 }, // Tag 2
     { "Postman",  NULL,       NULL,       1 << 2,          0,           0,           -1 }, // Tag 3
+    { "Vscodium",  NULL,       NULL,       1 << 2,          0,           0,           -1 }, // Tag 3
 
     { "discord",  NULL,       NULL,       1 << 3,          0,           0,           -1 }, // Tag 4
     { "Thunar",   NULL,       NULL,       1 << 3,          0,           0,           -1 }, // Tag 4
