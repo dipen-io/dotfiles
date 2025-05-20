@@ -88,9 +88,17 @@ static const Rule rules[] = {
      *	WM_NAME(STRING) = title
      */
     /* class      instance    title       tags mask     iscentered   isfloating   monitor */
-    { "Gimp",     NULL,       NULL,       0,            0,           1,           -1 },
-    { "Firefox",  NULL,       NULL,       1 << 8,       0,           0,           -1 },
-    { "eww",      NULL,       NULL,       0,            0,           1,           -1 },
+    // { "Gimp",     NULL,       NULL,       0,            0,           1,           -1 }, 
+    { "Firefox",  NULL,       NULL,       1 << 0,          0,           0,           -1 }, // Firefox to  tag 1
+    { "zen",      NULL,       NULL,       1 << 0,          0,           0,           -1 }, // Zen browser to tag 1
+    { "eww",      NULL,       NULL,       0,               0,           1,           -1 },
+    { "Alacritty", NULL,      NULL,       1 << 1,          0,           0,           -1 }, // Tag 2
+    { "St",        NULL,      NULL,       1 << 1,          0,           0,           -1 }, // Tag 2
+    { "Postman",  NULL,       NULL,       1 << 2,          0,           0,           -1 }, // Tag 3
+
+    { "discord",  NULL,       NULL,       1 << 3,          0,           0,           -1 }, // Tag 4
+    { "Thunar",   NULL,       NULL,       1 << 3,          0,           0,           -1 }, // Tag 4
+    { "Vlc",      NULL,       NULL,       1 << 3,          0,           0,           -1 }, // Tag 4
 };
 
 /* layout(s) */
@@ -270,6 +278,15 @@ static const Key keys[] = {
     TAGKEYS(                            XK_7,                       6)
     TAGKEYS(                            XK_8,                       7)
     TAGKEYS(                            XK_9,                       8)
+
+     // Windows + j → view tag 1
+    { Mod4Mask,                       XK_j,      view,           {.ui = 1 << 0} },
+
+    // Windows + k → view tag 2
+    { Mod4Mask,                       XK_k,      view,           {.ui = 1 << 1} },
+
+    // Windows + l → view tag 3
+    { Mod4Mask,                       XK_l,      view,           {.ui = 1 << 2} },
 };
 
 /* button definitions */
