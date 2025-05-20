@@ -28,6 +28,6 @@ xmodmap ~/.Xmodmap &
 #  exec chadwm
 
 # Just run your main startup script
-~/.config/chadwm/scripts/run.sh
+~/.config/scripts/run.sh
 
 

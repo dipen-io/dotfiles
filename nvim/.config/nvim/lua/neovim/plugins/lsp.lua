@@ -90,6 +90,9 @@ return {
             html = {
                 filetypes = { "html", "templ", "css" },
             },
+            tailwindcss = {
+                filetypes = { "html", "jsx", "javascriptreact" }
+            },
             ts_ls = {
                 filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact" },
                 settings = {
