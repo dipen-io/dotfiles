@@ -10,6 +10,8 @@ vim.opt.guicursor = {
   -- Insert modes: thin vertical bar (default color)
   "i-ci-ve:ver25",
 }
+vim.opt.cmdheight = 0 -- hide the message 
+vim.o.background="dark"
 vim.wo.cursorline = true
 vim.opt.nu = true
 vim.opt.relativenumber = true

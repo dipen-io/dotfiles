@@ -8,12 +8,11 @@ export PATH="$HOME/.local/bin:$PATH"
 export EDITOR='nvim'
 
 # alternative nvim config
-alias nvim-alt='XDG_CONFIG_HOME=/home/void/dotfiles/my-nvim/ nvim'
+# alias nvim-alt='XDG_CONFIG_HOME=/home/void/dotfiles/my-nvim/ nvim'
 
-# run the bar after the 5 second
+alias nvim-alt="NVIM_APPNAME=my-nvim nvim"
 
-# alias for running the chadwm
-# alias chadwm='startx ~/.config/chadwm/scripts/run.sh'
+
 
 # for python tmp
 # export TMPDIR=~/project/flask-ai/tmp

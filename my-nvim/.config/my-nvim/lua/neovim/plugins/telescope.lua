@@ -17,20 +17,6 @@ return {
         -- this is the setup i made lets see works or not
         telescope.setup({
             theme = 'ivy',
-            -- pickers = {
-            --     colorscheme = {
-            --         enable_preview = true,
-            --     },
-            --     find_files = {
-            --         theme = 'ivy'
-            --     },
-            --     buffers = {
-            --         theme = 'ivy'
-            --     },
-            -- },
-            extensions = {
-                fzf = {}
-            },
             defaults = {
                 -- Appearance
                 entry_prefix = '󱞩 ',
@@ -88,7 +74,7 @@ return {
 
         vim.keymap.set("n", "<leader>fw", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
         vim.keymap.set("n", "<leader>ps", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })
-        vim.keymap.set("n", "<space>fg", require "neovim.plugins.telescope.multi_grep")
+        -- vim.keymap.set("n", "<space>fg", require "neovim.plugins.telescope.multi_grep")
         --This is shit userfull
         vim.keymap.set(
             "n",

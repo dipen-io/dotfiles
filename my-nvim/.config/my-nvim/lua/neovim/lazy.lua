@@ -20,11 +20,17 @@ vim.g.maplocalleader = " "
 
 
 -- Setup lazy.nvim
+require("neovim.plugins.telescope")
 require("lazy").setup({
-	-- import individually
-	-- require("plugins.telescope")
-        -- import your plugins folder directly
-        -- { import = "neovim.plugins" },
-    
+    require("neovim.plugins.treesitter"),
+    require("neovim.plugins.telescope"),
+    require("neovim.plugins.color"),
+}, {
+    checker = {
+        enabled = true,
+        notify = false,
+    },
+    change_detection = {
+        notify = false,
+    },
 })
-
