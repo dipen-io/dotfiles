@@ -1,0 +1,48 @@
+#HELP PAGE
+FZF:
+option folderNmae | fzf
+#CLI COMMANDS
+
+(f for file )
+(d for directory )
+find . -type f -name "*.txt"
+find . -type f -name "server.js"
+find . -type f -name "server*"
+find . -type d -name "server*"
+
+
+1. find
+2. grep
+3. sed
+4. awk
+5. cut
+9. head
+10. tail
+11. xargs
+12. tr
+13. tee
+16. ssh
+17. scp
+18. rsync
+19. tar
+20. grep
+21. fzf
+22. jq
+23. env
+24. chmod
+25. chown
+26. ps
+27. top
+28. kill
+29. df
+30. du
+31. free
+32. netstat
+33. ifconfig
+34. ping
+35. traceroute
+36. nslookup
+37. nmcli
+38. ip      
+39. route   
+

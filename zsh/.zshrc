@@ -7,6 +7,9 @@ export PATH="/opt/zig:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export EDITOR='nvim'
 
+# alternative nvim config
+alias nvim-alt='XDG_CONFIG_HOME=/home/void/dotfiles/my-nvim/ nvim'
+
 # run the bar after the 5 second
 
 # alias for running the chadwm
@@ -25,7 +28,7 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 # Aliases
-alias vim='nvim'
+# alias vim='nvim'
 alias vi='nvim'
 alias ..='cd ..'
 alias so='source /home/void/.zshrc'
@@ -61,3 +64,4 @@ bindkey -s ^f "/home/void/script/tmux_sessionaizer.sh\n"
 bindkey -s ^n "/home/void/script/python.py\n"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+. "/home/void/.deno/env"
