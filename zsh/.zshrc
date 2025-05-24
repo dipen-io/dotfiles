@@ -10,7 +10,8 @@ export EDITOR='nvim'
 # alternative nvim config
 alias nvim-alt="NVIM_APPNAME=my-nvim nvim"
 
-alias void="/home/void/.config/bar/fetch"
+# alias void="/home/void/.config/bar/fetch"
+"/home/void/.config/bar/fetch"
 
 # for python tmp
 # export TMPDIR=~/project/flask-ai/tmp
