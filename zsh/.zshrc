@@ -8,11 +8,9 @@ export PATH="$HOME/.local/bin:$PATH"
 export EDITOR='nvim'
 
 # alternative nvim config
-# alias nvim-alt='XDG_CONFIG_HOME=/home/void/dotfiles/my-nvim/ nvim'
-
 alias nvim-alt="NVIM_APPNAME=my-nvim nvim"
 
-
+alias void="/home/void/.config/bar/fetch"
 
 # for python tmp
 # export TMPDIR=~/project/flask-ai/tmp

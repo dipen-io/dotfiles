@@ -17,6 +17,10 @@ interval=0
 
 # It will check is ther any updates
 pkg_updates() {
+  # Refresh package index first
+  /usr/sbin/xbps-install -Sy > /dev/null 2>&1
+
+  # Check how many updates are available
   updates=$(/usr/sbin/xbps-install -un | wc -l)
 
   if [ "$updates" -eq 0 ]; then
