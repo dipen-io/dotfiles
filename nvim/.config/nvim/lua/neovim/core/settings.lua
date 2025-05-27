@@ -4,7 +4,9 @@ vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.clipboard = "unnamedplus"
 vim.o.completeopt = "menuone,noselect"
--- vim.o.background = "dark"
+vim.o.termguicolors = true
+
+vim.o.background = "dark"
 vim.opt.autoindent = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
