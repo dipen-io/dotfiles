@@ -61,6 +61,7 @@ bindkey -v
 
 bindkey -s ^f "/home/void/script/tmux_sessionaizer.sh\n"
 bindkey -s ^n "/home/void/script/python.py\n"
+bindkey -s ^b "/home/void/script/rofi-web-serach.sh\n"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 . "/home/void/.deno/env"

@@ -21,13 +21,14 @@ pkg_updates() {
   /usr/sbin/xbps-install -Sy > /dev/null 2>&1
 
   # Check how many updates are available
-  updates=$(/usr/sbin/xbps-install -un | wc -l)
+  # updates=$(/usr/sbin/xbps-install -un | wc -l)
+   updates=$(/usr/sbin/xbps-install -un 2>/dev/null | grep -v '^ ' | wc -l)
 
-  if [ "$updates" -eq 0 ]; then
-    echo "^c$green^  Fully Updated"
-  else
-    echo "^c$green^  $updates updates"
-  fi
+  if [ -z "$updates" ] || [ "$updates" -eq 0 ]; then
+        echo "^c$green^  Fully Updated"
+    else
+        echo "^c$green^  $updates updates"
+    fi
 }
 
 
@@ -92,6 +93,6 @@ while true; do
     [ "$interval" = 0 ] || [ $((interval % 3600)) = 0 ] && updates=$(pkg_updates)
     interval=$((interval + 1))
 
-    xsetroot -name "$updates $(disk) $(battery) $(brightness) $(wifi) $(volument) $(get_date) $(get_time)"
+    xsetroot -name " $(wifi) $(disk) $(battery) $(brightness) $(volument) $(get_date) $(get_time)"
     sleep 1
 done
