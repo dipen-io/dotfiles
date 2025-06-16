@@ -9,6 +9,7 @@ export EDITOR='nvim'
 
 # alternative nvim config
 alias nvim-alt="NVIM_APPNAME=my-nvim nvim"
+alias a="nvim-alt ."
 
 # alias void="/home/void/.config/bar/fetch"
 "/home/void/.config/bar/fetch"

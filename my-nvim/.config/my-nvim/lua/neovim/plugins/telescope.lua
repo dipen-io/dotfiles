@@ -65,9 +65,17 @@ return {
 
 
         vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = "Find Files" })
+        vim.keymap.set('n', '<leader>en', function() 
+            require('telescope.builtin').find_files { 
+                cwd = vim.fn.stdpath('config')
+            }
+        end
+        )
         vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find Buffers" })
         vim.keymap.set('n', '<C-p>', builtin.git_files, {})
+        vim.keymap.set("n", "<space>/", builtin.current_buffer_fuzzy_find)
 
+        vim.keymap.set("n", "<space>gw", builtin.grep_string)
         vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find Help Tags" })
         vim.keymap.set("n", "<leader>fs", builtin.lsp_document_symbols, { desc = "Find Symbols" })
         vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Find Keymaps" })
