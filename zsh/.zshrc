@@ -1,18 +1,34 @@
 #freshly new zshrc for void
 #export
-export ZSH="$HOME/.oh-my-zsh"
+# export ZSH="$HOME/.oh-my-zsh"
 export PATH=$PATH:/usr/local/node/bin
+# export PATH="/usr/local/bin/zen:$PATH"
+
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+setopt autocd extendedglob nomatch
+bindkey -v
+# End of lines configured by zsh-newuser-install
+# The following lines were added by compinstall
+zstyle :compinstall filename '/home/void/.zshrc'
+
+autoload -Uz compinit
+compinit
+PS1='[\u@\h \W]\$ '
+# End of lines added by compinstall
 
 export PATH="/opt/zig:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export EDITOR='nvim'
 
 # alternative nvim config
-alias nvim-alt="NVIM_APPNAME=my-nvim nvim"
-alias a="nvim-alt ."
+alias a="NVIM_APPNAME=my-nvim nvim"
+alias l=ll
 
 # alias void="/home/void/.config/bar/fetch"
-"/home/void/.config/bar/fetch"
+# "/home/void/.config/bar/fetch"
 
 
 # for python tmp
@@ -25,7 +41,7 @@ alias a="nvim-alt ."
 PROMPT='[%n] %~ '
 
 plugins=(git)
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
 
 # Aliases
 # alias vim='nvim'
@@ -60,9 +76,16 @@ export EMACSDIR="$HOME/.config/emacs"
 # vim keybinding
 bindkey -v
 
-bindkey -s ^f "/home/void/script/tmux_sessionaizer.sh\n"
-bindkey -s ^n "/home/void/script/python.py\n"
-bindkey -s ^b "/home/void/script/rofi-web-serach.sh\n"
+# bindkey -s ^f "/home/void/script/tmux_sessionaizer.sh\n"
+# bindkey -s ^n "/home/void/script/python.py\n"
+# bindkey -s ^b "/home/void/script/rofi-web-serach.sh\n"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-. "/home/void/.deno/env"
+# . "/home/void/.deno/env"
+
+# bun completions
+[ -s "/home/void/.bun/_bun" ] && source "/home/void/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

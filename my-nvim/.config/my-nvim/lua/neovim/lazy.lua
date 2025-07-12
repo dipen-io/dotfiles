@@ -25,6 +25,7 @@ require("lazy").setup({
     require("neovim.plugins.treesitter"),
     require("neovim.plugins.telescope"),
     require("neovim.plugins.color"),
+    require("neovim.plugins.oil"),
 }, {
     checker = {
         enabled = true,

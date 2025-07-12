@@ -81,7 +81,7 @@ set("n", "<M-,>", "<c-w>5<")
 set("n", "<M-.>", "<c-w>5>")
 
 -- open explorar
-api('n', '<leader>pf', ':Ex<CR>', opt)
+-- api('n', '<leader>pf', ':Ex<CR>', opt)
 vim.keymap.set('n', '<leader>ve', '<cmd>Sex!<CR>')
 
 -- move line --
