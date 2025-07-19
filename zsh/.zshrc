@@ -16,7 +16,7 @@ zstyle :compinstall filename '/home/void/.zshrc'
 
 autoload -Uz compinit
 compinit
-PS1='[\u@\h \W]\$ '
+PS1='\[\033[0;32m\][\u@\h \W]\$\[\033[0m\] '
 # End of lines added by compinstall
 
 export PATH="/opt/zig:$PATH"
@@ -89,3 +89,10 @@ bindkey -v
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+#dotnet
+
+export DOTNET_ROOT=$HOME/.dotnet
+export PATH=$DOTNET_ROOT:$PATH
+
+setopt NO_HIST_EXPAND
