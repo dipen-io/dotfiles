@@ -56,6 +56,9 @@ vim.keymap.set('n', 'M', vim.lsp.buf.hover, { buffer = bufnr, noremap = true, si
 vim.o.completeopt = "menuone,noselect"
 vim.opt.shortmess:append("c")  -- Hide "match x of y" messages
 
+vim.opt.backspace = { "indent", "eol", "start" } -- for xterm backspace work
+vim.keymap.set("i", "<C-H>", "<BS>", { noremap = true })
+
 -- in neovim 12 we can use this 
 -- vim.pack.add({
 --     {src = "https://github.com/vague2k/vague.nvim" }, 
