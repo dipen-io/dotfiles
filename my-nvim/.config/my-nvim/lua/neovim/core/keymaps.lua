@@ -5,28 +5,41 @@ local api = vim.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }
 
 vim.keymap.set('n', '<leader>ii', function()
-    local filename = vim.fn.expand('%') -- Get current file name
-    local filetype = vim.bo.filetype    -- Get file type
+    local filename = vim.fn.expand('%')
+    local filetype = vim.bo.filetype
 
-    -- Define commands based on file type
     local commands = {
-        cpp = 'g++ ' .. filename .. ' -o a.out && ./a.out && rm a.out',
-        c = 'g++ ' .. filename .. ' -o a.out && ./a.out && rm a.out',
-        go = 'go run ' .. filename,
-        javascript = 'node ' .. filename,
-        js = 'node ' .. filename, -- Alternate for .js files
+        cpp = 'g++ "' .. filename .. '" -o /tmp/a.out && /tmp/a.out; rm /tmp/a.out',
+        c = 'gcc "' .. filename .. '" -o /tmp/a.out && /tmp/a.out; rm /tmp/a.out',
+        go = 'go run "' .. filename .. '"',
+        javascript = 'node "' .. filename .. '"',
+        js = 'node "' .. filename .. '"',
+        python = 'python3 "' .. filename .. '"',
+        sh = 'bash "' .. filename .. '"',
     }
 
-    -- Get the appropriate command or show error
     local cmd = commands[filetype]
     if not cmd then
         vim.notify("Unsupported file type: " .. filetype, vim.log.levels.ERROR)
         return
     end
 
-    -- Run in a split terminal at bottom
-    vim.cmd('belowright split | resize 10 | terminal ' .. cmd)
-end)
+    -- Write command to a temporary shell script
+    local script_path = "/tmp/vim_exec.sh"
+    local file = io.open(script_path, "w")
+    file:write("#!/bin/bash\nclear\n" .. cmd .. "\n")
+    file:close()
+    vim.fn.system({"chmod", "+x", script_path})
+
+    -- Open terminal and execute script
+    -- vim.cmd('belowright split | resize 15 | terminal')
+    vim.cmd('rightbelow vsplit | vertical resize 50 | terminal')
+
+    vim.defer_fn(function()
+        local term_chan = vim.b.terminal_job_id
+        vim.fn.chansend(term_chan, script_path .. '\n')
+    end, 100)
+end, { desc = "Run current file in terminal" })
 
 vim.keymap.set("n", "<C-n>", "<cmd> silent !tmux neww /home/void/script/python.py<CR>",
     { noremap = true, desc = "tmux selection command" })

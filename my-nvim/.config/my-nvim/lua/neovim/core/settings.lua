@@ -52,3 +52,10 @@ vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
 
+-- in neovim 12 we can use this 
+-- vim.pack.add({
+--     {src = "https://github.com/vague2k/vague.nvim" }, 
+-- })
+
+vim.cmd(":hi statusline guibg = NONE") --remove the statualne color
+
