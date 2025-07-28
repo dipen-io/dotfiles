@@ -51,6 +51,10 @@ vim.opt.wildignore:append({ "*/node_modules/*" })
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
+vim.o.winborder = "rounded"
+vim.keymap.set('n', 'M', vim.lsp.buf.hover, { buffer = bufnr, noremap = true, silent = true })
+vim.o.completeopt = "menuone,noselect"
+vim.opt.shortmess:append("c")  -- Hide "match x of y" messages
 
 -- in neovim 12 we can use this 
 -- vim.pack.add({
@@ -58,4 +62,6 @@ vim.g.netrw_winsize = 25
 -- })
 
 vim.cmd(":hi statusline guibg = NONE") --remove the statualne color
+vim.lsp.enable({ "lua_ls" })
+vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
 
