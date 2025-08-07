@@ -53,6 +53,8 @@ vim.keymap.set('n', ']', '}', { noremap = true, desc = "Jump to next empty line"
 -- Making new file or navigating
 api('n', '<leader>n', ':e <Space>', { noremap = true })
 
+set("v", "<leader>r", "\"hy:%s/<C-r>h//g<left><left>") --replac
+
 -- For sourceing this current file
 set("n", "<leader><leader>x", "<cmd>source %<CR>")
 
