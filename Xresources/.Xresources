@@ -1,13 +1,19 @@
 
 ! Font (change size as needed)
 XTerm*faceName: Iosevka
-XTerm*faceSize: 17
+XTerm*faceSize: 23
 XTerm*cursorBlink: true
+
+
+! paste 
+XTerm.vt100.translations: #override \
+  Ctrl <Key>V: insert-selection(CLIPBOARD)
 
 XTerm*backarrowKey: true
 XTerm*backarrowIsErase: true
 XTerm*ttyModes: erase ^?
 XTerm*termName: xterm
+
 
 ! Colors
 XTerm*foreground: #d6d8eb

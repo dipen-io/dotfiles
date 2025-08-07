@@ -3,6 +3,36 @@
 # export ZSH="$HOME/.oh-my-zsh"
 export PATH=$PATH:/usr/local/node/bin
 # export PATH="/usr/local/bin/zen:$PATH"
+export ZSH="$HOME/.oh-my-zsh"
+
+ZSH_THEME="robbyrussell"
+# alias php='/usr/bin/php8.3'
+
+setopt NO_CORRECT
+
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+ENABLE_CORRECTION="true"
+
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='nvim'
+# fi
+
+export ARCHFLAGS="-arch $(uname -m)"
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
@@ -14,10 +44,13 @@ bindkey -v
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/void/.zshrc'
 
-autoload -Uz compinit
+# autoload -Uz compinit
 compinit
-PS1='\[\033[0;32m\][\u@\h \W]\$\[\033[0m\] '
-# End of lines added by compinstall
+
+
+autoload -Uz colors && colors
+# PS1="%{$fg[green]%}[%n@%m %~]%# %{$reset_color%}"
+PS1="%{$fg_bold[yellow]%}[%n@%m %~] %{$reset_color%}"
 
 export PATH="/opt/zig:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
@@ -27,10 +60,6 @@ export EDITOR='nvim'
 alias a="NVIM_APPNAME=my-nvim nvim"
 alias l=ll
 
-# alias void="/home/void/.config/bar/fetch"
-# "/home/void/.config/bar/fetch"
-
-
 # for python tmp
 # export TMPDIR=~/project/flask-ai/tmp
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -38,7 +67,7 @@ alias l=ll
 # ZSH_THEME="robbyrussell"
 # ZSH_THEME="bira" # this is good
 
-PROMPT='[%n] %~ '
+# PROMPT='[%n] %~ '
 
 plugins=(git)
 # source $ZSH/oh-my-zsh.sh
@@ -69,7 +98,7 @@ alias tmux-sessionizer='/home/void/script/tmux_sessionaizer.sh'
 run() {
     g++ "$1" -o a.out && ./a.out
 }
-# for emacs 
+# for emacs
 export XDG_CONFIG_HOME="$HOME/.config"
 export EMACSDIR="$HOME/.config/emacs"
 
