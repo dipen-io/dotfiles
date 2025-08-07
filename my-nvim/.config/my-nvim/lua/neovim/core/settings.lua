@@ -10,7 +10,7 @@ vim.opt.guicursor = {
   -- Insert modes: thin vertical bar (default color)
   "i-ci-ve:ver25",
 }
-vim.opt.cmdheight = 0 -- hide the message 
+vim.opt.cmdheight = 0 -- hide the message
 vim.o.background="dark"
 vim.wo.cursorline = true
 vim.opt.nu = true
@@ -37,6 +37,7 @@ vim.opt.incsearch = true
 --vim.o.timeoutlen = 200
 
 vim.opt.scrolloff = 8
+vim.opt.sidescrolloff = 8
 
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
@@ -59,9 +60,9 @@ vim.opt.shortmess:append("c")  -- Hide "match x of y" messages
 vim.opt.backspace = { "indent", "eol", "start" } -- for xterm backspace work
 vim.keymap.set("i", "<C-H>", "<BS>", { noremap = true })
 
--- in neovim 12 we can use this 
+-- in neovim 12 we can use this
 -- vim.pack.add({
---     {src = "https://github.com/vague2k/vague.nvim" }, 
+--     {src = "https://github.com/vague2k/vague.nvim" },
 -- })
 
 vim.cmd(":hi statusline guibg = NONE") --remove the statualne color
