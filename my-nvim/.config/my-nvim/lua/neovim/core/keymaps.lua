@@ -189,6 +189,11 @@ api("n", "<leader>wq", ":wq<CR>", { silent = true })
 set("n", "n", "nzzzv")
 set("n", "N", "Nzzzv")
 
+-- caps lock  to normal mode
+vim.keymap.set({"n", "i", "v"}, "<CapsLock>", "<Esc>", { noremap = true, silent = true })
+vim.keymap.set("c", "<CapsLock>", "<C-c>", { noremap = true, silent = true })
+
+
 set("n", "<leader>m", ":terminal<CR>", opt)
 set("n", "<leader>ee", "oif err != nil {<CR>}<Esc>Oreturn err<Esc>")
 

@@ -8,11 +8,9 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 # alias php='/usr/bin/php8.3'
 
-setopt NO_CORRECT
 
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
-ENABLE_CORRECTION="true"
 
 plugins=(git)
 
