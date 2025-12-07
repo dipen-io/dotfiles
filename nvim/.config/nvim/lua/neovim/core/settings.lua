@@ -1,4 +1,3 @@
-vim.opt.guicursor = ""
 vim.g.mapleader = " "
 vim.opt.nu = true
 vim.opt.relativenumber = true
@@ -16,6 +15,9 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.showmode = false
 vim.opt.smoothscroll = true
+vim.opt.wrap = true
+vim.opt.linebreak = true
+vim.opt.showbreak = "↪ "
 -- vim.opt.numberwidth=3
 
 vim.opt.smartindent = true

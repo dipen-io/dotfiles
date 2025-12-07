@@ -41,19 +41,3 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
     end,
 })
 
--- Always show winbar for every window
--- vim.opt.winbar = ""
---
--- -- Configure the winbar to show the filename on the top right
--- -- and perhaps some other info on the left, or just the filename on the right.
--- vim.opt.winbar = table.concat({
---     -- Optional: Add some text or buffer number on the left
---     -- "%N ", -- Buffer number
---
---     "%= ", -- This pushes everything that follows it to the far right
---
---     -- Content for the top right:
---     "%#Normal#", -- Apply 'Normal' highlight group (or any other, like 'TabLineSel' for blue)
---     " %t ",      -- Filename only (use %F for full path, %f for relative)
---     "%*",        -- Reset highlight group
--- }, "")

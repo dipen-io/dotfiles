@@ -95,20 +95,6 @@ return {
             },
             ts_ls = {
                 filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact" },
-                settings = {
-                    typescript = {
-                        inlayHints = {
-                            includeInlayParameterNameHints = "all",
-                            includeInlayFunctionLikeReturnTypeHints = true,
-                        },
-                    },
-                    javascript = {
-                        inlayHints = {
-                            includeInlayParameterNameHints = "all",
-                            includeInlayFunctionLikeReturnTypeHints = true,
-                        },
-                    },
-                },
             },
             eslint = {
                 filetypes = { "typescript", "javascript" },
@@ -128,7 +114,7 @@ return {
                     "jsx", "tsx", "markdown",
                 },
             },
-            jsonls = {},
+            jsonls = { "json" },
 
             clangd = {
                 filetypes = { "c", "cpp" },

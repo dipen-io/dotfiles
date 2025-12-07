@@ -20,12 +20,15 @@ vim.g.maplocalleader = " "
 
 
 -- Setup lazy.nvim
-require("neovim.plugins.telescope")
+-- require("neovim.plugins.telescope")
 require("lazy").setup({
     require("neovim.plugins.treesitter"),
-    require("neovim.plugins.telescope"),
+    -- require("neovim.plugins.telescope"),
     require("neovim.plugins.color"),
     require("neovim.plugins.oil"),
+    require("neovim.plugins.snacks"),
+    require("neovim.plugins.blink"),
+    require("neovim.plugins.mason"),
 }, {
     checker = {
         enabled = true,

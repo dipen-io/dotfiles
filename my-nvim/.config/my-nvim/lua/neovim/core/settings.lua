@@ -36,6 +36,12 @@ vim.opt.hlsearch = false
 vim.opt.incsearch = true
 --vim.o.timeoutlen = 200
 
+
+vim.diagnostic.config({
+  virtual_text = false,
+  virtual_lines = true,
+})
+
 vim.opt.scrolloff = 8
 vim.opt.sidescrolloff = 8
 
@@ -47,12 +53,12 @@ vim.opt.updatetime = 50
 vim.opt.signcolumn = "yes"
 vim.opt.signcolumn = "yes:1"
 vim.opt.isfname:append("@-@")
+vim.opt.winborder= 'rounded'
 vim.opt.wildignore:append({ "*/node_modules/*" })
 
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
-vim.o.winborder = "rounded"
 vim.keymap.set('n', 'M', vim.lsp.buf.hover, { buffer = bufnr, noremap = true, silent = true })
 vim.o.completeopt = "menuone,noselect"
 vim.opt.shortmess:append("c")  -- Hide "match x of y" messages
@@ -66,6 +72,6 @@ vim.keymap.set("i", "<C-H>", "<BS>", { noremap = true })
 -- })
 
 vim.cmd(":hi statusline guibg = NONE") --remove the statualne color
-vim.lsp.enable({ "lua_ls" })
+-- vim.lsp.enable({ "lua_ls" })
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
 

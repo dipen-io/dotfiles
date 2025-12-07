@@ -19,14 +19,3 @@ function ShowBuffers()
     return table.concat(buffer_list, " | ")
 end
 
--- vim.api.nvim_set_hl(0, "CurrentBuffer", { fg = "#ffffff", bg = "#000000", italic = true })
--- vim.api.nvim_set_hl(0, "StatusLine", { bg = "#000000", fg = "#ffffff" })
--- vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#000000", fg = "#808080" })
---
--- vim.api.nvim_create_autocmd("ColorScheme", {
---     callback = function()
---         vim.api.nvim_set_hl(0, "CurrentBuffer", { fg = "#ffffff", bg = "#000000", italic = true })
---         vim.api.nvim_set_hl(0, "StatusLine", { bg = "#000000", fg = "#ffffff" })
---         vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#000000", fg = "#808080" })
---     end
--- })

@@ -1,5 +1,24 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+
+-- Set guicursor for different modes
+vim.opt.guicursor = {
+    -- Normal, Visual, Command: block cursor
+    "n-v-c:block",
+
+    -- Insert, Command-insert, Visual-ex mode: vertical bar cursor
+    "i-ci-ve:ver25",
+
+    -- Replace mode: horizontal bar cursor (optional)
+    "r-cr:hor20",
+
+    -- Show block cursor when in Operator-pending mode (optional)
+    "o:hor50",
+
+    -- Set blinking (optional)
+    "a:blinkon0"
+}
+
 local set = vim.keymap.set
 local api = vim.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }

@@ -7,20 +7,10 @@ return {
             vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
         end,
     },
-    { "github/copilot.vim" },
-    {
-        "daodejing/tabber.nvim",
-        config = true,
-    },
+    -- { "github/copilot.vim" },
     { "m-demare/hlargs.nvim" },
 
     --helps in lsp refernces
-    {
-        "ray-x/lsp_signature.nvim",
-        event = "VeryLazy",
-        opts = {},
-        config = function(_, opts) require 'lsp_signature'.setup(opts) end
-    },
 
     --for rust
     {
@@ -49,15 +39,6 @@ return {
     },
 
     -- MarkdownPreview
-    {
-        "iamcco/markdown-preview.nvim",
-        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-        build = "cd app && yarn install",
-        init = function()
-            vim.g.mkdp_filetypes = { "markdown" }
-        end,
-        ft = { "markdown" },
-    },
     -- Hightlight cursor -->
     {
         "RRethy/vim-illuminate",
@@ -66,21 +47,6 @@ return {
         end,
     },
 
-    -- Show key in screen -->
-    -- {
-    --     "NStefan002/screenkey.nvim",
-    --     lazy = false,
-    --     version = "*", -- or branch = "dev", to use the latest commit
-    -- },
-    {
-        "nvzone/showkeys",
-        cmd = "ShowkeysToggle",
-        opts = {
-            timeout = 1,
-            maxkeys = 5,
-            -- more opts
-        }
-    },
     {
         "nvim-tree/nvim-web-devicons",
         config = function()
@@ -92,7 +58,7 @@ return {
     --     dependencies = { "nvim-tree/nvim-web-devicons" },
     --     opts = {}
     -- },
-    { "junegunn/fzf", build = "./install --all" },
+    { "junegunn/fzf",        build = "./install --all" },
 
     -- This is my be replacement of which key
     {
@@ -171,37 +137,6 @@ return {
             "MunifTanjim/nui.nvim",
         },
     },
-
-    --for smooth scrolling
-    -- {
-    --     "karb94/neoscroll.nvim",
-    --     config = function()
-    --         local neoscroll = require('neoscroll')
-    --         neoscroll.setup({
-    --         })
-    --
-    --         -- Key mappings for scrolling with neoscroll
-    --         local keymap = {
-    --             ["<S-c>"] = function() neoscroll.ctrl_u({ duration = 300 }) end,
-    --             ["<S-m>"] = function() neoscroll.ctrl_d({ duration = 300 }) end,
-    --         }
-    --
-    --         -- Modes to apply the mappings
-    --         local modes = { 'n', 'v', 'x' }
-    --
-    --         -- Apply the mappings for each mode
-    --         for _, mode in ipairs(modes) do
-    --             for key, func in pairs(keymap) do
-    --                 vim.keymap.set(mode, key, func)
-    --             end
-    --         end
-    --     end,
-    -- },
-    {
-        "OXY2DEV/markview.nvim",
-        lazy = false
-    },
-
 
     --harpoon -->
     {
