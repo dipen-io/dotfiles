@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+# Define the directory and filename
+TODO_DIR="/home/void/Desktop/Todo"
+DATE=$(date +%Y-%m-%d)
+FILENAME="$TODO_DIR/$DATE.md"
+
+
+# Create the file if it doesn't exist and set permissions
+if [ ! -f "$FILENAME" ]; then
+    touch "$FILENAME"
+    chown $USER:$USER "$FILENAME"
+    chmod u+rw "$FILENAME"
+fi
+
+# Check if tmux session 'todo' exists
+if ! tmux has-session -t todo 2>/dev/null; then
+    # Create a new tmux session named 'todo' in the Todo directory
+    tmux new-session -s todo -d -c "$TODO_DIR"
+fi
+
+# Navigate to the Todo directory in the tmux session
+tmux send-keys -t todo "cd $TODO_DIR" C-m
+
+# Open Neovim with the date-based file
+tmux send-keys -t todo "nvim $FILENAME" C-m
+
+# Attach to the tmux session
+tmux attach-session -t todo

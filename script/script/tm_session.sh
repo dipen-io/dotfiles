@@ -2,7 +2,7 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    # selected=$(find ~/dotfiles ~/go/src  ~/.config -mindepth 1 -maxdepth 1 -type d | fzf)
+    # selected=$(find ~/dotfiles  ~/.config -mindepth 1 -maxdepth 1 -type d | fzf)
     selected=$(fd -H . ~/  d -d 2 | fzf)
 fi
 

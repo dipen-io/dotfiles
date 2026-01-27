@@ -7,14 +7,6 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 
--- Enable screen key
-vim.api.nvim_create_autocmd("VimEnter", {
-    callback = function()
-        -- vim.cmd("Screenkey") // i don"t user this now
-        vim.cmd("ShowkeysToggle")
-    end,
-})
-
 -- Keep the cursor position when yanking
 local cursorPreYank
 
@@ -107,16 +99,6 @@ function ShowBuffers()
     return table.concat(buffer_list, " | ") --Split
 end
 
-vim.api.nvim_set_hl(0, "CurrentBuffer", { fg = "#FFFFFF", bg = "#000000", italic = true })
-
---ADD color to the bottom line
-vim.api.nvim_create_autocmd("ColorScheme", {
-    callback = function()
-        vim.api.nvim_set_hl(0, "StatusLine", { bg = "#000000", fg = "#FFFFFF" })
-        vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "#000000", fg = "#808080" })
-    end
-})
-
 -- show cursor line only in active window
 local cursorGrp = vim.api.nvim_create_augroup("CursorLine", { clear = true })
 vim.api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
@@ -172,3 +154,19 @@ end
 
 -- Keymap for <leader>m
 vim.keymap.set("n", "<leader>m", toggle_terminal, { noremap = true, silent = true })
+
+
+-- This sets up the keymap only for gitcommit files
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "gitcommit",
+    callback = function()
+        -- Mapping q to quit the commit file
+        vim.api.nvim_buf_set_keymap(0, 'n', 'q', ':q!<CR>', { noremap = true, silent = true })
+    end
+})
+
+-- if fileType is xinitrc then it is treated as sh file
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+    pattern = ".xinitrc",
+    command = "set filetype=sh"
+})

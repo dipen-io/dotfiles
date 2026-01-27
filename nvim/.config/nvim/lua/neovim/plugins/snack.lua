@@ -13,8 +13,15 @@ return {
             },
             bigfile = { enabled = true },
             picker = {
+                enable = true,
                 matcher = {
                     frecency = true,
+                },
+                exclude = {
+                    --Add folder name to exclude
+                    ".git",
+                    "node_modules",
+
                 },
             },
             -- notifier = {
@@ -141,4 +148,3 @@ return {
         },
     },
 }
-

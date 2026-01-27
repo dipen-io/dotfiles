@@ -1,105 +1,175 @@
-#!/bin/zsh
+#freshly new zshrc for void
+#export
+# export ZSH="$HOME/.oh-my-zsh"
+export PATH=$PATH:/usr/local/node/bin
+# export PATH="/usr/local/bin/zen:$PATH"
+export ZSH="$HOME/.oh-my-zsh"
+
+export PATH="$HOME/flutter/bin:$PATH"
+export PATH="/opt/zig-x86_64-linux-0.15.2:$PATH"
+# export PATH="/opt/zig-x86_64-linux-0.16.0-dev.1484+d0ba6642b:$PATH"
+export ANDROID_SDK_ROOT=$HOME/Android
+export PATH=$ANDROID_SDK_ROOT/emulator:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
+
+# run emulator
+alias emu='$ANDROID_SDK_ROOT/emulator/emulator -avd my_emulator1 -gpu host -no-snapshot'
+
+# for flutter emulator
+export ANDROID_SDK_ROOT=$HOME/Android
+export PATH=$PATH:$ANDROID_SDK_ROOT/emulator:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin
+
+export PATH="$HOME/.local/bin:$PATH"
 
 ZSH_THEME="robbyrussell"
+# alias php='/usr/bin/php8.3'
 
-# Starship
-eval "$(starship init zsh)"
-export STARSHIP_CONFIG=$HOME/.config/starship/starship.toml
 
-export EDITOR=nvim
-export LANG=en_IN.UTF-8
-export LC_ALL=en_IN.UTF-8
-export PATH=$PATH:/run/current-system/sw/bin
-export LD_LIBRARY_PATH=/run/current-system/sw/bin/libnetcfg:$LD_LIBRARY_PATH
-# export TERM=xterm-256color
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
-export MANPATH=$MANPATH:$HOME/man
+
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+export MANPATH="/usr/local/man:$MANPATH"
+export PATH="$HOME/.local/bin/zen:$PATH"
+
+# You may need to manually set your language environment
+export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='nvim'
+# fi
+
+export ARCHFLAGS="-arch $(uname -m)"
+
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+setopt autocd extendedglob nomatch
+# End of lines configured by zsh-newuser-install
+# The following lines were added by compinstall
+zstyle :compinstall filename '/home/void/.zshrc'
+
+# autoload -Uz compinit
+compinit
+
+
+autoload -Uz colors && colors
+PS1="%{$fg[green]%}[%n@%m %~] %{$reset_color%}"
+# PS1="%{$fg_bold[yellow]%}[%n@%m %~] %{$reset_color%}"
+
+export PATH="/opt/zig:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export EDITOR='nvim'
+
+# alternative nvim config
+alias a="NVIM_APPNAME=my-nvim nvim"
+alias l=ll
+
+# for python tmp
+# export TMPDIR=~/project/flask-ai/tmp
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# ZSH_THEME="robbyrussell"
+# ZSH_THEME="bira" # this is good
+
+# PROMPT='[%n] %~ '
+
+plugins=(git)
+# source $ZSH/oh-my-zsh.sh
 
 # Aliases
-alias vim='nvim'
+# alias vim='nvim'
 alias vi='nvim'
 alias ..='cd ..'
-alias so='source'
+alias so='source /home/void/.zshrc'
 # alias tls='tmux ls'
 alias la='ls -a'
 alias ll='ls -la'
 alias e='exit'
 alias home='cd ~'
 alias c='cd'
-alias clr='clear'
+alias cl='clear'
 alias h='home'
 alias gs='git status'
 alias ga='git add .'
 alias gj='git commit'
 alias dps='sudo docker ps -a'
 alias dim='sudo docker images'
-alias ncon='cd /etc/nixos'
-alias gc='nix-shell /home/dinesh/script/shell.nix'
+# alias s='$HOME/script/pick_session.sh'
+# alias s='$HOME/script/python.py'
+alias todo='$HOME/script/todo'
+alias tmux-sessionizer='/home/void/script/tmux_sessionaizer.sh'
 
-alias zen="./bin/zen"
-
-alias ts="/home/dinesh/script/tmux_sessionaizer.sh"
-alias tm="/home/dinesh/script/tm_session.sh"
-alias tf="/home/dinesh/script/test.sh"
-alias tx='tmux new-session -s $(whoami)'
-alias ta='tmux a'
-alias s="./script/pick_session.sh"
-bindkey '^S' run_pic_session
-
-run_pic_session() {
-    ./script/pick_session.sh
+run() {
+    g++ "$1" -o a.out && ./a.out
 }
+# for emacs
+export XDG_CONFIG_HOME="$HOME/.config"
+export EMACSDIR="$HOME/.config/emacs"
 
-#show branch
-get_git_branch() {
-    if git rev-parse --is-inside-work-tree &>/dev/null; then
-        git_branch=$(git symbolic-ref --short HEAD 2>/dev/null || git describe --tags --exact-match 2>/dev/null)
-        echo "%F{red}($git_branch)%f"
-    fi
-}
+# vim keybinding
+bindkey -v
 
-# Define colors
-RED='%F{red}'
-GREEN='%F{green}'
-YELLOW='%F{yellow}'
-BLUE='%F{blue}'
-RESET='%f'
-
-# Function to get current directory or ~ if in home
-get_prompt_dir() {
-    if [ "$PWD" = "$HOME" ]; then
-        echo "~"
-    else
-        basename "$PWD"
-    fi
-}
-
-# Customize the prompt to show ✗ everywhere except home directory
-export PS1="${RED}🡪  ${GREEN}\$(get_prompt_dir)${YELLOW}\$(get_git_branch)${RESET}\$(if [ \"\$PWD\" != \"\$HOME\" ]; then echo \" ${RED}✗\"; fi) "
-# PROMPT='%F{green}➜ %F{blue}%~ %f$ ' # Custom prompt symbol and colors
+# bindkey -s ^f "/home/void/script/tmux_sessionaizer.sh\n"
+# bindkey -s ^b "/home/void/script/python.py\n"
+# bindkey -s ^b "/home/void/script/rofi-web-serach.sh\n"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export PATH=$PATH:~/.npm-global/bin
+# . "/home/void/.deno/env"
 
-new_tmux_session() {
-    if [ -z "$1" ]; then
-        echo "Usage: new_tmux_session <session_name>"
-        return 1
-    fi
-    tmux new-session -d -s "$1"
-    echo "$(date '+%Y-%m-%d %H:%M:%S')" > ~/.tmux/sessions/"$1"_created.txt
-    tmux attach-session -t "$1"
+# bun completions
+[ -s "/home/void/.bun/_bun" ] && source "/home/void/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+#dotnet
+export DOTNET_ROOT=$HOME/.dotnet
+export PATH=$DOTNET_ROOT:$PATH
+
+# tmux
+tmux() {
+  # if no arguments: behave normally
+  if [ $# -eq 0 ]; then
+    command tmux
+    return
+  fi
+
+  # if the first argument matches a tmux subcommand, pass through directly
+  case "$1" in
+    attach|a|ls|list-*|new|kill-*|switch-*|rename-*|display-*|source-*|save-*|show-*|start-*|set-*|detach|has-*|run-*)
+      command tmux "$@"
+      return
+      ;;
+  esac
+
+  # otherwise, treat argument as a session name
+  session="$1"
+  if command tmux has-session -t "$session" 2>/dev/null; then
+    command tmux attach -t "$session"
+  else
+    command tmux new -s "$session"
+  fi
 }
 
-function auto_source_zshrc() {
-    local last_modified=$(stat -c %Y ~/.zshrc)
-    while true; do
-        sleep 2
-        local current_modified=$(stat -c %Y ~/.zshrc)
-        if [[ $current_modified != $last_modified ]]; then
-            source ~/.zshrc
-            echo ".zshrc reloaded at $(date)"
-            last_modified=$current_modified
-        fi
-    done
+# Pick and attach to a tmux session
+tmux-pick() {
+  # List sessions and let user pick with fzf
+  session=$(tmux list-sessions -F '#S' 2>/dev/null | fzf --prompt="tmux session> " --height=40% --reverse)
+  if [ -n "$session" ]; then
+    tmux attach -t "$session"
+  else
+    echo "No session selected."
+  fi
 }
+
+setopt NO_HIST_EXPAND

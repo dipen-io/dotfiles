@@ -8,20 +8,6 @@ set $up k
 set $right l
 font pango: Iosevka 10
 
-# input "*" {
-#     xkb_layout "us,custom_alt"
-#     xkb_variant ""
-#     # Optional: Remove if not needed
-#     xkb_options "grp:switch"
-# }
-# input "*" {
-#     xkb_layout "us,custom_alt"
-#     xkb_variant ""
-# }
-input "*" {
-    xkb_layout us
-    xkb_options "altwin:left_alt"
-}
 
 default_border none
 default_floating_border none
@@ -29,6 +15,10 @@ default_floating_border none
 # Enable both outputs
 output eDP-1 enable
 output HDMI-A-1 enable
+
+#for obs setup
+exec xdg-desktop-portal -r &
+exec xdg-desktop-portal-wlr -r &
 
 # Set modes (optional, use if you want different resolutions)
 # output eDP-1 mode 1920x1080@60.056
@@ -51,6 +41,23 @@ bindsym $mod+Ctrl+2 exec swaymsg "output eDP-1 disable; output HDMI-A-1 enable; 
 # Toggle to both screens (extended)
 bindsym $mod+Ctrl+3 exec swaymsg "output eDP-1 enable; output HDMI-A-1 enable; output eDP-1 mode 1920x1080@60.056; output HDMI-A-1 mode 1366x768@59.790; output eDP-1 position 0 0; output HDMI-A-1 position 1920 0"
  
+# This keymap is sexy one it open this script in alacritty terminal directly
+# bindsym Ctrl+Shift+Return exec alacritty --title tmux_launcher -e /home/void/script/pick_session.sh
+# bindsym $mod+a exec alacritty --title tmux_launcher -e python /home/void/script/python.py
+
+# bindsym $mod+a exec swaymsg "workspace 1; exec alacritty --title tmux_launcher -e python /home/void/script/python.py"
+
+bindsym $mod+a exec sh -c '[ "$(swaymsg -t get_tree | grep -i tmux_launcher)" ] && swaymsg "[title=tmux_launcher] focus" || swaymsg "workspace tmux; exec alacritty --title tmux_launcher -e python /home/void/script/python.py"'
+
+#Antoher coll script
+bindsym $mod+p exec alacritty --title tmux_session_selector -e ~/script/running_session.sh
+
+
+
+
+
+# Open sway config in Alacritty with nvim
+bindsym $mod+c exec alacritty --title "SWAY CONFIG" -e nvim ~/.config/sway/config
 
 set $opacity 0.9
 for_window [class=".*"] opacity $opacity
@@ -58,56 +65,55 @@ for_window [class=".*"] opacity $opacity
 for_window [app_id=".*"] opacity $opacity
 
 set $term alacritty
-set $term2 ghostty
-# set $menu wmenu-run
-set $menu i3-dmenu-desktop 
+# set $term2 zen //script used  here
+set $menu dmenu_run
+#set $menu i3-dmenu-desktop 
 
 #Set wallpaper
-output * bg /home/dinesh/Desktop/wall/wallhaven-l85dqy_1920x1080.png fill
+output * bg /home/void/Downloads/1228038.png fill
 
 # Example configuration:
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
 #Sleep Using window + enter 
-bindsym $super+Return exec systemctl suspend
+bindsym $super+Return exec "swaylock -f -c 000000 && loginctl suspend"
 
 
 #lock the sceen in 5m  
 #turn off all dispaly after 10m
 #befre turn off display lock 
+
 exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
-         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-         before-sleep 'swaylock -f -c 000000'
+    timeout 300 'swaylock -f -c 000000' \
+    timeout 600 'swaymsg output DP-1 power off' resume 'swaymsg output DP-1 power on' \
+    before-sleep 'swaylock -f -c 000000'
 
 
 ### Input configuration
-# Example configuration:
-#
-  input "2:14:SynPS/2_Synaptics_TouchPad" {
-      dwt enabled
-      tap enabled
-      natural_scroll enabled
-      middle_emulation enabled
-  }
+input type:touchpad {
+    dwt enabled
+    tap enabled
+    natural_scroll enabled
+    middle_emulation enabled
+}
 
 # Here Im remaping caps lock with Escape 
 input * {
     xkb_options caps:swapescape
 }
 # bindsym Alt_R exec notify-send "Right Alt pressed"
-bindsym Alt_R exec firefox
+bindsym Alt_R+t exec firefox
 
 #Check that left alt is 56 and right alt is 100
-bindsym $super+Alt_L exec notify-send "Left Alt (56) pressed"
-bindsym $super+Alt_R exec notify-send "Right Alt (100) pressed"
-exec dunst # for allowing notification
+# bindsym $super+Alt_L exec notify-send "Left Alt (56) pressed"
+# bindsym $super+Alt_R exec notify-send "Right Alt (100) pressed"
+# exec dunst # for allowing notification
 
 ### Key bindings
 # Basics:
     bindsym $mod+Return exec $term
-    bindsym $mod+p exec $term2
+    # bindsym $mod+p exec $term2 // script used here
     bindsym $mod+q kill
     bindsym $mod+d exec $menu
     floating_modifier $mod normal
@@ -170,7 +176,7 @@ exec dunst # for allowing notification
     bindsym $mod+f fullscreen
     bindsym $mod+Shift+space floating toggle
     bindsym $mod+space focus mode_toggle
-    bindsym $mod+a focus parent
+    # bindsym $mod+a focus parent //never used this
 
 # Scratchpad:
     # hide focus window 
@@ -202,15 +208,28 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 #For screenshot
-bindsym mod4+p exec maim -s -u ~/Desktop/ss/screenshot_$(date +%Y-%m-%d_%H-%M-%S).png
+bindsym mod4+p exec maim -s -u ~/Desktop/screenshot_$(date +%Y-%m-%d_%H-%M-%S).png
 
 # Define the volume control mode
+# set $mode_volume Volume Mode
+# bindsym $mod+v mode "$mode_volume"
+# mode "$mode_volume" {
+#     bindsym j exec amixer set Master 15%+ unmute
+#     bindsym k exec amixer set Master 15%- unmute 
+#     #bindsym j exec --no-startup-id pamixer --increase 15; #works in X11
+#     #bindsym k exec --no-startup-id pamixer --decrease 15; #works in X11
+
+# }
 set $mode_volume Volume Mode
-# Enter volume control mode with Mod+v
 bindsym $mod+v mode "$mode_volume"
+
 mode "$mode_volume" {
-    bindsym j exec --no-startup-id pamixer --increase 15; 
-    bindsym k exec --no-startup-id pamixer --decrease 15; 
+    # PipeWire/PulseAudio controls (works for Bluetooth)
+    bindsym j exec 'pactl set-sink-volume @DEFAULT_SINK@ +15%'
+    bindsym k exec 'pactl set-sink-volume @DEFAULT_SINK@ -15%'
+    bindsym m exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'
+    
+
     bindsym Escape mode "default"
     bindsym $mod+v mode "default"
 }
@@ -220,8 +239,11 @@ set $mode_brightness Brightness Mode
 # Enter brightness control mode with Mod+b
 bindsym $mod+b mode "$mode_brightness"
 mode "$mode_brightness" {
-    bindsym j exec --no-startup-id brightnessctl set +15%
-    bindsym k exec --no-startup-id brightnessctl set 15%-
+ # Increase brightness with 'j'
+    bindsym j exec brightnessctl s +10%
+
+    # Decrease brightness with 'k'
+    bindsym k exec brightnessctl s 10%-
 
     bindsym $mod+b mode "default"
     bindsym Escape mode "default"
@@ -231,8 +253,9 @@ mode "$mode_brightness" {
 bar {
 
     status_command i3status
-    position bottom
-    # status_command while date +'%Y-%m-%d %X'; do sleep 1; done
+    position top
+     # status_command while date +'%Y-%m-%d %X'; do sleep 1; done
+	# status_command waybar
     colors {
         statusline #ffffff
         background #323232

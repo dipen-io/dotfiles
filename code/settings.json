@@ -1,0 +1,147 @@
+{
+    "editor.fontFamily": "Iosevka",
+    "workbench.layoutControl.enabled": false,
+    "workbench.statusBar.visible": false,
+    "workbench.activityBar.location": "hidden",
+    "editor.minimap.enabled": false,
+    "workbench.sideBar.location": "right",
+    "workbench.editor.editorActionsLocation": "hidden",
+    "workbench.navigationControl.enabled": false,
+    "editor.fontSize": 17,
+
+    "editor.copyWithSyntaxHighlighting": false,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.emptySelectionClipboard": false,
+    "workbench.editor.enablePreview": false,
+    "window.newWindowDimensions": "inherit",
+    "editor.multiCursorModifier": "ctrlCmd",
+    "files.trimTrailingWhitespace": true,
+    "diffEditor.renderSideBySide": false,
+    "editor.snippetSuggestions": "top",
+    "editor.detectIndentation": false,
+    "window.nativeFullScreen": true,
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "workbench.editor.showTabs": "none",
+    // "editor.lineNumbers": "off",
+    "editor.guides.indentation": false,
+
+    // Silence the Noise
+    "breadcrumbs.enabled": false,
+    "scm.diffDecorations": "none",
+    "editor.hover.delay": 1500,
+    "editor.hover.enabled": true,
+    "editor.matchBrackets": "never",
+    "workbench.tips.enabled": false,
+    "editor.colorDecorators": false,
+    "git.decorations.enabled": false,
+    "workbench.startupEditor": "none",
+    "editor.lightbulb.enabled": "off",
+    "editor.selectionHighlight": false,
+    "editor.overviewRulerBorder": false,
+    "editor.renderLineHighlight": "none",
+    "editor.occurrencesHighlight": "off",
+    "problems.decorations.enabled": false,
+    "editor.renderControlCharacters": false,
+    "editor.hideCursorInOverviewRuler": true,
+    "editor.gotoLocation.multipleReferences": "goto",
+    "editor.gotoLocation.multipleDefinitions": "goto",
+    "editor.gotoLocation.multipleDeclarations": "goto",
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+    "editor.gotoLocation.multipleImplementations": "goto",
+    "editor.gotoLocation.multipleTypeDefinitions": "goto",
+
+      // Typography
+    //   "editor.fontFamily": "Geist Mono, JetBrains Mono, Fira Code",
+      "editor.suggestFontSize": 16,
+      "editor.suggestLineHeight": 30,
+      "terminal.integrated.lineHeight": 1.5,
+      "terminal.integrated.fontSize": 16,
+
+      "search.useIgnoreFiles": false,
+      "search.exclude": {
+          // Hide everything in /vendor, except the "laravel" and "livewire" folder.
+          "**/vendor/{[^l],?[^ai]}*": true,
+          // Hide everything in /public, except "index.php"
+          "**/public/{[^i],?[^n]}*": true,
+          "**/node_modules": true,
+          "**/dist": true,
+          "**/_ide_helper.php": true,
+          "**/composer.lock": true,
+          "**/package-lock.json": true,
+          "storage": true,
+          ".phpunit.result.cache": true
+      },
+
+    /**
+    * Code
+    **/
+    // Include "-" in word selection.
+    "editor.wordSeparators": "`~!@#%^&*()=+[{]}\\|;:'\",.<>/?",
+    "emmet.includeLanguages": {
+        "blade": "html",
+        "vue-html": "html",
+        "vue": "html",
+        "react": "html",
+        "javascript": "html"
+    },
+
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+              "scope": [
+                "comment",
+                "keyword",
+                "variable.language",
+                "entity.other.attribute-name.html",
+                "entity.other.attribute-name",
+                "keyword.control",
+                "storage.type",
+                "comment",
+                "comment.block",
+                "comment.line"
+              ],
+              "settings": {
+                "fontStyle": ""
+              }
+            }
+          ]
+    },
+    "editor.fontWeight": "400",
+    "editor.inlineSuggest.suppressSuggestions": true,
+    "codesnap.backgroundColor": "#FFC540",
+    "codesnap.showLineNumbers": false,
+    "codesnap.roundedCorners": true,
+    "editor.padding.top": 16,
+    "editor.cursorBlinking": "solid",
+    "editor.stickyScroll.enabled": false,
+    "editor.lineHeight": 28,
+
+    "editor.quickSuggestions": {
+        "strings": true
+    },
+    "workbench.tree.enableStickyScroll": false,
+
+  "vscode_custom_css.imports": [
+    "file:///home/void/dotfiles/custom-vscode.css",
+    "file:///home/void/dotfiles/custom-vscode.js"
+],
+"vscode_custom_css.policy": true,
+"workbench.iconTheme": "material-icon-theme",
+"security.workspace.trust.untrustedFiles": "open",
+
+    "background.editor": {
+        "useFront": true,
+        "style": {
+          "background-position": "center center",
+          "background-size": "contain",
+        //   "background-size": "auto",
+          "opacity": 0.1
+        },
+        "styles": [{}, {}, {}],
+        "images": [ "file:///home/void/dotfiles/code.svg"],
+        "interval": 0,
+        "random": false
+      }
+
+}

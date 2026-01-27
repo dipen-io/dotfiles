@@ -7,19 +7,10 @@ return {
             vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
         end,
     },
-    {
-        "daodejing/tabber.nvim",
-        config = true,
-    },
+    -- { "github/copilot.vim" },
     { "m-demare/hlargs.nvim" },
 
     --helps in lsp refernces
-    {
-        "ray-x/lsp_signature.nvim",
-        event = "VeryLazy",
-        opts = {},
-        config = function(_, opts) require 'lsp_signature'.setup(opts) end
-    },
 
     --for rust
     {
@@ -48,15 +39,6 @@ return {
     },
 
     -- MarkdownPreview
-    {
-        "iamcco/markdown-preview.nvim",
-        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-        build = "cd app && yarn install",
-        init = function()
-            vim.g.mkdp_filetypes = { "markdown" }
-        end,
-        ft = { "markdown" },
-    },
     -- Hightlight cursor -->
     {
         "RRethy/vim-illuminate",
@@ -65,21 +47,6 @@ return {
         end,
     },
 
-    -- Show key in screen -->
-    -- {
-    --     "NStefan002/screenkey.nvim",
-    --     lazy = false,
-    --     version = "*", -- or branch = "dev", to use the latest commit
-    -- },
-    {
-        "nvzone/showkeys",
-        cmd = "ShowkeysToggle",
-        opts = {
-            timeout = 1,
-            maxkeys = 5,
-            -- more opts
-        }
-    },
     {
         "nvim-tree/nvim-web-devicons",
         config = function()
@@ -115,6 +82,48 @@ return {
         event = "VeryLazy",
         config = function()
             require("noice").setup({
+
+                cmdline = {
+                    format = {
+                        search_down = {
+                            view = "cmdline",
+                            icon = "",
+                        },
+                    },
+                },
+                -- for search bar
+                routes = {
+                    {
+                        filter = {
+                            event = "msg_show",
+                            kind = "search_count",
+                        },
+                        opts = { skip = true },
+                    },
+                },
+                --for cmd-line
+                views = {
+                    cmdline_popup = {
+                        border = {
+                            style = "none",
+                            padding = { 2, 3 },
+                        },
+                        filter_options = {},
+                        win_options = {
+                            winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+                        },
+                    },
+                },
+                lsp = {
+                    override = {
+                        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                        ["vim.lsp.util.stylize_markdown"] = true,
+                        ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+                    },
+                    progress = {
+                        enabled = false, --disable  lsp message when first load
+                    },
+                },
                 presets = {
                     bottom_search = false,         -- use a classic bottom cmdline for search
                     command_palette = false,       --set true to top
@@ -122,48 +131,12 @@ return {
                     inc_rename = false,            -- enables an input dialog for inc-rename.nvim
                     lsp_doc_border = true,         -- add a border to hover docs and signature help
                 },
-                lsp = {
-                    progress = {
-                        enabled = false, --disable  lsp message when first load
-                    },
-                },
             })
         end,
         dependencies = {
             "MunifTanjim/nui.nvim",
         },
     },
-
-    --for smooth scrolling
-    -- {
-    --     "karb94/neoscroll.nvim",
-    --     config = function()
-    --         local neoscroll = require('neoscroll')
-    --         neoscroll.setup({
-    --         })
-    --
-    --         -- Key mappings for scrolling with neoscroll
-    --         local keymap = {
-    --             ["<S-c>"] = function() neoscroll.ctrl_u({ duration = 300 }) end,
-    --             ["<S-m>"] = function() neoscroll.ctrl_d({ duration = 300 }) end,
-    --         }
-    --
-    --         -- Modes to apply the mappings
-    --         local modes = { 'n', 'v', 'x' }
-    --
-    --         -- Apply the mappings for each mode
-    --         for _, mode in ipairs(modes) do
-    --             for key, func in pairs(keymap) do
-    --                 vim.keymap.set(mode, key, func)
-    --             end
-    --         end
-    --     end,
-    -- },
-    {
-        "OXY2DEV/markview.nvim",
-        lazy = false
-    },
-
 
     --harpoon -->
     {

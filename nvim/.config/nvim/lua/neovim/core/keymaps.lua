@@ -1,9 +1,60 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+
+-- Set guicursor for different modes
+vim.opt.guicursor = {
+    -- Normal, Visual, Command: block cursor
+    "n-v-c:block",
+
+    -- Insert, Command-insert, Visual-ex mode: vertical bar cursor
+    "i-ci-ve:ver25",
+
+    -- Replace mode: horizontal bar cursor (optional)
+    "r-cr:hor20",
+
+    -- Show block cursor when in Operator-pending mode (optional)
+    "o:hor50",
+
+    -- Set blinking (optional)
+    "a:blinkon0"
+}
+
 local set = vim.keymap.set
 local api = vim.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }
 
+vim.keymap.set('n', '<leader>ii', function()
+    local filename = vim.fn.expand('%') -- Get current file name
+    local filetype = vim.bo.filetype    -- Get file type
+
+    -- Define commands based on file type
+    local commands = {
+        cpp = 'g++ ' .. filename .. ' -o a.out && ./a.out && rm a.out',
+        c = 'g++ ' .. filename .. ' -o a.out && ./a.out && rm a.out',
+        go = 'go run ' .. filename,
+        javascript = 'node ' .. filename,
+        js = 'node ' .. filename, -- Alternate for .js files
+    }
+
+    -- Get the appropriate command or show error
+    local cmd = commands[filetype]
+    if not cmd then
+        vim.notify("Unsupported file type: " .. filetype, vim.log.levels.ERROR)
+        return
+    end
+
+    -- Run in a split terminal at bottom
+    vim.cmd('belowright split | resize 10 | terminal ' .. cmd)
+end)
+
+vim.keymap.set("n", "<C-n>", "<cmd> silent !tmux neww /home/void/script/python.py<CR>",
+    { noremap = true, desc = "tmux selection command" })
+
+vim.keymap.set("n", "<C-f>", "<cmd> silent !tmux neww /home/void/script/tmux_sessionaizer.sh<CR>",
+    { noremap = true, desc = "tmux sessionizer" })
+-- Navigate paragraphs with [ and ] instead of { and }
+vim.keymap.set('n', '[', '{', { noremap = true, desc = "Jump to previous empty line" })
+vim.keymap.set('n', ']', '}', { noremap = true, desc = "Jump to next empty line" })
 
 -- Making new file or navigating
 api('n', '<leader>n', ':e <Space>', { noremap = true })

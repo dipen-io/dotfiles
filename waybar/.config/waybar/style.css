@@ -1,0 +1,194 @@
+* {
+border: none;
+border-radius: 0;
+font-family: SauceCodePro Nerd Font;
+font-size: 24px;
+min-height: 0;
+}
+
+window#waybar {
+background: transparent;
+color: white;
+}
+
+#workspaces {
+background-color: #24283b;
+margin: 5px;
+margin-left: 10px;
+margin-right: 10px;
+border-radius: 5px;
+}
+
+#workspaces button {
+padding: 5px 10px;
+color: #c0caf5;
+}
+
+/* fixes my icons to be centered in the workspace button area */
+#workspaces button label {
+margin-right: 8px;
+}
+
+#workspaces button.focused {
+color: #24283b;
+background-color: #7aa2f7;
+border-radius: 5px;
+}
+
+#workspaces button:hover {
+background-color: #7dcfff;
+color: #24283b;
+border-radius: 5px;
+}
+
+#custom-date,
+#clock,
+#battery,
+#pulseaudio,
+#network {
+background-color: #24283b;
+padding: 5px 10px;
+margin: 5px 0px;
+}
+
+#custom-date {
+color: #7dcfff;
+}
+
+#custom-power {
+color: #24283b;
+background-color: #db4b4b;
+border-radius: 5px;
+margin-right: 10px;
+margin-top: 5px;
+margin-bottom: 5px;
+margin-left: 0px;
+padding: 5px 10px;
+}
+
+#clock {
+color: #b48ead;
+border-radius: 0px 5px 5px 0px;
+margin-right: 10px;
+}
+
+#battery {
+color: #9ece6a;
+}
+
+#battery.charging {
+color: #9ece6a;
+}
+
+#battery.warning:not(.charging) {
+background-color: #f7768e;
+color: #24283b;
+border-radius: 5px 5px 5px 5px;
+}
+
+#network {
+color: #f7768e;
+border-radius: 5px 0px 0px 5px;
+}
+
+#pulseaudio {
+color: #e0af68;
+}
+
+/*
+
+* {
+border: none;
+border-radius: 0;
+font-family: Source Code Pro;
+font-size: 18px;
+min-height: 0;
+}
+
+window#waybar {
+background: #3b4252;
+color: white;
+}
+
+#workspaces {
+background-color: #4c566a;
+margin: 5px;
+margin-left: 10px;
+border-radius: 5px;
+}
+#workspaces button {
+padding: 0 10px;
+color: #eceff4;
+}
+
+#workspaces button.focused {
+color: #2e3440;
+background-color: #81a1c1;
+border-radius: 5px;
+}
+
+#workspaces button:hover {
+background-color: #5e81ac;
+border-radius: 5px;
+}
+
+#custom-date, #clock, #battery, #pulseaudio, #network {
+background-color: #4c566a;
+padding: 0px 10px;
+margin: 5px 0px;
+}
+
+#custom-date {
+color: #81a1c1;
+}
+
+#custom-power {
+color: #2e3440;
+background-color: #bf616a;
+border-radius: 5px;
+margin-right: 10px;
+margin-top: 5px;
+margin-bottom: 5px;
+margin-left: 5px;
+padding: 0px 10px;
+}
+
+#clock {
+color: #81a1c1;
+border-radius: 0px 5px 5px 0px;
+margin-right: 10px;
+}
+
+#battery {
+color: #81a1c1;
+}
+
+@keyframes blink {
+to {
+background-color: #ffffff;
+color: black;
+}
+}
+
+#battery.charging {
+color: #8fbcbb;
+}
+
+#battery.critical:not(.charging) {
+background-color: #88c0d0;
+color: #ffffff;
+animation-name: blink;
+animation-duration: 0.5s;
+animation-timing-function: linear;
+animation-iteration-count: infinite;
+animation-direction: alternate;
+}
+
+#network {
+color: #81a1c1;
+}
+
+#pulseaudio {
+color: #81a1c1;
+border-radius: 5px 0px 0px 5px;
+}*/

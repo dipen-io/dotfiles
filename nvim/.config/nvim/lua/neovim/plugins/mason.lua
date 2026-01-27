@@ -28,7 +28,7 @@ return {
                 "cssls",
                 -- "rust_analyzer",
                 -- "templ",
-                "gopls",
+                -- "gopls",
                 "ts_ls",
                 "bashls",
                 -- "eslint",

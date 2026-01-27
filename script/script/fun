@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# Launch Alacritty
+alacritty \
+    --title "FZFDirSelect" \
+    --option "window.dimensions.columns=100" \
+    --option "window.dimensions.lines=30" \
+    --command bash -c 'cd ~ && selected_dir=$(find . -type d 2>/dev/null | fzf --height 100% --reverse --border --preview "tree -C {} | head -20"); [ -n "$selected_dir" ] && echo "$HOME/project/$selected_dir" > /tmp/fzf_selection || exit 0' &
+
+# Wait for window to appear and make it floating
+sleep 0.5
+xdotool search --name "FZFDirSelect" windowunmap windowmap
+xdotool search --name "FZFDirSelect" set_window --overrideredirect 1
+xdotool search --name "FZFDirSelect" windowsize 800 600
+xdotool search --name "FZFDirSelect" windowmove 200 200
+
+# Handle selection
+if [ -f /tmp/fzf_selection ]; then
+    selected_dir=$(cat /tmp/fzf_selection)
+    rm /tmp/fzf_selection
+    xdg-open "$selected_dir" &
+fi

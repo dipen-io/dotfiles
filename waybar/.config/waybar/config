@@ -1,0 +1,58 @@
+{
+    "position": "top",
+    "height": 48,
+    "modules-left": ["river/tags"],
+    "modules-right": ["pulseaudio", "network", "battery", "clock", "custom/power"],
+
+    "river/tags": {
+        "num-tags": 9,
+        "tag-labels": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    },
+
+    "custom/power": {
+        "format": "\uf011",
+        "on-click": "wlogout"
+    },
+
+    "clock": {
+        "format": "{:%H:%M} \uf017",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format-alt": "{:%Y-%m-%d}"
+    },
+
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon}  {capacity}%",
+        "format-charging": "\uf241  {capacity}%",
+        "format-plugged": "\uf240  {capacity}%",
+        "format-alt": "{time}  {icon}",
+        "format-full": "\uf240  {capacity}%",
+        "format-icons": ["\uf240", "\uf241", "\uf242"]
+    },
+
+    "network": {
+        "format-wifi": "  {essid}",
+        "format-ethernet": "ethernet \udb80\ude00",
+        "format-linked": "{ifname} (No IP) \udb82\udd2e",
+        "format-disconnected": "  Disconnected",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    },
+
+    "pulseaudio": {
+        "format": "{icon}  {volume}%",
+        "format-muted": "󰖁 Muted",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    }
+}
