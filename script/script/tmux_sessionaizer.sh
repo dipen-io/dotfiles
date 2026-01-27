@@ -14,14 +14,14 @@ for cmd in tmux fzf; do
     fi
 done
 
-# Function to switch to or attach to a session 
+# Function to switch to or attach to a session
 switch_to() {
     # check if we are inside an tmux session (TMUX env variable exist)
     if [[ -z "${TMUX:-}" ]]; then
-        # if outside attach to the specified session 
+        # if outside attach to the specified session
         tmux attach-session -t "$1"
     else
-        # if inside switch to client to the specified session 
+        # if inside switch to client to the specified session
         tmux switch-client -t "$1"
     fi
 }
@@ -56,7 +56,8 @@ if [[ $# -eq 1 ]]; then
 else
     selected=$(find -L /home/void -mindepth 1 -maxdepth 2 -type d \( \
         -path "/home/void/dotfiles" -o \
-        -path "/home/void/project/*" -o \
+        -path "/home/void/startup/*" -o \
+        -path "/home/void/Project/*" -o \
         -path "/home/void/dotfiles/script/*" -o \
         -path "/home/void/Desktop/*" \) -print | \
         fzf --preview 'ls -lh --color=always {}' --preview-window=right:50%)

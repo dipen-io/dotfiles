@@ -37,9 +37,40 @@ vim.opt.incsearch = true
 --vim.o.timeoutlen = 200
 
 
+
+-- vim.diagnostic.config({
+--   virtual_text = false,
+--   virtual_lines = true,
+-- })
+
+
 vim.diagnostic.config({
   virtual_text = false,
-  virtual_lines = true,
+  underline = true,
+  signs = true,
+})
+-- vim.diagnostic.config({
+--   virtual_text = {
+--     severity = { min = vim.diagnostic.severity.ERROR },
+--   },
+--   virtual_lines = false,
+--   signs = true,
+--   float = {
+--     border = "rounded",
+--     scope = "cursor",
+--     focusable = false,
+--   },
+-- })
+
+
+vim.api.nvim_create_autocmd("CursorHold", {
+  callback = function()
+    vim.diagnostic.open_float(nil, {
+      scope = "cursor",
+      focusable = false,
+      close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+    })
+  end,
 })
 
 vim.opt.scrolloff = 8

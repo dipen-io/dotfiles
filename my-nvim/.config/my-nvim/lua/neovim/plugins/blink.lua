@@ -55,6 +55,7 @@ return {
                       end,
                     },
                     ghost_text = { enabled = true },
+                    auto_show = false,
                   },
                 },
                 keymap = {
@@ -65,27 +66,31 @@ return {
 
                 },
                 completion = {
-                    menu = {
-                        scrolloff = 1,
-                        scrollbar = false,
-                        draw = {
-                            columns = {
-                                { "kind_icon" },
-                                { "label", "label_description", gap = 1 },
-                                { "kind" },
-                                { "source_name" },
+                     accept = {
+                            -- experimental auto-brackets support
+                            auto_brackets = {
+                              enabled = true,
                             },
-                        },
+                          },
+                    menu = {
+                        -- scrolloff = 1,
+                        -- scrollbar = false,
+                        -- border = "rounded",
+                        border="none",
+                    },
+                    ghost_text = {
+                        enabled = true
                     },
                     documentation = {
                         window = {
-                            scrollbar = false,
-                            winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,EndOfBuffer:BlinkCmpDoc",
+                            border = "none",
+                            desired_min_width = 30,
                         },
                         auto_show = true,
                         auto_show_delay_ms = 500,
                     },
                 },
+
             })
 
             -- Load VSCode-style LuaSnip snippets after Blink is configured

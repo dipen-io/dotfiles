@@ -1,11 +1,12 @@
 
 ! Font (change size as needed)
-XTerm*faceName: Iosevka
+! XTerm*faceName: Iosevka
+XTerm*faceName: MonoLisa
 XTerm*faceSize: 23
 XTerm*cursorBlink: true
 
 
-! paste 
+! paste
 XTerm.vt100.translations: #override \
   Ctrl <Key>V: insert-selection(CLIPBOARD)
 
@@ -50,9 +51,9 @@ XTerm*color15: #1b706c
 ! ! window padding
 ! ! st.borderpx: 20
 !
-! !-- values between 0.1  - 1.0 --! 
+! !-- values between 0.1  - 1.0 --!
 !
-! st.alpha: 1.0 
+! st.alpha: 1.0
 ! st.font:           Iosevka:style:medium:pixelsize=24
 !
 ! #define base00 #282c34
@@ -62,7 +63,7 @@ XTerm*color15: #1b706c
 ! #define base04 #565c64
 ! #define base05 #abb2bf
 ! #define base06 #b6bdca
-! #define base07 #1b706c 
+! #define base07 #1b706c
 ! #define base08 #e06c75
 ! #define base09 #d19a66
 ! #define base0A #e5c07b

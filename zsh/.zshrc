@@ -7,8 +7,16 @@ export ZSH="$HOME/.oh-my-zsh"
 
 export PATH="$HOME/flutter/bin:$PATH"
 export PATH="/opt/zig-x86_64-linux-0.15.2:$PATH"
+# export PATH="/opt/zig-x86_64-linux-0.16.0-dev.1484+d0ba6642b:$PATH"
 export ANDROID_SDK_ROOT=$HOME/Android
 export PATH=$ANDROID_SDK_ROOT/emulator:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
+
+# run emulator
+alias emu='$ANDROID_SDK_ROOT/emulator/emulator -avd my_emulator1 -gpu host -no-snapshot'
+
+# for flutter emulator
+export ANDROID_SDK_ROOT=$HOME/Android
+export PATH=$PATH:$ANDROID_SDK_ROOT/emulator:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin
 
 export PATH="$HOME/.local/bin:$PATH"
 

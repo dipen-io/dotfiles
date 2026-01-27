@@ -1,13 +1,21 @@
 return {
   "folke/snacks.nvim",
+    -- for pdf viewing
   priority = 1000,
   lazy = false,
-  ---@type snacks.Config
   opts = {
     bigfile = { enabled = true },
     dashboard = { enabled = true },
     explorer = { enabled = true },
-    indent = { enabled = false },
+    indent = { enabled = true },
+    image = {
+            doc = {
+                inline = false,
+                float = true,
+                max_width = 60,
+                max_height = 30,
+            }
+    },
     input = { enabled = true },
     picker = {
       enabled = true,
@@ -19,7 +27,7 @@ return {
     scope = { enabled = true },
     scroll = { enabled = false},
     statuscolumn = { enabled = true },
-    words = { enabled = true },
+    words = { enabled = false },
   },
   keys = {
     {
@@ -276,11 +284,55 @@ return {
       desc = "Undo History",
     },
     {
-      "<leader>uC",
-      function()
-        Snacks.picker.colorschemes()
-      end,
-      desc = "Colorschemes",
+        "<leader>cc",
+        function()
+            local my_colors = {
+                    -- "blue",
+                    "catppuccin",
+                    "catppuccin-frappe",
+                    "catppuccin-macchiato",
+                    "default",
+                    "darkblue",
+                    "evening",
+                    "forest-night",
+                    "gruvbox-material",
+                    "habamax",
+                    "retrobox",
+                    "slate",
+                    "sorbet",
+                    "zaibatsu", -- good one
+            }
+            local items = {}
+            for _, name in ipairs(my_colors) do
+                table.insert(items, {
+                    name = name,
+                    text = name,
+                    -- This ensures the preview works when you scroll
+                    preview = { type = "preview", text = name },
+                })
+            end
+
+            Snacks.picker.pick({
+                source = "Favorites",
+                items = items,
+                format = "text",
+                -- This tells Snacks to run the colorscheme command on highlight
+                on_change = function(_, item)
+                    if item then
+                        vim.cmd("colorscheme " .. item.name)
+                    end
+                end,
+                -- This applies the selection when you press Enter
+                confirm = function(picker, item)
+                    picker:close()
+                    if item then
+                        vim.cmd("colorscheme " .. item.name)
+                    end
+                end,
+                layout = { preset = "vscode", preview = false },
+            })
+        end,
+        desc = "Colorschemes",
     },
     -- LSP
     {
@@ -349,7 +401,7 @@ return {
       desc = "Delete Buffer",
     },
     {
-      "<leader>cR",
+      "<leader>r",
       function()
         Snacks.rename.rename_file()
       end,

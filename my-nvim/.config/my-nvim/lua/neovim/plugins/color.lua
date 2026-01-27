@@ -12,32 +12,54 @@ return {
       vim.g.gruvbox_material_statusline_style = "mix" -- Options: "original", "material", "mix", "afterglow"
       vim.g.gruvbox_material_cursor = "auto"
 
-      -- vim.g.gruvbox_material_colors_override = { bg0 = '#16181A' } -- #0e1010
-      -- vim.g.gruvbox_material_better_performance = 1
+        --  Load the theme
+      -- vim.cmd.colorscheme("gruvbox-material")
+        -- Making floating windows match normal background
+        vim.api.nvim_set_hl(0, "NormalFloat", {link = "Normal"})
+        vim.api.nvim_set_hl(0, "FloatBorder", {fg="None", bg="None"})
+        -- completion menu
+        vim.api.nvim_set_hl(0, "Pmenu", { link = "Normal" })
+        vim.api.nvim_set_hl(0, "PmenuSel", { link = "Visual" })
+        vim.api.nvim_set_hl(0, "PmenuThumb", { link = "LineNr" })
+        vim.api.nvim_set_hl(0, "PmenuSbar", { link = "CursorLine" })
 
-      vim.cmd.colorscheme("gruvbox-material")
+    -- blink.nvim borders
+    vim.api.nvim_set_hl(0, "BlinkCmpBorder", { fg = "NONE", bg = "NONE" })
+    vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { fg = "NONE", bg = "NONE" })
 
-      -- Custom statusline highlights
-      -- vim.api.nvim_set_hl(0, "StatusLine", {
-      --   bg = "#1C2021", -- Dark gray background
-      --   fg = "#ebdbb2", -- Light text
-      --   bold = false
-      -- })
-      --
-      -- vim.api.nvim_set_hl(0, "StatusLineNC", {
-      --   bg = "#1C2021", -- Darker background for inactive windows
-      --   fg = "#928374", -- Muted text
-      --   bold = false
-      -- })
+    -- snacks.nvim borders
+    vim.api.nvim_set_hl(0, "SnacksBorder", { fg = "NONE", bg = "NONE" })
+
+    -- Snacks.nvim pickers (floats)
+    vim.api.nvim_set_hl(0, "SnacksNormal", { link = "Normal" })
+    vim.api.nvim_set_hl(0, "SnacksBorder", { link = "FloatBorder" })
+    vim.api.nvim_set_hl(0, "SnacksPromptTitle", { link = "Title" })
+
+     -- Oil.nvim directory/file colors (safe overrides)
+    vim.api.nvim_set_hl(0, "OilDir", { link = "Directory" })
+    vim.api.nvim_set_hl(0, "OilFile", { link = "Normal" })
+
     end,
   },
-  -- {
-  --   'adibhanna/forest-night.nvim',
-  --   priority = 1000,
-  --   config = function()
-  --     -- vim.cmd('colorscheme forest-night')
-  --   end,
-  -- },
+  {
+    'adibhanna/forest-night.nvim',
+    priority = 1000,
+    config = function()
+      vim.cmd('colorscheme forest-night')
+
+-- Make Neovim completely transparent
+vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "NormalNC", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "FloatBorder", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "SignColumn", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "FoldColumn", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "LineNr", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "CursorLineNr", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "NONE" })
+    end,
+  },
   {
     "RRethy/base16-nvim",
     enabled = false,
