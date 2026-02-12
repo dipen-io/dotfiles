@@ -1,0 +1,101 @@
+#!/bin/sh
+
+# sudo brightnessctl set 15%-
+# sudo brightnessctl set +15%
+
+#Set mod
+mod="Mod1"
+
+# Keyboard layout
+riverctl keyboard-layout us
+
+# Terminal (alacritty)
+# riverctl map normal $mod Return spawn "foot --fullscreen"
+riverctl map normal $mod Return spawn "foot"
+
+#exit
+riverctl map normal Super+Shift q exit
+
+riverctl input "*" tap enabled
+# riverctl input "*" natural-scroll enabled
+
+# Close focused window
+riverctl map normal $mod Q close
+
+# Reload
+riverctl map normal $mod R spawn $HOME/.config/river/init
+
+#powermenu
+riverctl map normal Super+Shift p spawn "~/.local/bin/powermenu"
+
+# Exit river
+# riverctl map normal $mod+Shift E spawn "bash ~/.config/rofi/lea"
+
+# Tags
+riverctl map normal $mod J set-focused-tags 1
+riverctl map normal $mod K set-focused-tags 2
+riverctl map normal $mod L set-focused-tags 4
+# riverctl map normal $mod ";" set-focused-tags 8
+riverctl map normal $mod semicolon set-focused-tags 8
+# riverctl map normal $mod "'" set-focused-tags 16
+
+riverctl map normal $mod 1 set-focused-tags 1
+riverctl map normal $mod 2 set-focused-tags 2
+riverctl map normal $mod 3 set-focused-tags 4
+riverctl map normal $mod 4 set-focused-tags 8
+riverctl map normal $mod 5 set-focused-tags 16
+
+
+# App launcher
+riverctl map normal $mod D spawn "rofi -show drun"
+# Define the mapping in your river init
+# riverctl map normal $mod Space spawn "rofi -show window"
+riverctl map normal $mod space spawn "wofi --show drun"
+# Define the mapping in your river init
+# riverctl map normal $mod space spawn "rofi -show window -modes window"
+#fullscreen
+riverctl map normal $mod F toggle-fullscreen
+
+# --- Brightness Mode with Notifications ---
+riverctl declare-mode brightness
+
+riverctl map normal Super b enter-mode brightness
+
+# Controls
+riverctl map brightness None k spawn "brightnessctl set +15%"
+riverctl map brightness None j spawn "brightnessctl set 15%-"
+
+# Exit mode and notify
+riverctl map brightness None Escape enter-mode normal
+riverctl map brightness None Return enter-mode normal
+riverctl map brightness None b      enter-mode normal
+
+riverctl map normal None XF86MonBrightnessUp spawn "brightnessctl set +15%"
+riverctl map normal None XF86MonBrightnessDown spawn "brightnessctl set 15%-"
+
+# File manager
+# riverctl map normal Super E spawn thunar
+# --- Volume Mode (WirePlumber) ---
+riverctl declare-mode volume
+riverctl map normal Super v enter-mode volume
+
+# Uses j/k to adjust volume via wpctl
+riverctl map volume None k spawn "wpctl set-volume @DEFAULT_AUDIO_SINK@ 15%+"
+riverctl map volume None j spawn "wpctl set-volume @DEFAULT_AUDIO_SINK@ 15%-"
+riverctl map volume None m spawn "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+
+# Exit keys
+riverctl map volume None Escape enter-mode normal
+riverctl map volume None Return enter-mode normal
+riverctl map volume None v      enter-mode normal
+
+# Start status bar
+# yambar &
+
+# Background color (dark)
+riverctl background-color 0x1e1e2e
+
+riverctl default-layout rivertile
+riverctl spawn mako &
+# riverctl -view-padding 6 -outer-padding 6 &
+rivertile -view-padding 8 -outer-padding 8 &
