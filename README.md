@@ -87,6 +87,9 @@ riverctl spawn "pipewire-pulse"
 exec pipewire &
 exec wireplumber &
 exec pipewire-pulse &
+
+# Test speakers
+speaker-test -c2 -t wav
 ```
 
 ✅ **Done!** Now your dotfiles are neatly managed and easily restorable! 🎉
