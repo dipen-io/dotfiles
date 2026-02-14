@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# export MOZ_ENABLE_WAYLAND=1
+# export LIBVA_DRIVER_NAME=iHD
+
 # sudo brightnessctl set 15%-
 # sudo brightnessctl set +15%
 
@@ -12,7 +15,7 @@ riverctl keyboard-layout us
 # Audio startup
 riverctl spawn "pipewire"
 riverctl spawn "wireplumber"
-riverctl spawn "pipewire-pulse"
+# riverctl spawn "pipewire-pulse"
 
 # Terminal (alacritty)
 # riverctl map normal $mod Return spawn "foot --fullscreen"
