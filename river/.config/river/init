@@ -9,6 +9,11 @@ mod="Mod1"
 # Keyboard layout
 riverctl keyboard-layout us
 
+# Audio startup
+riverctl spawn "pipewire"
+riverctl spawn "wireplumber"
+riverctl spawn "pipewire-pulse"
+
 # Terminal (alacritty)
 # riverctl map normal $mod Return spawn "foot --fullscreen"
 riverctl map normal $mod Return spawn "foot"
@@ -72,6 +77,10 @@ riverctl map brightness None b      enter-mode normal
 
 riverctl map normal None XF86MonBrightnessUp spawn "brightnessctl set +15%"
 riverctl map normal None XF86MonBrightnessDown spawn "brightnessctl set 15%-"
+
+riverctl map normal None XF86AudioRaiseVolume spawn 'pamixer -i 15'
+riverctl map normal None XF86AudioLowerVolume spawn 'pamixer -d 15'
+riverctl map normal None XF86AudioMute        spawn 'pamixer -t'
 
 # File manager
 # riverctl map normal Super E spawn thunar
