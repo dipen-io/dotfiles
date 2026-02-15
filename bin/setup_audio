@@ -33,10 +33,58 @@ mkdir -p ~/.config/pipewire/pipewire.conf.d
 ln -sf /usr/share/examples/wireplumber/10-wireplumber.conf ~/.config/pipewire/pipewire.conf.d/
 ln -sf /usr/share/examples/pipewire/20-pipewire-pulse.conf ~/.config/pipewire/pipewire.conf.d/
 
+# === BLUETOOTH SETUP ===
+info "Setting up Bluetooth auto-switch..."
+
+# Create WirePlumber Lua directory
+mkdir -p ~/.config/wireplumber/main.lua.d
+
+# Create the Bluetooth auto-default Lua script
+cat > ~/.config/wireplumber/main.lua.d/50-bluetooth-auto.lua << 'EOF'
+-- Auto-set Bluetooth as default sink when connected
+-- Also sets high priority so BT is preferred over internal audio
+
+table.insert(alsa_monitor.rules, {
+  matches = {{{ "node.name", "matches", "bluez_output.*" }}},
+  apply_properties = {
+    ["node.description"] = "Bluetooth Headphones",
+    ["priority.driver"] = 3000,
+    ["priority.session"] = 3000,
+  },
+})
+
+table.insert(default_policy.policy_rules, {
+  matches = {{{ "node.name", "matches", "bluez_output.*" }}},
+  apply_properties = {
+    ["device.restore-profile"] = false,
+    ["node.target"] = "auto",
+  },
+  hooks = {{
+    source = "node",
+    trigger = "state-changed",
+    apply = function(node)
+      if node.properties["node.state"] == "running" then
+        os.execute("pactl set-default-sink " .. node.properties["node.name"])
+      end
+    end,
+  }},
+})
+EOF
+
+info "Created Bluetooth config: ~/.config/wireplumber/main.lua.d/50-bluetooth-auto.lua"
+
+# Enable Bluetooth service
+sudo ln -sf /etc/sv/bluetoothd /var/service/ 2>/dev/null || warn "Bluetooth service already enabled"
+
 # Add to audio group
 if ! groups | grep -q audio; then
     sudo usermod -aG audio $USER
     warn "Added to audio group. Logout and login required."
+fi
+# Add to bluetooth group (optional, for bluetoothctl without sudo)
+if ! groups | grep -q bluetooth; then
+    sudo usermod -aG bluetooth $USER
+    warn "Added to bluetooth group."
 fi
 
 
