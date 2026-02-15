@@ -23,14 +23,22 @@ sudo xbps-install -Sy \
     pavucontrol \
     pamixer \
     libspa-bluetooth \
-    pulseaudio-utils
+    pulseaudio-utils \
+    rtkit \
 
+
+# This tells PipeWire: "Whenever you start, automatically launch your friends."
+# This prevents the 'Address already in use' errors we saw.
+mkdir -p ~/.config/pipewire/pipewire.conf.d
+ln -sf /usr/share/examples/wireplumber/10-wireplumber.conf ~/.config/pipewire/pipewire.conf.d/
+ln -sf /usr/share/examples/pipewire/20-pipewire-pulse.conf ~/.config/pipewire/pipewire.conf.d/
 
 # Add to audio group
 if ! groups | grep -q audio; then
     sudo usermod -aG audio $USER
     warn "Added to audio group. Logout and login required."
 fi
+
 
 info "Audio packages installed!"
 info ""
