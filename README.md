@@ -71,5 +71,26 @@ stow alacritty
 stow tmux  # Optional, if you have a tmux config
 ```
 
+### Audio Setup
+1. Run setup script:
+   ```bash
+   ~/dotfiles/bin/setup_audio
+
+
+### In your i3 config or river init
+
+```bash
+riverctl spawn "pipewire"
+riverctl spawn "wireplumber"  
+riverctl spawn "pipewire-pulse"
+
+exec pipewire &
+exec wireplumber &
+exec pipewire-pulse &
+
+# Test speakers
+speaker-test -c2 -t wav
+```
+
 ✅ **Done!** Now your dotfiles are neatly managed and easily restorable! 🎉
 

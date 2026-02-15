@@ -1,4 +1,4 @@
-# xrdb merge ~/.Xresources 
+# xrdb merge ~/.Xresources
 
 
 # while true; do
@@ -28,7 +28,7 @@ xmodmap ~/.Xmodmap &
 xset r rate 190 35
 #dash ~/.config/chadwm/scripts/bar.sh &
 # while type chadwm >/dev/null; do chadwm && continue || break; done
-#  exec chadwm
+#  exec i3
 
 # Just run your main startup script
 ~/.config/scripts/run.sh

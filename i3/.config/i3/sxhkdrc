@@ -1,0 +1,23 @@
+# Reload sxhkd and replace the old notification with a fresh one
+super + Escape
+    pkill -USR1 -x sxhkd && notify-send -h string:x-dunst-stack-tag:sxhkd_reload "sxhkd" "Config Reloaded: $(date +%H:%M:%S)"
+
+# Volume Up
+XF86AudioRaiseVolume
+    pactl set-sink-volume @DEFAULT_SINK@ +15%
+
+# Volume Down
+XF86AudioLowerVolume
+    pactl set-sink-volume @DEFAULT_SINK@ -15%
+
+# Mute
+XF86AudioMute
+    pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# Brightness Up
+XF86MonBrightnessUp
+    brightnessctl set +15%
+
+# Brightness Down
+XF86MonBrightnessDown
+    brightnessctl set 15%-

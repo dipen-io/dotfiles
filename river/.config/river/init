@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# export MOZ_ENABLE_WAYLAND=1
+# export LIBVA_DRIVER_NAME=iHD
+
 # sudo brightnessctl set 15%-
 # sudo brightnessctl set +15%
 
@@ -8,6 +11,11 @@ mod="Mod1"
 
 # Keyboard layout
 riverctl keyboard-layout us
+
+# Audio startup
+riverctl spawn "pipewire"
+riverctl spawn "wireplumber"
+# riverctl spawn "pipewire-pulse"
 
 # Terminal (alacritty)
 # riverctl map normal $mod Return spawn "foot --fullscreen"
@@ -72,6 +80,10 @@ riverctl map brightness None b      enter-mode normal
 
 riverctl map normal None XF86MonBrightnessUp spawn "brightnessctl set +15%"
 riverctl map normal None XF86MonBrightnessDown spawn "brightnessctl set 15%-"
+
+riverctl map normal None XF86AudioRaiseVolume spawn 'pamixer -i 15'
+riverctl map normal None XF86AudioLowerVolume spawn 'pamixer -d 15'
+riverctl map normal None XF86AudioMute        spawn 'pamixer -t'
 
 # File manager
 # riverctl map normal Super E spawn thunar
