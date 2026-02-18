@@ -19,5 +19,5 @@ killall -q polybar
 while pgrep -x polybar >/dev/null; do sleep 0.1; done
 
 # Launch
-# polybar -c "$POLYBAR_DIR/config.ini" main &
-polybar -c "$POLYBAR_DIR/std_config.ini" example &
+polybar -c "$POLYBAR_DIR/config.ini" main &
+# polybar -c "$POLYBAR_DIR/std_config.ini" example &
