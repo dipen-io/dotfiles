@@ -12,10 +12,12 @@ case "$choice" in
         loginctl suspend
         ;;
     Reboot)
-        sudo reboot
+        password=$(rofi -dmenu -password -p "Enter Password")
+        echo "$password" | sudo -S reboot
         ;;
     Shutdown)
-        sudo poweroff
+        password=$(rofi -dmenu -password -p "Enter Password")
+        echo "$password" | sudo -S poweroff
         ;;
     Logout)
         # Adjust the command depending on your DE / WM
