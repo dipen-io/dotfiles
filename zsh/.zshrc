@@ -174,3 +174,4 @@ tmux-pick() {
 
 setopt NO_HIST_EXPAND
 export PATH="$HOME/dotfiles/bin:$PATH"
+# eval "$(starship init zsh)"
