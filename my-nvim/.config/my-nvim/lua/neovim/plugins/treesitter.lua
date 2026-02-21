@@ -10,7 +10,8 @@ return {
                 "c",
                 "lua",
                 "bash",
-                "html"
+                "html",
+                "php"
             },
 
             sync_install = false,

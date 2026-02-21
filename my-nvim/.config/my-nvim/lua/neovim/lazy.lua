@@ -30,6 +30,7 @@ require("lazy").setup({
     require("neovim.plugins.blink"),
     require("neovim.plugins.mason"),
     require("neovim.plugins.zls_02"),
+    require("neovim.plugins.render_preview")
 
 }, {
     checker = {
