@@ -1,20 +1,31 @@
 #!/bin/bash
-# setup_audio - One command to fix audio on Void Linux
+# setup_audio - One command to fix audio on Void Linux (FIXED VERSION)
 
 set -e
 
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 RED='\033[0;31m'
+BLUE='\033[0;34m'
 NC='\033[0m'
 
 info() { echo -e "${GREEN}[*]${NC} $1"; }
 warn() { echo -e "${YELLOW}[!]${NC} $1"; }
 error() { echo -e "${RED}[x]${NC} $1" >&2; }
+section() { echo -e "\n${BLUE}[▶]${NC} $1"; }
 
-info "Setting up audio..."
+section "Setting up PipeWire/WirePlumber on Void Linux..."
 
-# Install packages (libspa-bluetooth, NOT libspa-0.2-bluetooth)
+# Check if running on Void
+if [ ! -f "/etc/void-release" ]; then
+    warn "This script is designed for Void Linux. Continuing anyway..."
+fi
+
+# =============================================================================
+# 1. INSTALL PACKAGES
+# =============================================================================
+section "Installing packages..."
+
 sudo xbps-install -Sy \
     pipewire \
     wireplumber \
@@ -25,77 +36,243 @@ sudo xbps-install -Sy \
     libspa-bluetooth \
     pulseaudio-utils \
     rtkit \
+    bluez \
+    || warn "Some packages may already be installed"
 
+# =============================================================================
+# 2. CLEAN UP OLD/BROKEN CONFIGS
+# =============================================================================
+section "Cleaning up conflicting configurations..."
 
-# This tells PipeWire: "Whenever you start, automatically launch your friends."
-# This prevents the 'Address already in use' errors we saw.
+# Remove problematic Lua scripts that cause loops
+rm -f ~/.config/wireplumber/main.lua.d/51-bt-auto-default.lua
+rm -f ~/.config/wireplumber/main.lua.d/50-bluetooth-auto.lua
+rm -f ~/.config/wireplumber/main.lua.d/*.lua
+
+# Remove conflicting PipeWire configs (let WirePlumber manage itself)
+rm -f ~/.config/pipewire/pipewire.conf.d/10-wireplumber.conf
+
+# Keep only the pulse compatibility config
 mkdir -p ~/.config/pipewire/pipewire.conf.d
-ln -sf /usr/share/examples/wireplumber/10-wireplumber.conf ~/.config/pipewire/pipewire.conf.d/
-ln -sf /usr/share/examples/pipewire/20-pipewire-pulse.conf ~/.config/pipewire/pipewire.conf.d/
+if [ ! -f ~/.config/pipewire/pipewire.conf.d/20-pipewire-pulse.conf ]; then
+    ln -sf /usr/share/examples/pipewire/20-pipewire-pulse.conf ~/.config/pipewire/pipewire.conf.d/
+    info "Added PipeWire-Pulse compatibility"
+fi
 
-# === BLUETOOTH SETUP ===
-info "Setting up Bluetooth auto-switch..."
+# =============================================================================
+# 3. CREATE PROPER WIREPLUMBER CONFIG (Declarative, No Lua Hooks)
+# =============================================================================
+section "Creating stable Bluetooth configuration..."
 
-# Create WirePlumber Lua directory
-mkdir -p ~/.config/wireplumber/main.lua.d
+mkdir -p ~/.config/wireplumber/wireplumber.conf.d
 
-# Create the Bluetooth auto-default Lua script
-cat > ~/.config/wireplumber/main.lua.d/50-bluetooth-auto.lua << 'EOF'
--- Auto-set Bluetooth as default sink when connected
--- Also sets high priority so BT is preferred over internal audio
+# Main Bluetooth config - NO LUA, NO LOOPS
+cat > ~/.config/wireplumber/wireplumber.conf.d/51-bluetooth-fix.conf << 'EOF'
+# WirePlumber Bluetooth Configuration
+# Fixes: Connection loops, auto-disconnect, profile switching issues
 
-table.insert(alsa_monitor.rules, {
-  matches = {{{ "node.name", "matches", "bluez_output.*" }}},
-  apply_properties = {
-    ["node.description"] = "Bluetooth Headphones",
-    ["priority.driver"] = 3000,
-    ["priority.session"] = 3000,
-  },
-})
+wireplumber.settings = {
+  # CRITICAL: Disable autoswitch to prevent headset<->A2DP ping-pong
+  bluetooth.autoswitch-to-headset-profile = false
 
-table.insert(default_policy.policy_rules, {
-  matches = {{{ "node.name", "matches", "bluez_output.*" }}},
-  apply_properties = {
-    ["device.restore-profile"] = false,
-    ["node.target"] = "auto",
-  },
-  hooks = {{
-    source = "node",
-    trigger = "state-changed",
-    apply = function(node)
-      if node.properties["node.state"] == "running" then
-        os.execute("pactl set-default-sink " .. node.properties["node.name"])
-      end
-    end,
-  }},
-})
+  # Don't auto-switch to Bluetooth when it appears (manual control)
+  bluetooth.use-priority-for-default = true
+}
+
+# Configure Bluetooth device properties
+monitor.bluez.properties = {
+  # Only use high-quality audio profiles (no HSP/HFP unless manually selected)
+  bluez5.roles = [ a2dp_sink a2dp_source bap_sink bap_source ]
+
+  # Supported codecs (prioritize high quality)
+  bluez5.codecs = [ sbc sbc_xq aac ldac aptx aptx_hd ]
+
+  # Disable hardware volume control if it causes issues
+  # bluez5.enable-hw-volume = false
+
+  # Keep connection alive
+  bluez5.keep-alive = true
+}
+
+# High priority for Bluetooth sinks so they become default automatically
+# WITHOUT needing Lua hooks that cause loops
+monitor.bluez.rules = [
+  {
+    matches = [
+      {
+        node.name = "~bluez_output.*"
+      }
+    ]
+    actions = {
+      update-props = {
+        priority.driver = 3100
+        priority.session = 3100
+        node.description = "Bluetooth Headphones"
+
+        # Prevent idle timeout disconnects
+        session.suspend-timeout-seconds = 0
+      }
+    }
+  }
+]
+
+# Also set high priority for Bluetooth sources (microphones)
+monitor.bluez.rules = [
+  {
+    matches = [
+      {
+        node.name = "~bluez_input.*"
+      }
+    ]
+    actions = {
+      update-props = {
+        priority.driver = 3100
+        priority.session = 3100
+      }
+    }
+  }
+]
 EOF
 
-info "Created Bluetooth config: ~/.config/wireplumber/main.lua.d/50-bluetooth-auto.lua"
+info "Created: ~/.config/wireplumber/wireplumber.conf.d/51-bluetooth-fix.conf"
 
-# Enable Bluetooth service
-sudo ln -sf /etc/sv/bluetoothd /var/service/ 2>/dev/null || warn "Bluetooth service already enabled"
+# =============================================================================
+# 4. DISABLE BLUETOOTH POWER MANAGEMENT (System-wide)
+# =============================================================================
+section "Disabling Bluetooth power management..."
+
+# Disable USB autosuspend (common cause of disconnects)
+if ! grep -q "usbcore.autosuspend=-1" /etc/default/grub 2>/dev/null; then
+    warn "Add 'usbcore.autosuspend=-1' to GRUB_CMDLINE_LINUX_DEFAULT in /etc/default/grub"
+    warn "Then run: sudo update-grub && sudo reboot"
+fi
+
+# Configure BlueZ
+sudo mkdir -p /etc/bluetooth
+sudo tee /etc/bluetooth/main.conf > /dev/null << 'EOF'
+[General]
+# Disable power management
+IdleTimeout=0
+DiscoverableTimeout=0
+PairableTimeout=0
+AutoEnable=true
+
+[Policy]
+AutoEnable=true
+EOF
+
+# Configure input plugin
+sudo tee /etc/bluetooth/input.conf > /dev/null << 'EOF'
+[General]
+# Prevent disconnect on idle
+IdleTimeout=0
+UserspaceHID=true
+EOF
+
+# =============================================================================
+# 5. ENABLE SERVICES
+# =============================================================================
+section "Enabling services..."
+
+# Enable Bluetooth daemon
+if [ ! -L /var/service/bluetoothd ]; then
+    sudo ln -sf /etc/sv/bluetoothd /var/service/
+    info "Enabled bluetoothd service"
+else
+    info "bluetoothd already enabled"
+fi
+
+# Enable rtkit (realtime priority for PipeWire)
+if [ ! -L /var/service/rtkit ]; then
+    sudo ln -sf /etc/sv/rtkit /var/service/
+    info "Enabled rtkit service"
+fi
+
+# =============================================================================
+# 6. USER GROUPS
+# =============================================================================
+section "Configuring user permissions..."
 
 # Add to audio group
-if ! groups | grep -q audio; then
-    sudo usermod -aG audio $USER
-    warn "Added to audio group. Logout and login required."
-fi
-# Add to bluetooth group (optional, for bluetoothctl without sudo)
-if ! groups | grep -q bluetooth; then
-    sudo usermod -aG bluetooth $USER
-    warn "Added to bluetooth group."
+if ! groups "$USER" | grep -q "\baudio\b"; then
+    sudo usermod -aG audio "$USER"
+    warn "Added to 'audio' group. Logout and login required for this to take effect."
 fi
 
+# Add to bluetooth group
+if ! groups "$USER" | grep -q "\bbluetooth\b"; then
+    sudo usermod -aG bluetooth "$USER"
+    warn "Added to 'bluetooth' group."
+fi
 
-info "Audio packages installed!"
-info ""
-info "Add to your river config:"
-info "  riverctl spawn 'pipewire'"
-info "  riverctl spawn 'wireplumber'"
-info "  riverctl spawn 'pipewire-pulse'"
-info ""
-info "Or for i3:"
-info "  exec --no-startup-id pipewire"
-info "  exec --no-startup-id wireplumber"
-info "  exec --no-startup-id pipewire-pulse"
+# =============================================================================
+# 7. KILL EXISTING PROCESSES & RESTART
+# =============================================================================
+section "Restarting audio services..."
+
+# Kill existing processes gracefully
+pkill -x pipewire 2>/dev/null || true
+pkill -x wireplumber 2>/dev/null || true
+pkill -x pipewire-pulse 2>/dev/null || true
+
+sleep 1
+
+# Start fresh (for i3/river, add these to your config instead)
+if [ -n "$DISPLAY" ] || [ -n "$WAYLAND_DISPLAY" ]; then
+    info "Starting PipeWire..."
+    pipewire &
+    sleep 1
+
+    info "Starting WirePlumber..."
+    wireplumber &
+    sleep 1
+
+    info "Starting PipeWire-Pulse..."
+    pipewire-pulse &
+else
+    warn "No display detected. Add to your i3/river config:"
+    echo ""
+    echo "  # For i3 (~/.config/i3/config):"
+    echo "  exec --no-startup-id pipewire"
+    echo "  exec --no-startup-id wireplumber"
+    echo "  exec --no-startup-id pipewire-pulse"
+    echo ""
+    echo "  # For river (~/.config/river/init):"
+    echo "  riverctl spawn 'pipewire'"
+    echo "  riverctl spawn 'wireplumber'"
+    echo "  riverctl spawn 'pipewire-pulse'"
+fi
+
+# =============================================================================
+# 8. VERIFICATION
+# =============================================================================
+section "Verifying setup..."
+
+sleep 2
+
+if pactl info &>/dev/null; then
+    info "PulseAudio compatibility active: $(pactl info | grep "Server Name")"
+else
+    warn "PulseAudio compatibility not yet active (may need logout/login)"
+fi
+
+if systemctl --user is-active --quiet wireplumber 2>/dev/null || pgrep -x wireplumber > /dev/null; then
+    info "WirePlumber is running"
+else
+    warn "WirePlumber may not be running"
+fi
+
+info "Bluetooth devices:"
+bluetoothctl list 2>/dev/null || warn "No Bluetooth controller found or bluetoothd not ready"
+
+section "Setup complete!"
+echo ""
+echo "Next steps:"
+echo "  1. If you see warnings about groups, logout and login again"
+echo "  2. Pair your Bluetooth device: bluetoothctl -> scan on -> pair XX:XX:XX:XX:XX:XX"
+echo "  3. If still disconnecting, check: sudo dmesg -w | grep -i bluetooth"
+echo "  4. Monitor logs: journalctl --user -u wireplumber -f"
+echo ""
+echo "To manually set Bluetooth as default (if needed):"
+echo "  wpctl set-default <node-id>"
+echo "  # Find ID with: wpctl status"
