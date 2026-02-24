@@ -1,2 +1,2 @@
 export GTK_THEME=Adwaita-dark
-setxkbmap -option caps:escape
+# setxkbmap -option caps:escape
