@@ -1,51 +1,45 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-
--- Set guicursor for different modes
-vim.opt.guicursor = {
-    -- Normal, Visual, Command: block cursor
-    "n-v-c:block",
-
-    -- Insert, Command-insert, Visual-ex mode: vertical bar cursor
-    "i-ci-ve:ver25",
-
-    -- Replace mode: horizontal bar cursor (optional)
-    "r-cr:hor20",
-
-    -- Show block cursor when in Operator-pending mode (optional)
-    "o:hor50",
-
-    -- Set blinking (optional)
-    "a:blinkon0"
-}
-
 local set = vim.keymap.set
 local api = vim.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }
 
 vim.keymap.set('n', '<leader>ii', function()
-    local filename = vim.fn.expand('%') -- Get current file name
-    local filetype = vim.bo.filetype    -- Get file type
+    local filename = vim.fn.expand('%')
+    local filetype = vim.bo.filetype
 
-    -- Define commands based on file type
     local commands = {
-        cpp = 'g++ ' .. filename .. ' -o a.out && ./a.out && rm a.out',
-        c = 'g++ ' .. filename .. ' -o a.out && ./a.out && rm a.out',
-        go = 'go run ' .. filename,
-        javascript = 'node ' .. filename,
-        js = 'node ' .. filename, -- Alternate for .js files
+        cpp = 'g++ "' .. filename .. '" -o /tmp/a.out && /tmp/a.out; rm /tmp/a.out',
+        c = 'gcc "' .. filename .. '" -o /tmp/a.out && /tmp/a.out; rm /tmp/a.out',
+        go = 'go run "' .. filename .. '"',
+        javascript = 'node "' .. filename .. '"',
+        js = 'node "' .. filename .. '"',
+        python = 'python3 "' .. filename .. '"',
+        sh = 'bash "' .. filename .. '"',
     }
 
-    -- Get the appropriate command or show error
     local cmd = commands[filetype]
     if not cmd then
         vim.notify("Unsupported file type: " .. filetype, vim.log.levels.ERROR)
         return
     end
 
-    -- Run in a split terminal at bottom
-    vim.cmd('belowright split | resize 10 | terminal ' .. cmd)
-end)
+    -- Write command to a temporary shell script
+    local script_path = "/tmp/vim_exec.sh"
+    local file = io.open(script_path, "w")
+    file:write("#!/bin/bash\nclear\n" .. cmd .. "\n")
+    file:close()
+    vim.fn.system({"chmod", "+x", script_path})
+
+    -- Open terminal and execute script
+    -- vim.cmd('belowright split | resize 15 | terminal')
+    vim.cmd('rightbelow vsplit | vertical resize 50 | terminal')
+
+    vim.defer_fn(function()
+        local term_chan = vim.b.terminal_job_id
+        vim.fn.chansend(term_chan, script_path .. '\n')
+    end, 100)
+end, { desc = "Run current file in terminal" })
 
 vim.keymap.set("n", "<C-n>", "<cmd> silent !tmux neww /home/void/script/python.py<CR>",
     { noremap = true, desc = "tmux selection command" })
@@ -58,6 +52,8 @@ vim.keymap.set('n', ']', '}', { noremap = true, desc = "Jump to next empty line"
 
 -- Making new file or navigating
 api('n', '<leader>n', ':e <Space>', { noremap = true })
+
+set("v", "<leader>r", "\"hy:%s/<C-r>h//g<left><left>") --replac
 
 -- For sourceing this current file
 set("n", "<leader><leader>x", "<cmd>source %<CR>")
@@ -100,8 +96,8 @@ set("n", "<M-,>", "<c-w>5<")
 set("n", "<M-.>", "<c-w>5>")
 
 -- open explorar
--- api('n', '<leader>pv', ':Oil<CR>', opt)
--- vim.keymap.set('n', '<leader>ve', '<cmd>Sex!<CR>')
+-- api('n', '<leader>pf', ':Ex<CR>', opt)
+vim.keymap.set('n', '<leader>ve', '<cmd>Sex!<CR>')
 
 -- move line --
 set("v", "J", ":m '>+1<CR>gv=gv")
@@ -193,5 +189,11 @@ api("n", "<leader>wq", ":wq<CR>", { silent = true })
 set("n", "n", "nzzzv")
 set("n", "N", "Nzzzv")
 
+-- caps lock  to normal mode
+vim.keymap.set({"n", "i", "v"}, "<CapsLock>", "<Esc>", { noremap = true, silent = true })
+vim.keymap.set("c", "<CapsLock>", "<C-c>", { noremap = true, silent = true })
+
+
 set("n", "<leader>m", ":terminal<CR>", opt)
 set("n", "<leader>ee", "oif err != nil {<CR>}<Esc>Oreturn err<Esc>")
+

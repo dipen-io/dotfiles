@@ -1,9 +1,12 @@
 #freshly new zshrc for void
 #export
+export EDITOR=nvim
+export VISUAL=nvim
 # export ZSH="$HOME/.oh-my-zsh"
 export PATH=$PATH:/usr/local/node/bin
 # export PATH="/usr/local/bin/zen:$PATH"
 export ZSH="$HOME/.oh-my-zsh"
+
 
 export PATH="$HOME/flutter/bin:$PATH"
 export PATH="/opt/zig-x86_64-linux-0.15.2:$PATH"
