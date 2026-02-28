@@ -18,19 +18,20 @@
 
 
 #xss-lock -- xsecurelock &  # Auto-lock the screen using xsecurelock
-dunst &
-setxkbmap -option
-xmodmap ~/.Xmodmap &
+#dunst &
+#setxkbmap -option
+#xmodmap ~/.Xmodmap &
 # xset s 300 300  # Set screen timeout to 5 minutes
 
 
 # xset r rate 150 80 & // it is good
-xset r rate 190 35
+#xset r rate 190 35
 #dash ~/.config/chadwm/scripts/bar.sh &
 # while type chadwm >/dev/null; do chadwm && continue || break; done
-#  exec i3
+# exec i3
+exec dbus-run-session i3
 
 # Just run your main startup script
-~/.config/scripts/run.sh
+#~/.config/scripts/run.sh
 
 
