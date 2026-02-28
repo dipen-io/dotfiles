@@ -40,12 +40,19 @@ return {
                     },
                 },
 
+                -- cmdline = {
+                --  enabled = true,
+                --   keymap = {
+                --     preset = "cmdline",
+                --     ["<Right>"] = false,
+                --     ["<Left>"] = false,
+                --   },
                 cmdline = {
-                 enabled = true,
+                  enabled = true,
                   keymap = {
                     preset = "cmdline",
-                    ["<Right>"] = false,
-                    ["<Left>"] = false,
+                    ["<Right>"] = { "fallback" },
+                    ["<Left>"] = { "fallback" },
                   },
                   completion = {
                     list = { selection = { preselect = false } },
@@ -55,7 +62,7 @@ return {
                       end,
                     },
                     ghost_text = { enabled = true },
-                    auto_show = false,
+                    -- auto_show = false,
                   },
                 },
                 keymap = {
