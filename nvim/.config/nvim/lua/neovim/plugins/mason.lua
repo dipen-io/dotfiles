@@ -24,22 +24,15 @@ return {
             ensure_installed = {
                 "lua_ls",
                 "html",
-                "emmet_language_server",
                 "cssls",
-                -- "rust_analyzer",
-                -- "templ",
-                -- "gopls",
                 "ts_ls",
                 "bashls",
-                -- "eslint",
-                -- "clangd",
+                "clangd",
                 "jsonls",
-                -- "tailwindcss",
-                -- "yamlls",
-                -- "emmet_ls",
-                -- "prettierd"
+                "tailwindcss",
             },
             automatic_installation = true,
         })
     end,
 }
+

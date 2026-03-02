@@ -6,14 +6,12 @@ return {
             ensure_installed = {
                 "vimdoc",
                 "javascript",
-                "go",
                 "typescript",
                 "c",
                 "lua",
-                "rust",
-                "jsdoc",
                 "bash",
-                "html"
+                "html",
+                "php"
             },
 
             sync_install = false,
@@ -51,17 +49,6 @@ return {
             vim.notify("Failed to load Treesitter parsers!", vim.log.levels.ERROR)
             return
         end
-
-        local parser_config = parsers.get_parser_configs()
-        parser_config.templ = {
-            install_info = {
-                url = "https://github.com/vrischmann/tree-sitter-templ.git",
-                files = { "src/parser.c", "src/scanner.c" },
-                branch = "master",
-            },
-            filetype = "templ", -- Register for correct filetype
-        }
-
-        vim.treesitter.language.register("templ", "templ")
     end
 }
+

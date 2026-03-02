@@ -1,35 +1,27 @@
-#freshly new zshrc for void
 #export
-# export ZSH="$HOME/.oh-my-zsh"
-export PATH=$PATH:/usr/local/node/bin
-# export PATH="/usr/local/bin/zen:$PATH"
 export ZSH="$HOME/.oh-my-zsh"
+DISABLE_AUTO_UPDATE="true"
+ZSH_THEME="robbyrussell"
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+plugins=(git)
+source $ZSH/oh-my-zsh.sh
 
-export PATH="$HOME/flutter/bin:$PATH"
-export PATH="/opt/zig-x86_64-linux-0.15.2:$PATH"
-# export PATH="/opt/zig-x86_64-linux-0.16.0-dev.1484+d0ba6642b:$PATH"
-export ANDROID_SDK_ROOT=$HOME/Android
-export PATH=$ANDROID_SDK_ROOT/emulator:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
+# ---- Editor ----
+export EDITOR=nvim
+export VISUAL=nvim
 
-# run emulator
-alias emu='$ANDROID_SDK_ROOT/emulator/emulator -avd my_emulator1 -gpu host -no-snapshot'
+export PATH=$PATH:/usr/local/node/bin
+
+
+# export ANDROID_SDK_ROOT=$HOME/Android
+# export PATH=$ANDROID_SDK_ROOT/emulator:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
+
 
 # for flutter emulator
-export ANDROID_SDK_ROOT=$HOME/Android
-export PATH=$PATH:$ANDROID_SDK_ROOT/emulator:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin
+# export ANDROID_SDK_ROOT=$HOME/Android
+# export PATH=$PATH:$ANDROID_SDK_ROOT/emulator:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin
 
 export PATH="$HOME/.local/bin:$PATH"
-
-ZSH_THEME="robbyrussell"
-# alias php='/usr/bin/php8.3'
-
-
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-
-plugins=(git)
-
-source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -46,28 +38,16 @@ export LANG=en_US.UTF-8
 #   export EDITOR='nvim'
 # fi
 
-export ARCHFLAGS="-arch $(uname -m)"
-
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-setopt autocd extendedglob nomatch
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
-zstyle :compinstall filename '/home/void/.zshrc'
-
-# autoload -Uz compinit
-compinit
-
+setopt autocd extendedglob nomatch NO_HIST_EXPAND
 
 autoload -Uz colors && colors
 PS1="%{$fg[green]%}[%n@%m %~] %{$reset_color%}"
 # PS1="%{$fg_bold[yellow]%}[%n@%m %~] %{$reset_color%}"
 
-export PATH="/opt/zig:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-export EDITOR='nvim'
 
 # alternative nvim config
 alias a="NVIM_APPNAME=my-nvim nvim"
@@ -82,14 +62,12 @@ alias l=ll
 
 # PROMPT='[%n] %~ '
 
-plugins=(git)
-# source $ZSH/oh-my-zsh.sh
 
 # Aliases
 # alias vim='nvim'
 alias vi='nvim'
 alias ..='cd ..'
-alias so='source /home/void/.zshrc'
+alias so='source /home/dinesh/.zshrc'
 # alias tls='tmux ls'
 alias la='ls -a'
 alias ll='ls -la'
@@ -106,14 +84,13 @@ alias dim='sudo docker images'
 # alias s='$HOME/script/pick_session.sh'
 # alias s='$HOME/script/python.py'
 alias todo='$HOME/script/todo'
-alias tmux-sessionizer='/home/void/script/tmux_sessionaizer.sh'
+alias tmux-sessionizer='/home/dinesh/script/tmux_sessionaizer.sh'
 
 run() {
     g++ "$1" -o a.out && ./a.out
 }
 # for emacs
 export XDG_CONFIG_HOME="$HOME/.config"
-export EMACSDIR="$HOME/.config/emacs"
 
 # vim keybinding
 bindkey -v
@@ -122,19 +99,6 @@ bindkey -v
 # bindkey -s ^b "/home/void/script/python.py\n"
 # bindkey -s ^b "/home/void/script/rofi-web-serach.sh\n"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# . "/home/void/.deno/env"
-
-# bun completions
-[ -s "/home/void/.bun/_bun" ] && source "/home/void/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-#dotnet
-export DOTNET_ROOT=$HOME/.dotnet
-export PATH=$DOTNET_ROOT:$PATH
 
 # tmux
 tmux() {
@@ -172,6 +136,4 @@ tmux-pick() {
   fi
 }
 
-setopt NO_HIST_EXPAND
 export PATH="$HOME/dotfiles/bin:$PATH"
-# eval "$(starship init zsh)"
