@@ -1,4 +1,5 @@
 #export
+#done i am so done yes i am  you never   
 export ZSH="$HOME/.oh-my-zsh"
 DISABLE_AUTO_UPDATE="true"
 ZSH_THEME="robbyrussell"
