@@ -11,16 +11,6 @@ export EDITOR=nvim
 export VISUAL=nvim
 
 export PATH=$PATH:/usr/local/node/bin
-
-
-# export ANDROID_SDK_ROOT=$HOME/Android
-# export PATH=$ANDROID_SDK_ROOT/emulator:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
-
-
-# for flutter emulator
-# export ANDROID_SDK_ROOT=$HOME/Android
-# export PATH=$PATH:$ANDROID_SDK_ROOT/emulator:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin
-
 export PATH="$HOME/.local/bin:$PATH"
 
 # User configuration
@@ -48,21 +38,9 @@ autoload -Uz colors && colors
 PS1="%{$fg[green]%}[%n@%m %~] %{$reset_color%}"
 # PS1="%{$fg_bold[yellow]%}[%n@%m %~] %{$reset_color%}"
 
-
 # alternative nvim config
 alias a="NVIM_APPNAME=my-nvim nvim"
 alias l=ll
-
-# for python tmp
-# export TMPDIR=~/project/flask-ai/tmp
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# ZSH_THEME="robbyrussell"
-# ZSH_THEME="bira" # this is good
-
-# PROMPT='[%n] %~ '
-
-
 # Aliases
 # alias vim='nvim'
 alias vi='nvim'
@@ -137,3 +115,8 @@ tmux-pick() {
 }
 
 export PATH="$HOME/dotfiles/bin:$PATH"
+export PATH="$PATH:$HOME/mob_dev/flutter/bin"
+export PATH="$PATH:$HOME/mob_dev/flutter/bin/cache/dart-sdk/bin"
+export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
+export PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin"
+export PATH="$PATH:$ANDROID_SDK_ROOT/platform-tools"

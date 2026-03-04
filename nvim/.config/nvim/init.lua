@@ -1,10 +1,18 @@
+-- 1. Plugin Manager Setup
 require("neovim.lazy")
--- require("neovim.lsp")
+
+-- 2. Load Configurations
+-- Note: Order matters! Load settings/keymaps before LSPs usually.
+require("neovim.core.settings")
 require("neovim.core.keymaps")
 require("neovim.core.autocmd")
-require("neovim.core.settings")
 require("neovim.core.statusline")
 
+-- 3. Load LSP Config
+require("neovim.plugins.lsp")
+
+
+-- 4. Additional setup
 vim.filetype.add({
   filename = {
     ['init'] = 'sh',
@@ -12,14 +20,6 @@ vim.filetype.add({
   },
   pattern = {
     ['.*/river/init'] = 'sh',
-  },
-})
-
--- Add this to your init.lua
-vim.filetype.add({
-  pattern = {
-    -- Matches any file inside ~/.config/i3/config.d/
-    ['.*/.config/i3/config%.d/.*'] = 'i3config',
   },
 })
 
