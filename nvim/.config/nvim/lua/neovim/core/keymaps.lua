@@ -170,7 +170,8 @@ set("n", "st", ":tabnew <cr>")
 
 -- Isert -> Normal --
 -- set("i", "jf", "<Esc>")
-vim.keymap.set("i", "<C-f>", "<Esc>", { noremap = true })
+-- vim.keymap.set("i", "<C-f>", "<Esc>", { noremap = true })
+vim.keymap.set("i", "<C-f>", "<Esc>", { noremap = true, silent = true })
 
 -- Visual -> Normal
 set("v", "o", "<Esc>")

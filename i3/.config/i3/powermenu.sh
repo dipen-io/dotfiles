@@ -9,7 +9,8 @@ choice=$(echo -e $options | rofi -dmenu -i -p "Power Menu")
 # Perform action based on choice
 case "$choice" in
     Sleep)
-        loginctl suspend
+        password=$(rofi -dmenu -password -p "Enter Password")
+        echo "$password" | sudo -S zzz
         ;;
     Reboot)
         password=$(rofi -dmenu -password -p "Enter Password")
