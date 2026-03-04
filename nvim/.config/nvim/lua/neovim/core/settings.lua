@@ -82,6 +82,7 @@ vim.opt.updatetime = 50
 -- hide this two
 -- vim.opt.colorcolumn = "100"
 vim.opt.signcolumn = "yes"
+vim.opt.fsync = true
 vim.opt.signcolumn = "yes:1"
 vim.opt.isfname:append("@-@")
 vim.opt.winborder= 'rounded'

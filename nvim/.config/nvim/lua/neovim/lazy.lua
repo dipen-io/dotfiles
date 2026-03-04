@@ -5,9 +5,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
     if vim.v.shell_error ~= 0 then
         vim.api.nvim_echo({
-            { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-            { out,                            "WarningMsg" },
-            { "\nPress any key to exit..." },
+            { "Failed to clone lazy.nvim:\n", "ErrorMsg" }, { out,                            "WarningMsg" }, { "\nPress any key to exit..." },
         }, true, {})
         vim.fn.getchar()
         os.exit(1)
@@ -30,8 +28,8 @@ require("lazy").setup({
     require("neovim.plugins.blink"),
     require("neovim.plugins.mason"),
     require("neovim.plugins.zls_02"),
-    require("neovim.plugins.render_preview")
-
+    require("neovim.plugins.flutter"),
+    require("neovim.plugins.render_preview"),
 }, {
     checker = {
         enabled = true,
