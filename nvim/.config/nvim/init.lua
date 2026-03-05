@@ -23,3 +23,25 @@ vim.filetype.add({
   },
 })
 
+-- Function to clear backgrounds
+local function clear_diagnostic_bg()
+    local groups = {
+        "DiagnosticSignError",
+        "DiagnosticSignWarn",
+        "DiagnosticSignInfo",
+        "DiagnosticSignHint",
+        "SignColumn", -- This is the gutter itself
+    }
+
+    for _, group in ipairs(groups) do
+        vim.api.nvim_set_hl(0, group, { bg = "none", ctermbg = "none" })
+    end
+end
+
+-- Run it immediately
+clear_diagnostic_bg()
+
+-- Run it again whenever the colorscheme changes (some themes override settings)
+vim.api.nvim_create_autocmd("ColorScheme", {
+    callback = clear_diagnostic_bg,
+})

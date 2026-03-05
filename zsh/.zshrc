@@ -1,8 +1,8 @@
 #export
+#done i am so done yes i am  you never   
 export ZSH="$HOME/.oh-my-zsh"
 DISABLE_AUTO_UPDATE="true"
 ZSH_THEME="robbyrussell"
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
@@ -14,7 +14,6 @@ export PATH=$PATH:/usr/local/node/bin
 export PATH="$HOME/.local/bin:$PATH"
 
 # User configuration
-
 export MANPATH="/usr/local/man:$MANPATH"
 export PATH="$HOME/.local/bin/zen:$PATH"
 
@@ -73,9 +72,9 @@ export XDG_CONFIG_HOME="$HOME/.config"
 # vim keybinding
 bindkey -v
 
-# bindkey -s ^f "/home/void/script/tmux_sessionaizer.sh\n"
-# bindkey -s ^b "/home/void/script/python.py\n"
-# bindkey -s ^b "/home/void/script/rofi-web-serach.sh\n"
+bindkey -s '^f' '/home/dinesh/script/tmux_sessionaizer.sh\n'
+bindkey -s '^b' '/home/dinesh/script/python.py\n'
+bindkey -s '^g' '/home/dinesh/script/rofi-web-serach.sh\n'
 
 
 # tmux
