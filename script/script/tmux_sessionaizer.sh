@@ -54,12 +54,12 @@ hydrate() {
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find -L /home/void -mindepth 1 -maxdepth 2 -type d \( \
-        -path "/home/void/dotfiles" -o \
-        -path "/home/void/startup/*" -o \
-        -path "/home/void/Project/*" -o \
-        -path "/home/void/dotfiles/script/*" -o \
-        -path "/home/void/Desktop/*" \) -print | \
+    selected=$(find -L /home/dinesh -mindepth 1 -maxdepth 2 -type d \( \
+        -path "/home/dinesh/dotfiles/" -o \
+        -path "/home/dinesh/startup/*" -o \
+        -path "/home/dinesh/Desktop/*" -o \
+        -path "/home/dinesh/dotfiles/script/*" -o \
+        -path "/home/dinesh/mob_dev/*" \) -print | \
         fzf --preview 'ls -lh --color=always {}' --preview-window=right:50%)
 fi
 
