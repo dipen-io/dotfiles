@@ -8,6 +8,7 @@ return {
         "javascriptreact",
         "typescriptreact",
         "svelte",
+        "astro",
     },
     root_markers = { "index.html", ".git" },
     init_options = { provideFormatter = true },

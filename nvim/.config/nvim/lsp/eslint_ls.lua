@@ -4,6 +4,7 @@ return {
     cmd = { "eslint", "eslint_d" },
     filetypes = {
         "html",
+        "astro",
         "javascript",
         "javascriptreact",
         "javascript.jsx",

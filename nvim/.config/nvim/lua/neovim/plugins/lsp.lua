@@ -3,7 +3,7 @@ local capabilities = require("blink.cmp").get_lsp_capabilities()
 -- List of servers to enable
 local servers = {
     "lua_ls", "ts_ls", "intelephense", "tailwindcss",
-    "html", "cssls", "clangd", "zls"
+    "html", "cssls", "clangd", "zls", "astro",
 }
 
 -- Setup and enable servers
