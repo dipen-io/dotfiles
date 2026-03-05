@@ -6,7 +6,12 @@ return {
   opts = {
     bigfile = { enabled = true },
     dashboard = { enabled = true },
-    explorer = { enabled = true },
+    explorer = {
+            enabled = true,
+            filters = {
+                exclude = { ".git", "node_modules" },
+            },
+    },
     indent = { enabled = true },
     image = {
             doc = {
@@ -17,12 +22,24 @@ return {
             }
     },
     input = { enabled = true },
-    picker = {
-      enabled = true,
-      sources = {
-        files = { hidden = true },
-      },
-    },
+        picker = {
+            enabled = true,
+            exclude = { -- add folder names here to exclude
+                ".git",
+                "node_modules",
+            },
+                matcher = {
+                    exclude = {
+                        "node_modules",
+                        ".git",
+                    },
+                
+	    },
+            sources = {
+                files = { hidden = true },
+            },
+        },
+    
     quickfile = { enabled = true },
     scope = { enabled = true },
     scroll = { enabled = false},
