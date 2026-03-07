@@ -34,7 +34,12 @@ SAVEHIST=1000
 setopt autocd extendedglob nomatch NO_HIST_EXPAND
 
 autoload -Uz colors && colors
-PS1="%{$fg[green]%}[%n@%m %~] %{$reset_color%}"
+precmd() {
+  echo -ne '\e[5 q'
+}
+# PS1="%{$fg[green]%}➜%{$reset_color%} %~${vcs_info_msg_0_} "
+# PS1="%{$fg[green]%}➜%{$reset_color%} %~ "
+# PS1="%{$fg[green]%}[%n@%m %~] %{$reset_color%}"
 # PS1="%{$fg_bold[yellow]%}[%n@%m %~] %{$reset_color%}"
 
 # alternative nvim config
