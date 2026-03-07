@@ -7,12 +7,12 @@ return {
         "javascriptreact",
         "typescript",
         "typescriptreact",
-        "vue",
         "svelte",
         "html",
         "blade",
         "css",
         "scss",
+        "astro"
     },
     root_markers = {
         "tailwind.config.js",

@@ -8,6 +8,7 @@ return {
         "javascriptreact",
         "typescriptreact",
         "typescript",
+        "astro",
         "javascript",
     },
     root_markers = { "index.html", ".git" },
