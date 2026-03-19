@@ -17,6 +17,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 # ---- PATH (Consolidated & Clean) ----
 typeset -U path  # Remove duplicates automatically
 path=(
+
     $HOME/.local/bin
     $HOME/.local/bin/zen
     $HOME/dotfiles/bin
@@ -31,6 +32,9 @@ export PATH
 
 # ---- Android SDK ----
 export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
+
+export PATH="$PATH:$HOME/go/bin"
+
 
 # ---- History ----
 HISTFILE=~/.histfile

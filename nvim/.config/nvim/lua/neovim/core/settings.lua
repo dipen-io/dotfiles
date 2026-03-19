@@ -87,6 +87,7 @@ vim.opt.signcolumn = "yes:1"
 vim.opt.isfname:append("@-@")
 vim.opt.winborder= 'rounded'
 vim.opt.wildignore:append({ "*/node_modules/*" })
+vim.lsp.inlay_hint.enable(true) --new added
 
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
