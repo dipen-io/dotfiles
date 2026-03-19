@@ -1,10 +1,11 @@
 # theme= Kanagawa Dragon
- # theme= Blue Matrix
-# background = #000000
+ theme= Blue Matrix
 shell-integration-features = no-cursor,sudo,no-title
-font-family = "Luxi Sans Regular"
+# font-family = "Luxi Sans Regular"
+# font-family = ZedMono Nerd Font Mono
 font-size = 20
 background-opacity = 0.9
+# background-opacity = 1
 gtk-titlebar = false
 cursor-style = bar
 cursor-color = #00ffff
