@@ -2,7 +2,11 @@ local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 -- List of servers to enable
 local servers = {
-    "lua_ls", "ts_ls", "intelephense", "tailwindcss",
+    "lua_ls",
+    "ts_ls",
+    "tsgo",
+    "intelephense",
+    "tailwindcss",
     "html", "cssls", "clangd", "zls", "astro",
 }
 
@@ -58,7 +62,6 @@ end, { desc = "Show LSP status" })
 local function get_git_branch()
     -- Check if we already found the branch for this buffer
     if vim.b.git_branch then return vim.b.git_branch end
-    
     -- If not, find it once and store it
     local branch = vim.fn.system("git branch --show-current 2>/dev/null"):gsub("\n", "")
     if branch ~= "" then

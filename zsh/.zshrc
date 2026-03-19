@@ -1,121 +1,90 @@
-#export
-#done i am so done yes i am  you never   
+# ~/.zshrc - Clean & Fast Configuration
+# ======================================
+
+# ---- Oh-My-Zsh ----
 export ZSH="$HOME/.oh-my-zsh"
 DISABLE_AUTO_UPDATE="true"
 ZSH_THEME="robbyrussell"
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
-# ---- Editor ----
+# ---- Environment ----
 export EDITOR=nvim
 export VISUAL=nvim
-
-export PATH=$PATH:/usr/local/node/bin
-export PATH="$HOME/.local/bin:$PATH"
-
-# User configuration
-export MANPATH="/usr/local/man:$MANPATH"
-export PATH="$HOME/.local/bin/zen:$PATH"
-
-# You may need to manually set your language environment
 export LANG=en_US.UTF-8
+export XDG_CONFIG_HOME="$HOME/.config"
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='nvim'
-# fi
+# ---- PATH (Consolidated & Clean) ----
+typeset -U path  # Remove duplicates automatically
+path=(
 
-# Lines configured by zsh-newuser-install
+    $HOME/.local/bin
+    $HOME/.local/bin/zen
+    $HOME/dotfiles/bin
+    /usr/local/node/bin
+    $HOME/mob_dev/flutter/bin
+    $HOME/mob_dev/flutter/bin/cache/dart-sdk/bin
+    $ANDROID_SDK_ROOT/cmdline-tools/latest/bin
+    $ANDROID_SDK_ROOT/platform-tools
+    $path
+)
+export PATH
+
+# ---- Android SDK ----
+export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
+
+export PATH="$PATH:$HOME/go/bin"
+
+
+# ---- History ----
 HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
-setopt autocd extendedglob nomatch NO_HIST_EXPAND
+HISTSIZE=10000
+SAVEHIST=10000
+setopt autocd extendedglob nomatch HIST_IGNORE_DUPS
 
-autoload -Uz colors && colors
-PS1="%{$fg[green]%}[%n@%m %~] %{$reset_color%}"
-# PS1="%{$fg_bold[yellow]%}[%n@%m %~] %{$reset_color%}"
+# ---- Vi Mode ----
+bindkey -v
 
-# alternative nvim config
-alias a="NVIM_APPNAME=my-nvim nvim"
-alias l=ll
-# Aliases
-# alias vim='nvim'
+# ---- Cursor Shape (Efficient) ----
+# Only change cursor when entering/exiting insert mode
+function zle-keymap-select {
+    [[ $KEYMAP == vicmd ]] && echo -ne '\e[2 q' || echo -ne '\e[5 q'
+}
+zle -N zle-keymap-select
+
+# ---- Aliases ----
 alias vi='nvim'
 alias ..='cd ..'
-alias so='source /home/dinesh/.zshrc'
-# alias tls='tmux ls'
+alias so='source $HOME/.zshrc'
 alias la='ls -a'
 alias ll='ls -la'
+alias l='ls -la'  # Fixed: defined AFTER ll
 alias e='exit'
 alias home='cd ~'
 alias c='cd'
 alias cl='clear'
-alias h='home'
 alias gs='git status'
 alias ga='git add .'
 alias gj='git commit'
 alias dps='sudo docker ps -a'
 alias dim='sudo docker images'
-# alias s='$HOME/script/pick_session.sh'
-# alias s='$HOME/script/python.py'
 alias todo='$HOME/script/todo'
-alias tmux-sessionizer='/home/dinesh/script/tmux_sessionaizer.sh'
+alias a="NVIM_APPNAME=my-nvim nvim"
+alias ts='tmux-sessionizer'
 
+# ---- Functions ----
 run() {
     g++ "$1" -o a.out && ./a.out
 }
-# for emacs
-export XDG_CONFIG_HOME="$HOME/.config"
 
-# vim keybinding
-bindkey -v
-
-bindkey -s '^f' '/home/dinesh/script/tmux_sessionaizer.sh\n'
-bindkey -s '^b' '/home/dinesh/script/python.py\n'
-bindkey -s '^g' '/home/dinesh/script/rofi-web-serach.sh\n'
-
-
-# tmux
-tmux() {
-  # if no arguments: behave normally
-  if [ $# -eq 0 ]; then
-    command tmux
-    return
-  fi
-
-  # if the first argument matches a tmux subcommand, pass through directly
-  case "$1" in
-    attach|a|ls|list-*|new|kill-*|switch-*|rename-*|display-*|source-*|save-*|show-*|start-*|set-*|detach|has-*|run-*)
-      command tmux "$@"
-      return
-      ;;
-  esac
-
-  # otherwise, treat argument as a session name
-  session="$1"
-  if command tmux has-session -t "$session" 2>/dev/null; then
-    command tmux attach -t "$session"
-  else
-    command tmux new -s "$session"
-  fi
+# Tmux session picker (renamed to avoid overriding tmux command)
+tmux-sessionizer() {
+    local session
+    session=$(tmux list-sessions -F '#S' 2>/dev/null | fzf --prompt="tmux session> " --height=40% --reverse)
+    [[ -n "$session" ]] && tmux attach -t "$session" || echo "No session selected."
 }
 
-# Pick and attach to a tmux session
-tmux-pick() {
-  # List sessions and let user pick with fzf
-  session=$(tmux list-sessions -F '#S' 2>/dev/null | fzf --prompt="tmux session> " --height=40% --reverse)
-  if [ -n "$session" ]; then
-    tmux attach -t "$session"
-  else
-    echo "No session selected."
-  fi
-}
-
-export PATH="$HOME/dotfiles/bin:$PATH"
-export PATH="$PATH:$HOME/mob_dev/flutter/bin"
-export PATH="$PATH:$HOME/mob_dev/flutter/bin/cache/dart-sdk/bin"
-export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
-export PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin"
-export PATH="$PATH:$ANDROID_SDK_ROOT/platform-tools"
+# ---- Key Bindings ----
+bindkey -s '^f' '$HOME/script/tmux_sessionaizer.sh\n'
+bindkey -s '^b' '$HOME/script/python.py\n'
+bindkey -s '^g' '$HOME/script/rofi-web-serach.sh\n'

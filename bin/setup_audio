@@ -1,20 +1,14 @@
 #!/bin/bash
-# setup_audio - One command to fix audio on Void Linux (FIXED VERSION)
-
-set -e
-
+# setup_audio - One command to fix audio on Void Linux
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 RED='\033[0;31m'
 BLUE='\033[0;34m'
 NC='\033[0m'
-
-info() { echo -e "${GREEN}[*]${NC} $1"; }
-warn() { echo -e "${YELLOW}[!]${NC} $1"; }
-error() { echo -e "${RED}[x]${NC} $1" >&2; }
+info()    { echo -e "${GREEN}[*]${NC} $1"; }
+warn()    { echo -e "${YELLOW}[!]${NC} $1"; }
+error()   { echo -e "${RED}[x]${NC} $1" >&2; }
 section() { echo -e "\n${BLUE}[▶]${NC} $1"; }
-
-section "Setting up PipeWire/WirePlumber on Void Linux..."
 
 # Check if running on Void
 if [ ! -f "/etc/void-release" ]; then
@@ -25,7 +19,6 @@ fi
 # 1. INSTALL PACKAGES
 # =============================================================================
 section "Installing packages..."
-
 sudo xbps-install -Sy \
     pipewire \
     wireplumber \
@@ -35,62 +28,89 @@ sudo xbps-install -Sy \
     libspa-bluetooth \
     bluez \
     blueman \
-    || warn "Some packages may already be installed"
-
-
-# 2 
-section "Configuring user PipeWire directory..."
-mkdir -p "$HOME/.config/pipewire/pipewire.conf.d"
-
-ln -sf /usr/share/examples/wireplumber/10-wireplumber.conf \
-  "$HOME/.config/pipewire/pipewire.conf.d/"
-
-ln -sf /usr/share/examples/pipewire/20-pipewire-pulse.conf \
-  "$HOME/.config/pipewire/pipewire.conf.d/"
-
-# i don't know is it required or not
-mkdir -p /etc/alsa/conf.d
-sudo ln -s /etc/alsa/conf.d/50-pipewire.conf /etc/alsa/conf.d
-sudo ln -s /etc/alsa/conf.d/99-pipewire-default.conf /etc/alsa/conf.d
-
+    && info "Packages installed." || warn "Some packages may already be installed, continuing..."
 
 # =============================================================================
-# 5. ENABLE SERVICES
+# 2. ALSA PIPEWIRE INTEGRATION
 # =============================================================================
-section "Enabling bluetoothd services..."
+section "Configuring ALSA PipeWire integration..."
+sudo mkdir -p /etc/alsa/conf.d
 
-# Enable Bluetooth daemon
+# Only create symlinks if source files exist and symlink doesn't already exist
+for f in 50-pipewire.conf 99-pipewire-default.conf; do
+    src="/usr/share/alsa/alsa.conf.d/$f"
+    dst="/etc/alsa/conf.d/$f"
+    if [ -f "$src" ] && [ ! -e "$dst" ]; then
+        sudo ln -sf "$src" "$dst"
+        info "Linked $f"
+    elif [ ! -f "$src" ]; then
+        warn "Source $src not found, skipping."
+    else
+        info "$f already configured."
+    fi
+done
+
+# =============================================================================
+# 3. ENABLE BLUETOOTH SERVICE
+# =============================================================================
+section "Enabling bluetoothd service..."
 if [ ! -L /var/service/bluetoothd ]; then
     sudo ln -sf /etc/sv/bluetoothd /var/service/
-    info "Enabled bluetoothd service"
+    info "Enabled bluetoothd service."
 else
-    info "bluetoothd already enabled"
+    info "bluetoothd already enabled."
 fi
 
-
 # =============================================================================
-# 6. USER GROUPS
+# 4. USER GROUPS
 # =============================================================================
 section "Configuring user permissions..."
-
-# Add to audio group
 if ! groups "$USER" | grep -q "\baudio\b"; then
     sudo usermod -aG audio "$USER"
-    warn "Added to 'audio' group. Logout and login required for this to take effect."
+    warn "Added $USER to 'audio' group."
+else
+    info "Already in audio group."
 fi
 
-# Add to bluetooth group
 if ! groups "$USER" | grep -q "\bbluetooth\b"; then
     sudo usermod -aG bluetooth "$USER"
-    warn "Added to 'bluetooth' group."
+    warn "Added $USER to 'bluetooth' group."
+else
+    info "Already in bluetooth group."
 fi
 
+# =============================================================================
+# 5. ADD PIPEWIRE TO I3 AUTOSTART
+# =============================================================================
+# section "Checking i3 autostart..."
+# I3_CONFIG="$HOME/.config/i3/config"
+# if [ -f "$I3_CONFIG" ]; then
+#     if ! grep -q "exec.*pipewire" "$I3_CONFIG"; then
+#         echo "" >> "$I3_CONFIG"
+#         echo "exec --no-startup-id pipewire" >> "$I3_CONFIG"
+#         echo "exec --no-startup-id wireplumber" >> "$I3_CONFIG"
+#         info "Added pipewire and wireplumber to i3 autostart."
+#     else
+#         info "PipeWire already in i3 config."
+#     fi
+# else
+#     warn "i3 config not found at $I3_CONFIG, skipping autostart setup."
+# fi
 
-info "Bluetooth devices:"
-bluetoothctl list 2>/dev/null || warn "No Bluetooth controller found or bluetoothd not ready"
-
-section "Restarting PipeWire | wireplumber..."
-
-pkill pipewire || true
-pkill wireplumber || true
+# =============================================================================
 section "Setup complete!"
+echo ""
+echo "================================================"
+echo " Next steps:"
+echo " 1. Log out and back in (for group changes)"
+echo " 2. Or reboot for all changes to apply cleanly"
+echo ""
+echo " After reboot, verify audio with:"
+echo "   wpctl status"
+echo "================================================"
+echo ""
+printf "Reboot now? (y/n): "
+read answer
+if [ "$answer" = "y" ]; then
+    sudo reboot
+fi
