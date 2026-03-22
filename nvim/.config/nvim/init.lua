@@ -46,6 +46,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     callback = clear_diagnostic_bg,
 })
 
+-- for just removing the nodejs comoonjs warning
 vim.lsp.handlers['textDocument/publishDiagnostics'] = function(err, result, ctx, config)
   if result and result.diagnostics then
     result.diagnostics = vim.tbl_filter(function(d)
