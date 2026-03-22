@@ -85,6 +85,13 @@ tmux-sessionizer() {
 }
 
 # ---- Key Bindings ----
-bindkey -s '^f' '$HOME/script/tmux_sessionaizer.sh\n'
-bindkey -s '^b' '$HOME/script/python.py\n'
 bindkey -s '^g' '$HOME/script/rofi-web-serach.sh\n'
+# bindkey -s '^p' '$HOME/script/tmux_sessionaizers.sh\n'
+
+bindkey -s '^P' '
+if [ -n "$TMUX" ]; then
+  tmux new-window "$HOME/script/tmux_sessionaizers.sh"
+else
+  $HOME/script/tmux_sessionaizers.sh
+fi
+\n'
