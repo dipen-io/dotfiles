@@ -45,3 +45,12 @@ clear_diagnostic_bg()
 vim.api.nvim_create_autocmd("ColorScheme", {
     callback = clear_diagnostic_bg,
 })
+
+vim.lsp.handlers['textDocument/publishDiagnostics'] = function(err, result, ctx, config)
+  if result and result.diagnostics then
+    result.diagnostics = vim.tbl_filter(function(d)
+      return d.code ~= 80001
+    end, result.diagnostics)
+  end
+  vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
+end
