@@ -8,32 +8,34 @@ return {
         "javascript.jsx",
         "typescript",
         "typescriptreact",
-        "astro",
         "typescript.tsx",
+        "astro",
     },
     root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
     settings = {
         typescript = {
-            -- Remove tsdk setting to allow auto-detection
-            tsserver = {
-                useSyntaxServer = false,
-            },
             inlayHints = {
-                includeInlayParameterNameHints = 'all',
-                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                includeInlayFunctionParameterTypeHints = true,
-                includeInlayVariableTypeHints = true,
-                includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayParameterNameHints = 'none',        -- CHANGE: 'none' instead of 'all'
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = true,    -- keep type hints
+                includeInlayVariableTypeHints = true,             -- keep variable types
                 includeInlayFunctionLikeReturnTypeHints = true,
-                includeInlayEnumMemberValueHints = true,
+            },
+
+            typescript = {
+                tsserver = {
+                    useSyntaxServer = "auto",
+                    -- SPEED UP: Limit type checking
+                    maxTsServerMemory = 8192,  -- Increase memory (MB)
+                    -- Disable slow features
+                    disableAutomaticTypingAcquisition = false,
+                },
+                preferences = {
+                    -- Skip deep type analysis for faster completion
+                    includePackageJsonAutoImports = "auto",
+                },
             },
         },
     },
-    capabilities = vim.tbl_deep_extend(
-        "force",
-        {},
-        vim.lsp.protocol.make_client_capabilities(),
-        blink.get_lsp_capabilities()
-    ),
+    capabilities = blink.get_lsp_capabilities(), -- SIMPLIFIED
 }

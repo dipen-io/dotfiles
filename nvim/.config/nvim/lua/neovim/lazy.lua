@@ -27,7 +27,7 @@ require("lazy").setup({
     require("neovim.plugins.snacks"),
     require("neovim.plugins.blink"),
     require("neovim.plugins.mason"),
-    require("neovim.plugins.zls_02"),
+--    require("neovim.plugins.zls_02"),
     require("neovim.plugins.flutter"),
     require("neovim.plugins.render_preview"),
 }, {

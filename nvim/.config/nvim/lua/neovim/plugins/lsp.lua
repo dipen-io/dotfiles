@@ -1,24 +1,32 @@
 local capabilities = require("blink.cmp").get_lsp_capabilities()
+local blink = require("blink.cmp")
 
 -- List of servers to enable
 local servers = {
     "lua_ls",
     "ts_ls",
-    "tsgo",
+    "bashls",
     "intelephense",
+    "go",
     "tailwindcss",
     "html", "cssls", "clangd", "zls", "astro",
 }
 
--- Setup and enable servers
 for _, server in ipairs(servers) do
-    -- We set the capabilities via the config table
-    vim.lsp.config(server, {
-        capabilities = capabilities
-    })
-    -- Then enable it
     vim.lsp.enable(server)
 end
+
+-- Setup and enable servers
+-- for name, config in ipairs(servers) do
+--     -- We set the capabilities via the config table
+--     local final_config = vim.tbl_deep_extend("force",
+--         { capabilities = capabilities},
+--         config
+--     )
+--     -- Then enable it
+--     vim.lsp.config(name, final_config)
+--     vim.lsp.enable(name)
+-- end
 
 ---
 --- HELPER COMMANDS
