@@ -16,7 +16,8 @@ return {
     -- blink.nvim configuration
     {
         "saghen/blink.cmp",
-        version = "*",
+        -- version = "*",
+    version = "v0.*",
         dependencies = {
             "rafamadriz/friendly-snippets",  -- Friendly snippets for various languages
             "folke/lazydev.nvim",            -- LazyDev for Blink integration
@@ -25,13 +26,28 @@ return {
             -- Blink CMP setup
             require("blink.cmp").setup({
                 snippets = { preset = "luasnip" },
-                signature = { enabled = true },
+                signature = {
+                    enabled = true,
+                    trigger = {
+                        enabled = true,
+                        show_on_insert = true,  -- Show when typing (
+                        show_on_trigger_character = true,
+                    },
+                    window = {
+                        border = 'rounded',
+                    },
+                },
                 appearance = {
                     nerd_font_variant = "normal",  -- Nerd fonts for Blink
                 },
                 sources = {
                     default = { "lsp", "path", "snippets", "lazydev", "buffer" },
                     providers = {
+                        lsp = {
+                            async = true,
+                            timeout_ms =  100,
+                            score_offset = 4,
+                        },
                         lazydev = {
                             name = "LazyDev",
                             module = "lazydev.integrations.blink",
@@ -73,6 +89,16 @@ return {
 
                 },
                 completion = {
+                    trigger = {
+                        prefetch_on_insert = true,     -- Pre-fetch when entering insert mode
+                        show_on_keyword = true,
+                        show_on_trigger_character = true,
+                        -- FASTER: Reduce debounce
+                    },
+                    -- Show immediately even if incomplete
+                    list = {
+                        selection = { preselect = true },
+                    },
                      accept = {
                             -- experimental auto-brackets support
                             auto_brackets = {
