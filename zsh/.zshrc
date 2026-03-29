@@ -45,6 +45,9 @@ setopt autocd extendedglob nomatch HIST_IGNORE_DUPS
 # ---- Vi Mode ----
 bindkey -v
 
+
+# image_icon=$(kitty +kitten icat --stdin no --transfer-mode file --align left $HOME/.config/polybar/void.svg 2>/dev/null)
+# PROMPT="${image_icon} ➜ pwd git:(void) ✗ "
 # ---- Cursor Shape (Efficient) ----
 # Only change cursor when entering/exiting insert mode
 function zle-keymap-select {
@@ -58,10 +61,11 @@ alias ..='cd ..'
 alias so='source $HOME/.zshrc'
 alias la='ls -a'
 alias ll='ls -la'
-alias l='ls -la'  # Fixed: defined AFTER ll
+alias l='ls -la'
 alias e='exit'
 alias home='cd ~'
 alias c='cd'
+alias v='nvim .'
 alias cl='clear'
 alias gs='git status'
 alias ga='git add .'
@@ -69,7 +73,6 @@ alias gj='git commit'
 alias dps='sudo docker ps -a'
 alias dim='sudo docker images'
 alias todo='$HOME/script/todo'
-alias a="NVIM_APPNAME=my-nvim nvim"
 alias ts='tmux-sessionizer'
 
 # ---- Functions ----

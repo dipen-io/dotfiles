@@ -1,7 +1,8 @@
 
 -- vim.opt.guicursor = ""
-vim.g.mapleader = " "
-vim.opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50"
+-- vim.g.mapleader = " "
+vim.g.mapleader = ","
+-- vim.opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50"
 vim.opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr-o:hor20" -- think cursor in insert mode
 
 vim.opt.guicursor = {
