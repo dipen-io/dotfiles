@@ -1,5 +1,5 @@
 -- 1. Plugin Manager Setup
-require("neovim.lazy")
+require("neovim.pack")
 -- 2. Load Configurations
 -- Note: Order matters! Load settings/keymaps before LSPs usually.
 require("neovim.core.settings")

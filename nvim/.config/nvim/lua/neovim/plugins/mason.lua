@@ -1,8 +1,4 @@
-return {
-    "williamboman/mason.nvim",
-    dependencies = {
-        "williamboman/mason-lspconfig.nvim",
-    },
+require("mason" ).setup({
     opts = {
         ui = {
             width = 0.8,
@@ -34,5 +30,5 @@ return {
             automatic_installation = true,
         })
     end,
-}
+})
 
