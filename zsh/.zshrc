@@ -79,6 +79,11 @@ alias ts='tmux-sessionizer'
 run() {
     g++ "$1" -o a.out && ./a.out
 }
+# for neovim restore cursor blocl
+nvim() {
+  command nvim "$@"
+  echo -ne "\033[4 q"  # force underline after nvim exits
+}
 
 # Tmux session picker (renamed to avoid overriding tmux command)
 tmux-sessionizer() {

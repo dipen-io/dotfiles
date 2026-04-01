@@ -20,16 +20,28 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     end,
 })
 
+-- Reset cursor to underline when exiting neovim
+vim.api.nvim_create_autocmd("VimLeave", {
+  callback = function()
+    vim.opt.guicursor = "a:hor20"
+    -- send reset escape sequence to terminal
+    io.write("\27[ q")
+  end,
+})
+
 -- Create an augroup named 'DynamicCursorLine' and clear it if it exists
 local cursorGrp = vim.api.nvim_create_augroup("DynamicCursorLine", { clear = true })
 
 -- Disable cursorline when entering Insert mode or leaving a window
-vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
-    group = cursorGrp,
-    callback = function()
-        -- Turn off cursorline in the current window
-        vim.wo.cursorline = false
-    end,
+-- Reset cursor on exit
+--
+-- fix cursor reset on neovim exit
+vim.api.nvim_create_autocmd("VimLeave", {
+  pattern = "*",
+  callback = function()
+    io.write("\027[4 q")
+    io.flush()
+  end,
 })
 
 -- Enable cursorline when leaving Insert mode or entering a window

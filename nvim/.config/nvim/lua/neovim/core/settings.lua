@@ -3,7 +3,7 @@
 -- vim.g.mapleader = " "
 vim.g.mapleader = ","
 -- vim.opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50"
-vim.opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr-o:hor20" -- think cursor in insert mode
+-- vim.opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr-o:hor20" -- think cursor in insert mode
 
 vim.opt.guicursor = {
   -- Normal, Visual, Command modes: block cursor with yellow foreground and black background
@@ -12,6 +12,8 @@ vim.opt.guicursor = {
   -- Insert modes: thin vertical bar (default color)
   "i-ci-ve:ver25",
 }
+vim.opt.guicursor = "n-v-c:block,i:hor20"
+
 vim.opt.cmdheight = 0 -- hide the message
 vim.o.background="dark"
 vim.wo.cursorline = true
