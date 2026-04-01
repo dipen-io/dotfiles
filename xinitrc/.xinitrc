@@ -29,6 +29,10 @@
 #dash ~/.config/chadwm/scripts/bar.sh &
 # while type chadwm >/dev/null; do chadwm && continue || break; done
 # exec i3
+/usr/lib/xdg-desktop-portal &
+/usr/lib/xdg-desktop-portal-gtk &
+xrdb -merge ~/.Xresources
+dunst &
 exec dbus-run-session i3
 
 # Just run your main startup script
