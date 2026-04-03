@@ -198,6 +198,5 @@ vim.keymap.set("c", "<CapsLock>", "<C-c>", { noremap = true, silent = true })
 
 
 set("n", "<leader>m", ":terminal<CR>", opt)
-set("n", "<leader>e", function() Snacks.explorer() end, { desc = "Toggle Explorer" })
 set("n", "<leader>ee", "oif err != nil {<CR>}<Esc>Oreturn err<Esc>")
 

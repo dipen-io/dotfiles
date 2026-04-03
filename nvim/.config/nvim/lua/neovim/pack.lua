@@ -9,7 +9,8 @@ vim.pack.add({
   { src = "https://github.com/folke/snacks.nvim" },
 
   -- blink + its dependencies
-  { src = "https://github.com/saghen/blink.cmp", version = "v1" },
+  -- { src = "https://github.com/saghen/blink.cmp", version = "v1" },
+  { src = 'https://github.com/saghen/blink.cmp', version = vim.version.range('1.x') },
 
 
   { src = "https://github.com/L3MON4D3/LuaSnip" },
@@ -26,10 +27,17 @@ vim.pack.add({
   -- render preview (markdown?)
   { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 
+  -- oil 
+  { src = "https://github.com/stevearc/oil.nvim" },
+  -- colorsheme
+  { src = "https://github.com/catppuccin/nvim", name = "catppuccin" }
+
 })
 
 require("neovim.plugins.blink")
 require("neovim.plugins.snacks")
 require("neovim.plugins.mason")
 require("neovim.plugins.treesitter")
+require("neovim.plugins.oil")
+require("neovim.plugins.color")
 
