@@ -41,8 +41,8 @@
   -- },
 
   require("catppuccin").setup({
-      background = { light = "latte", dark = "mocha" },
-      vim.cmd("colorscheme catppuccin"),
+      -- background = { light = "latte", dark = "mocha" },
+      -- vim.cmd("colorscheme catppuccin-frappe"),
       -- Gruvbox-inspired palette overrides
       color_overrides = {
           mocha = {

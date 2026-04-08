@@ -54,3 +54,7 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = function(err, result, ctx,
   end
   vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
 end
+
+vim.schedule(function()
+  vim.cmd.colorscheme("catppuccin-frappe")
+end)
