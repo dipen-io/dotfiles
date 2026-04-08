@@ -77,17 +77,18 @@ opacity = 1
 blur = true
 decorations = "transparent"
 dynamic_title = true
+dynamic_padding = true
 # Square corners
 # decorations = "none"
 # decorations = "buttonless"
 
 [window.padding]
 x = 8
-y = 0
+y = 2
 
-[window.dimensions]
-columns = 185
-lines = 40
+# [window.dimensions]
+# columns = 185
+# lines = 40
 
 # [window.position]
 # x = 0
