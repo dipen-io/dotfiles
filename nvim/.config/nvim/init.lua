@@ -1,5 +1,5 @@
 -- 1. Plugin Manager Setup
-require("neovim.lazy")
+require("neovim.pack")
 -- 2. Load Configurations
 -- Note: Order matters! Load settings/keymaps before LSPs usually.
 require("neovim.core.settings")
@@ -54,3 +54,7 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = function(err, result, ctx,
   end
   vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
 end
+
+vim.schedule(function()
+  vim.cmd.colorscheme("catppuccin-frappe")
+end)

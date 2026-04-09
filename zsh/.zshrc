@@ -74,10 +74,16 @@ alias dps='sudo docker ps -a'
 alias dim='sudo docker images'
 alias todo='$HOME/script/todo'
 alias ts='tmux-sessionizer'
+alias cpp23='clang++ -std=c++23 -stdlib=libc++ -lc++ -lc++abi'
 
 # ---- Functions ----
 run() {
     g++ "$1" -o a.out && ./a.out
+}
+# for neovim restore cursor blocl
+nvim() {
+  command nvim "$@"
+  echo -ne "\033[4 q"  # force underline after nvim exits
 }
 
 # Tmux session picker (renamed to avoid overriding tmux command)

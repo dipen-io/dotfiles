@@ -3,15 +3,17 @@
 -- vim.g.mapleader = " "
 vim.g.mapleader = ","
 -- vim.opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50"
-vim.opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr-o:hor20" -- think cursor in insert mode
+-- vim.opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr-o:hor20" -- think cursor in insert mode
 
-vim.opt.guicursor = {
-  -- Normal, Visual, Command modes: block cursor with yellow foreground and black background
-  "n-v-c:block-CursorFFFF00/000000",
+-- vim.opt.guicursor = {
+--   -- Normal, Visual, Command modes: block cursor with yellow foreground and black background
+--   "n-v-c:block-CursorFFFF00/000000",
+--
+--   -- Insert modes: thin vertical bar (default color)
+--   "i-ci-ve:ver25",
+-- }
+-- vim.opt.guicursor = "n-v-c:block,i:hor20"
 
-  -- Insert modes: thin vertical bar (default color)
-  "i-ci-ve:ver25",
-}
 vim.opt.cmdheight = 0 -- hide the message
 vim.o.background="dark"
 vim.wo.cursorline = true
@@ -101,12 +103,30 @@ vim.opt.shortmess:append("c")  -- Hide "match x of y" messages
 vim.opt.backspace = { "indent", "eol", "start" } -- for xterm backspace work
 vim.keymap.set("i", "<C-H>", "<BS>", { noremap = true })
 
--- in neovim 12 we can use this
--- vim.pack.add({
---     {src = "https://github.com/vague2k/vague.nvim" },
--- })
-
 vim.cmd(":hi statusline guibg = NONE") --remove the statualne color
 -- vim.lsp.enable({ "lua_ls" })
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
 
+-- Enable document colors with virtual text style by default
+vim.lsp.document_color.enable(true, nil, { style = 'virtual' })
+
+-- Cursor appearance and blinking
+vim.o.guicursor = table.concat({
+  'n-v-c-sm:block-Cursor', -- Normal, Visual, Command, Showmatch: block cursor
+  'i-ci-ve:ver25-Cursor', -- Insert, Command-insert, Visual-exclusive: vertical bar (25% width)
+  'r-cr-o:hor20-Cursor', -- Replace, Command-replace, Operator-pending: horizontal bar (20% height)
+  'a:blinkwait500-blinkoff500-blinkon500',
+}, ',')
+
+-- Fill chars
+vim.opt.fillchars:append({
+  diff = '░',
+  eob = ' ',
+  fold = '⋯',
+  foldopen = '▼',
+  foldclose = '▶',
+  foldsep = '┊',
+  msgsep = '━',
+})
+-- Experimental UI2: floating cmdline and messages
+vim.o.cmdheight = 0

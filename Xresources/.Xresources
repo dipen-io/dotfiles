@@ -40,6 +40,7 @@ XTerm*color15: #1b706c
 
 ! for st
 ! Xft.dpi: 120
+Xft.dpi: 96
 !
 ! Xft.antialias:	1
 ! Xft.hinting:	1
