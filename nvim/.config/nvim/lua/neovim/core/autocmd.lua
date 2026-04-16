@@ -53,6 +53,16 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
     end,
 })
 
+-- for same ColorScheme as left side in fuzzy find
+vim.api.nvim_create_autocmd("ColorScheme", {
+    callback = function()
+        local bg = vim.api.nvim_get_hl(0, { name = "Normal" }).bg
+        vim.api.nvim_set_hl(0, "SnacksPickerPreview", { bg = bg })
+        vim.api.nvim_set_hl(0, "SnacksPickerPreviewBorder", { bg = bg })
+        vim.api.nvim_set_hl(0, "SnacksPickerPreviewTitle", { bg = bg })
+    end,
+})
+
 -- for enabling pdf viewing
  -- vim.api.nvim_create_autocmd("BufReadPost", {
  --   pattern = "*.pdf",

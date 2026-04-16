@@ -54,9 +54,4 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = function(err, result, ctx,
   vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
 end
 
--- COLORSCHEME
--- vim.schedule(function()
---   vim.cmd.colorscheme("ember")
--- end)
-
 vim.cmd("colorscheme ember-soft")
