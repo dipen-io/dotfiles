@@ -1,5 +1,5 @@
 " ============================================================
-"  .vimrc — Programming-focused Vim configuration
+"  .vimr — Programming-focused Vim configuration
 "  Sections:
 "    1. General settings
 "    2. Look & feel
@@ -54,23 +54,6 @@ set matchtime=2             " Tenths of a second to show matching bracket
 set list                    " Show invisible characters
 set listchars=tab:»·,trail:·,nbsp:·,extends:›,precedes:‹
 
-" --- Statusline (no plugin needed) ---
-set laststatus=2            " Always show statusline
-set statusline=
-set statusline+=%#PmenuSel# " Color: buffer number
-set statusline+=\ [%n]\ 
-set statusline+=%#LineNr#   " Color: filename
-set statusline+=\ %f        " Relative file path
-set statusline+=%m          " [+] if modified
-set statusline+=%r          " [RO] if read-only
-set statusline+=%=          " Switch to right side
-set statusline+=%#CursorColumn#
-set statusline+=\ %y        " File type
-set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-set statusline+=\ [%{&fileformat}]
-set statusline+=\ %p%%      " Percentage through file
-set statusline+=\ %l:%c\    " Line:column
-
 " --- Search ---
 set hlsearch                " Highlight search results
 set incsearch               " Show match as you type
@@ -83,7 +66,7 @@ set smartcase               " ...unless query has uppercase
 " ============================================================
 
 " Leader key
-let mapleader = " "         " Space as leader
+let mapleader = ","         " Space as leader
 
 " --- Essentials ---
 " Clear search highlight
@@ -138,10 +121,6 @@ vnoremap <leader>D "_d
 " Yank to end of line (consistent with D and C)
 nnoremap Y y$
 
-" --- File explorer ---
-" Toggle netrw (built-in file explorer)
-nnoremap <leader>e :Lexplore<CR>
-
 " --- Terminal ---
 nnoremap <leader>t :terminal<CR>
 tnoremap <Esc> <C-\><C-n>   " Exit terminal mode with Esc
@@ -165,12 +144,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'                  " Popular dark theme
 
 " --- File & project navigation ---
-Plug 'preservim/nerdtree'               " File tree explorer
 Plug 'ctrlpvim/ctrlp.vim'              " Fuzzy file finder
-
-" --- Status line ---
-Plug 'vim-airline/vim-airline'          " Better statusline
-Plug 'vim-airline/vim-airline-themes'   " Airline themes
 
 " --- Git integration ---
 Plug 'airblade/vim-gitgutter'           " Show git diff in sign column
@@ -205,12 +179,6 @@ call plug#end()
 " Gruvbox colorscheme (override the built-in 'desert' set above)
 let g:gruvbox_contrast_dark = 'medium'
 autocmd VimEnter * ++nested colorscheme gruvbox
-
-" NERDTree
-let g:NERDTreeShowHidden = 1
-let g:NERDTreeMinimalUI = 1
-nnoremap <leader>e :NERDTreeToggle<CR>
-nnoremap <leader>f :NERDTreeFind<CR>   " Reveal current file in tree
 
 " CtrlP
 let g:ctrlp_map = '<leader>p'
