@@ -10,7 +10,6 @@ require("neovim.core.statusline")
 -- 3. Load LSP Config
 require("neovim.plugins.lsp")
 
-
 -- 4. Additional setup
 vim.filetype.add({
   filename = {
@@ -55,6 +54,4 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = function(err, result, ctx,
   vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
 end
 
-vim.schedule(function()
-  vim.cmd.colorscheme("catppuccin-frappe")
-end)
+vim.cmd("colorscheme ember-soft")

@@ -28,6 +28,28 @@ require("snacks").setup({
         sources = {
             files = { hidden = true },
         },
+        layout = {
+            layout = {
+                box = "horizontal",
+                width = 0.9,
+                height = 0.8,
+                {
+                    box = "vertical",
+                    border = "rounded",
+                    title = " Files ",
+                    width = 0.4,
+                    { win = "input", height = 1, border = "bottom" },
+                    { win = "list", border = "none" },
+                },
+                {
+                    win = "preview",
+                    title = " Preview ",
+                    border = "rounded",
+                    -- width = 0.5,
+                },
+            },
+        },
+
     },
     quickfile = { enabled = true },
     scope = { enabled = true },

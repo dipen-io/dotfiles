@@ -30,7 +30,8 @@ vim.pack.add({
   -- oil 
   { src = "https://github.com/stevearc/oil.nvim" },
   -- colorsheme
-  { src = "https://github.com/catppuccin/nvim", name = "catppuccin" }
+  { src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
+  { src = "https://github.com/ember-theme/nvim" }
 
 })
 
@@ -40,4 +41,3 @@ require("neovim.plugins.mason")
 require("neovim.plugins.treesitter")
 require("neovim.plugins.oil")
 require("neovim.plugins.color")
-

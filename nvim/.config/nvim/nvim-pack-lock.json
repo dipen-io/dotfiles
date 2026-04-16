@@ -33,6 +33,10 @@
       "rev": "44d1e90e1f66e077268191e3ee9d2ac97cc18e65",
       "src": "https://github.com/williamboman/mason.nvim"
     },
+    "nvim": {
+      "rev": "4736d0362cdb621bed4189d789b5ba00a66d33c7",
+      "src": "https://github.com/ember-theme/nvim"
+    },
     "nvim-treesitter": {
       "rev": "7caec274fd19c12b55902a5b795100d21531391f",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
