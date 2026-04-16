@@ -1,19 +1,8 @@
-
 -- vim.opt.guicursor = ""
 -- vim.g.mapleader = " "
 vim.g.mapleader = ","
--- vim.opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50"
--- vim.opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr-o:hor20" -- think cursor in insert mode
 
--- vim.opt.guicursor = {
---   -- Normal, Visual, Command modes: block cursor with yellow foreground and black background
---   "n-v-c:block-CursorFFFF00/000000",
---
---   -- Insert modes: thin vertical bar (default color)
---   "i-ci-ve:ver25",
--- }
--- vim.opt.guicursor = "n-v-c:block,i:hor20"
-
+-- General Options
 vim.opt.cmdheight = 0 -- hide the message
 vim.o.background="dark"
 vim.wo.cursorline = true
@@ -21,51 +10,41 @@ vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.clipboard = "unnamedplus"
 vim.o.completeopt = "menuone,noselect"
--- vim.o.background = "dark"
 vim.opt.autoindent = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
+vim.opt.showmode = false
+vim.opt.smartindent = true
+vim.opt.smoothscroll = true
+vim.opt.scrolloff = 8
+vim.opt.sidescrolloff = 8
+
+-- Tabs & Indentation
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
-vim.opt.showmode = false
-vim.opt.smoothscroll = true
--- vim.opt.numberwidth=3
 
-vim.opt.smartindent = true
-vim.opt.swapfile = false
-vim.opt.backup = false
+--Search 
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
+
+-- Performance & Files
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undofile = true
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.updatetime = 50
+vim.opt.fsync = true
+vim.opt.isfname:append("@-@")
+vim.opt.wildignore:append({ "*/node_modules/*" })
+
+-- UI Customization
+vim.opt.signcolumn = "yes:1"
+vim.opt.winborder= 'rounded'
+vim.opt.shortmess:append("c")  -- Hide "match x of y" messages
+vim.cmd(":hi statusline guibg = NONE") --remove the statualne color
 --vim.o.timeoutlen = 200
-
-
-
--- vim.diagnostic.config({
---   virtual_text = false,
---   virtual_lines = true,
--- })
-
-
-vim.diagnostic.config({
-  virtual_text = false,
-  underline = true,
-  signs = true,
-})
--- vim.diagnostic.config({
---   virtual_text = {
---     severity = { min = vim.diagnostic.severity.ERROR },
---   },
---   virtual_lines = false,
---   signs = true,
---   float = {
---     border = "rounded",
---     scope = "cursor",
---     focusable = false,
---   },
--- })
-
 
 vim.api.nvim_create_autocmd("CursorHold", {
   callback = function()
@@ -77,34 +56,18 @@ vim.api.nvim_create_autocmd("CursorHold", {
   end,
 })
 
-vim.opt.scrolloff = 8
-vim.opt.sidescrolloff = 8
 
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
-vim.opt.undofile = true
-vim.opt.updatetime = 50
--- hide this two
--- vim.opt.colorcolumn = "100"
-vim.opt.signcolumn = "yes"
-vim.opt.fsync = true
-vim.opt.signcolumn = "yes:1"
-vim.opt.isfname:append("@-@")
-vim.opt.winborder= 'rounded'
-vim.opt.wildignore:append({ "*/node_modules/*" })
-vim.lsp.inlay_hint.enable(true) --new added
-
+-- netrw
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
-vim.keymap.set('n', 'M', vim.lsp.buf.hover, { buffer = bufnr, noremap = true, silent = true })
 vim.o.completeopt = "menuone,noselect"
-vim.opt.shortmess:append("c")  -- Hide "match x of y" messages
 
 vim.opt.backspace = { "indent", "eol", "start" } -- for xterm backspace work
 vim.keymap.set("i", "<C-H>", "<BS>", { noremap = true })
 
-vim.cmd(":hi statusline guibg = NONE") --remove the statualne color
--- vim.lsp.enable({ "lua_ls" })
+
+vim.keymap.set('n', 'M', vim.lsp.buf.hover, { silent = true })
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
 
 -- Enable document colors with virtual text style by default
@@ -128,5 +91,16 @@ vim.opt.fillchars:append({
   foldsep = '┊',
   msgsep = '━',
 })
--- Experimental UI2: floating cmdline and messages
-vim.o.cmdheight = 0
+
+-- Enable Inlay Hints (Neovim 0.10+)
+if vim.lsp.inlay_hint then
+  vim.lsp.inlay_hint.enable(true)
+end
+
+-- LSP & Diagnostics
+vim.diagnostic.config({
+  virtual_text = false, -- Keep UI clean
+  underline = true,
+  signs = true,
+  float = { border = "rounded" },
+})
