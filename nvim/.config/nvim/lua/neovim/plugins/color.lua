@@ -90,17 +90,16 @@
                         },
                     })
 
-                    -- require("ember").setup({
-                    --     variant = "ember", -- "ember", "ember-soft", "ember-light"
-                    --     styles = {
-                    --         comments  = { italic = true },
-                    --         keywords  = { bold = true },
-                    --         functions = {},
-                    --         types     = { bold = true },
-                    --     },
-                    --     transparent        = true, -- transparent editor background
-                    --     transparent_floats = nil,   -- follows `transparent` by default; set explicitly to override
-                    --     on_colors     = nil, -- function(palette) - modify palette before theme builds
-                    --         on_highlights = nil, -- function(highlights, theme) - modify highlight groups
-                    --         })
+                    require("ember").setup({
+                        variant = "ember-soft", -- "ember", "ember-soft", "ember-light"
+                        styles = {
+                            comments  = { italic = true },
+                            keywords  = { bold = true },
+                            functions = {},
+                            types     = { bold = true },
+                        },
+                        transparent        = true,
+                        on_colors     = nil,
+                        on_highlights = nil,
+                    })
 

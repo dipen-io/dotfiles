@@ -40,5 +40,4 @@ require("neovim.plugins.snacks")
 require("neovim.plugins.mason")
 require("neovim.plugins.treesitter")
 require("neovim.plugins.oil")
--- require("neovim.plugins.color")
-
+require("neovim.plugins.color")
