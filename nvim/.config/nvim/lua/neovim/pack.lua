@@ -41,5 +41,4 @@ require("neovim.plugins.mason")
 require("neovim.plugins.treesitter")
 require("neovim.plugins.oil")
 -- require("neovim.plugins.color")
-vim.cmd.colorscheme("ember")
 
