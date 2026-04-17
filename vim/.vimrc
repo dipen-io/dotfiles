@@ -30,6 +30,7 @@ set splitright              " Vertical splits open to the right
 set splitbelow              " Horizontal splits open below
 set updatetime=300          " Faster completion & git gutter updates
 set timeoutlen=500          " Key sequence timeout (ms)
+autocmd VimEnter,ColorScheme * highlight SignColumn ctermbg=NONE guibg=NONE term=NONE
 
 
 " ============================================================
@@ -77,6 +78,31 @@ nnoremap <leader>w :w<CR>
 nnoremap <leader>q :q<CR>
 nnoremap <leader>wq :wq<CR>
 
+" Semicolon as colon
+nnoremap ; :
+
+" Arrow keys in insert mode
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+
+" Redo with U
+nnoremap U <C-r>
+
+" Move between wrapped lines
+nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
+nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
+
+" Disable space in normal and visual
+nnoremap <Space> <Nop>
+vnoremap <Space> <Nop>
+
+" Move lines up and down in visual mode
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" Select line (was api 'n', 'c', 'V')
+nnoremap c V
+
 " --- Navigation ---
 " Move between splits with Ctrl+hjkl
 nnoremap <C-h> <C-w>h
@@ -91,8 +117,9 @@ nnoremap <C-Left>  :vertical resize -2<CR>
 nnoremap <C-Right> :vertical resize +2<CR>
 
 " Navigate buffers
-nnoremap <leader>bn :bnext<CR>
-nnoremap <leader>bp :bprevious<CR>
+" Navigate buffers
+nnoremap <S-k> :bnext<CR>
+nnoremap <S-j> :bprevious<CR>
 nnoremap <leader>bd :bdelete<CR>
 nnoremap <leader>bl :buffers<CR>
 
@@ -101,6 +128,29 @@ nnoremap <A-j> :m .+1<CR>==
 nnoremap <A-k> :m .-2<CR>==
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
+
+" Scroll down and up without smooth
+nnoremap <S-f> <C-d>zz
+nnoremap <S-h> <C-u>zz
+
+" Caps lock to normal mode (only Esc mapping works in vim, CapsLock is OS-level)
+nnoremap <Esc> <Esc>
+inoremap <Esc> <Esc>
+vnoremap <Esc> <Esc
+
+" Visual -> Normal
+vnoremap o <Esc>
+xnoremap o <Esc>
+
+" Insert mode exits
+inoremap <C-c> <Esc>
+inoremap <C-f> <Esc>
+
+" Select all
+nnoremap si ggVG
+
+" Formatting/indenting in visual mode
+xnoremap e =
 
 " --- Editing ---
 " Keep cursor centered when jumping search results
