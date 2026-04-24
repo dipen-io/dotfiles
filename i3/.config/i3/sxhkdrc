@@ -21,3 +21,7 @@ XF86MonBrightnessUp
 # Brightness Down
 XF86MonBrightnessDown
     brightnessctl set 15%-
+
+# Toggle Touchpad
+XF86TouchpadToggle
+    xinput list-props 16 | grep -q "Device Enabled (.*):.*1" && xinput disable 16 || xinput enable 16
