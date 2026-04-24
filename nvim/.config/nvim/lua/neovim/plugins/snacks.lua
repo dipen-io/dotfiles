@@ -1,4 +1,3 @@
-
 -- remove priority, lazy, opts wrapper and keys -- just pass the opts directly
 require("snacks").setup({
     bigfile = { enabled = true },
@@ -36,7 +35,7 @@ require("snacks").setup({
                 {
                     box = "vertical",
                     border = "rounded",
-                    title = " Files ",
+                    title = "{title}",
                     width = 0.4,
                     { win = "input", height = 1, border = "bottom" },
                     { win = "list", border = "none" },
