@@ -14,11 +14,15 @@ export VISUAL=nvim
 export LANG=en_US.UTF-8
 export XDG_CONFIG_HOME="$HOME/.config"
 
+# export PATH=$PATH:/opt/kotlinc/bin
+#
 # ---- PATH (Consolidated & Clean) ----
 typeset -U path  # Remove duplicates automatically
 path=(
 
+    $PATH:/opt/kotlinc/bin
     $HOME/.local/bin
+    $HOME/dinesh/usr/kotlin/bin
     $HOME/.local/bin/zen
     $HOME/dotfiles/bin
     /usr/local/node/bin
