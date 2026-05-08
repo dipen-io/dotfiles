@@ -97,6 +97,12 @@ tmux-sessionizer() {
     [[ -n "$session" ]] && tmux attach -t "$session" || echo "No session selected."
 }
 
+
+# Source all files in ~/.config/zsh
+for file in ~/.config/zsh/*(.N); do
+    source "$file"
+done
+
 # ---- Key Bindings ----
 bindkey -s '^g' '$HOME/script/rofi-web-serach.sh\n'
 # bindkey -s '^o' '$HOME/script/python_new.py\n'

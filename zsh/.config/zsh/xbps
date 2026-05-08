@@ -1,0 +1,19 @@
+pc() { sudo xbps-remove -yo && sudo xbps-remove -Oo; }
+pi() { [ -n "$1" ] && sudo xbps-install -S "$@"; }
+pl() { xpkg -m | column; }
+pm() { sudo xbps-pkgdb -m "$@"; }
+pn() { xpkg | wc -l; }
+pq() { [ -n "$1" ] && xbps-query -RS "$@" | bat --color=always -l yaml; }
+pu() { sudo xbps-install -Syu; }
+pr() { 
+    if [ -z "$2" ]; then 
+        PACKAGE="$(xpkg | fzf --multi --query="$1")"
+        [ -n "$PACKAGE" ] && sudo xbps-remove -Ry $PACKAGE 
+    else 
+        sudo xbps-remove -Ry "$@"
+    fi
+}
+pf() {
+    PACKAGE="$(xpkg -a | fzf --multi --query="$*" --preview="xbps-query -RS {} | bat -l yaml --color=always -p")"
+    [ -n "$PACKAGE" ] && sudo xbps-install -Sy $PACKAGE
+}
