@@ -58,8 +58,8 @@
                         },
                         transparent_background = true,
                         show_end_of_buffer = false,
-                        no_bold = true,
-                        no_italic = true,
+                        no_bold = false,
+                        no_italic = false,
                         integrations = {
                             blink_cmp = { style = "bordered" },
                             snacks = { enabled = true },

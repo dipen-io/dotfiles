@@ -30,22 +30,22 @@ require("snacks").setup({
         layout = {
             layout = {
                 box = "horizontal",
-                width = 0.9,
+                width = 0.6,
                 height = 0.8,
                 {
                     box = "vertical",
                     border = "rounded",
                     title = "{title}",
-                    width = 0.4,
+                    -- width = 0.4,
                     { win = "input", height = 1, border = "bottom" },
                     { win = "list", border = "none" },
                 },
-                {
-                    win = "preview",
-                    title = " Preview ",
-                    border = "rounded",
-                    -- width = 0.5,
-                },
+                -- {
+                --     win = "preview",
+                --     title = " Preview ",
+                --     border = "rounded",
+                --     -- width = 0.5,
+                -- },
             },
         },
 

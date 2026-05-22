@@ -30,6 +30,7 @@ path=(
     $HOME/mob_dev/flutter/bin/cache/dart-sdk/bin
     $ANDROID_SDK_ROOT/cmdline-tools/latest/bin
     $ANDROID_SDK_ROOT/platform-tools
+
     $path
 )
 export PATH
@@ -38,6 +39,9 @@ export PATH
 export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
 
 export PATH="$PATH:$HOME/go/bin"
+
+export JAVA_HOME=/opt/jdk-25.0.3/
+export PATH=$JAVA_HOME/bin:$PATH
 
 
 # ---- History ----
