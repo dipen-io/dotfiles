@@ -1,0 +1,10 @@
+
+#!/bin/sh
+# xpkg - minimal package list helper for Void Linux
+# Strips version numbers from xbps-query output for clean fzf integration
+
+case "$1" in
+    -a) xbps-query -Rs '' | awk '{print $2}' | sed 's/-[0-9].*//' ;;
+    -m) xbps-query -m | sed 's/-[0-9].*//' ;;
+    *)  xbps-query -l | sed 's/-[0-9].*//' ;;
+esac

@@ -83,6 +83,7 @@ alias dim='sudo docker images'
 alias todo='$HOME/script/todo'
 alias ts='tmux-sessionizer'
 alias cpp23='clang++ -std=c++23 -stdlib=libc++ -lc++ -lc++abi'
+alias show='cat /home/dinesh/.config/zsh/xbps'
 
 # ---- Functions ----
 run() {

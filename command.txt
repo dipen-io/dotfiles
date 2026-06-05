@@ -1,2 +1,5 @@
 1. fixing time zone
     sudo ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
+
+2. for mouse setting with x11 
+sudo stow --target=/ x11
