@@ -1,4 +1,3 @@
-
 #!/bin/sh
 # xpkg - minimal package list helper for Void Linux
 # Strips version numbers from xbps-query output for clean fzf integration
