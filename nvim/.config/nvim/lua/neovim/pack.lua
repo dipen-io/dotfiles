@@ -31,7 +31,10 @@ vim.pack.add({
   { src = "https://github.com/stevearc/oil.nvim" },
   -- colorsheme
   { src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
-  { src = "https://github.com/ember-theme/nvim" }
+  { src = "https://github.com/ember-theme/nvim" },
+
+  -- syntax highlighting for jai-Language
+  { src = "https://github.com/rluba/jai.vim" }
 
 })
 
