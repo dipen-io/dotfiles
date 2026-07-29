@@ -1,14 +1,37 @@
-# theme= Kanagawa Dragon
-theme= Blue Matrix
+theme= Kanagawa Dragon
+
+# font configuration
+font-size = 20
+
+# window configuration
+window-decoration = false
+window-padding-x = 10
+window-padding-y = 10
+# background-opacity = 1.0
+ background-opacity = 0.9
+
+#cursor configuration
+cursor-style = bar
+cursor-style-blink = true
+
+#Terminal feature
+mouse-hide-while-typing = true
+copy-on-select = false
+confirm-close-surface = false
+
+# Material 3 UI elements
+unfocused-split-opacity = 0.7
+unfocused-split-fill = #44464f
+
+shell-integration = detect
+shell-integration-features = cursor,sudo,title,no-cursor
+keybind = shift+enter=text:\n
+
+# theme= Blue Matrix
 shell-integration-features = no-cursor,sudo,no-title
 # font-family = "Luxi Sans Regular"
 # font-family = ZedMono Nerd Font Mono
-font-size = 20
-background-opacity = 0.9
-# background-opacity = 1
 gtk-titlebar = false
 # block, underline
-cursor-style = bar
-cursor-style-blink = true
 cursor-color = #00ffff
 adjust-cell-height = 20%

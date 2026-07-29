@@ -98,7 +98,18 @@ y = 2
 save_to_clipboard = true
 # scorlling enable
 
+
+[cursor]
+blink_interval = 550
+unfocused_hollow = false
+thickness = 0.15
+
 [cursor.style]
 # shape = "Beam"
 shape = "Underline"
 blinking = "always"
+
+[bell]
+animation = "Linear"
+duration = 0
+command = { program = "paplay", args = ["/usr/share/sounds/freedesktop/stereo/dialog-error.oga"] }

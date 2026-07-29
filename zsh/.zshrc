@@ -18,9 +18,12 @@ export XDG_CONFIG_HOME="$HOME/.config"
 #
 # ---- PATH (Consolidated & Clean) ----
 typeset -U path  # Remove duplicates automatically
+# enable vim keybinding
+set -o vi
 path=(
 
     $PATH:/opt/kotlinc/bin
+    $PATH:/opt/jai/bin
     $HOME/.local/bin
     $HOME/dinesh/usr/kotlin/bin
     $HOME/.local/bin/zen
@@ -40,7 +43,8 @@ export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
 
 export PATH="$PATH:$HOME/go/bin"
 
-export JAVA_HOME=/opt/jdk-25.0.3/
+# export JAVA_HOME=/opt/jdk-25.0.3/
+export JAVA_HOME=/opt/jdk-17.0.12/
 export PATH=$JAVA_HOME/bin:$PATH
 
 
@@ -84,6 +88,7 @@ alias todo='$HOME/script/todo'
 alias ts='tmux-sessionizer'
 alias cpp23='clang++ -std=c++23 -stdlib=libc++ -lc++ -lc++abi'
 alias show='cat /home/dinesh/.config/zsh/xbps'
+alias git_learn='python /home/dinesh/dotfiles/script/script/git_learn.py'
 
 # ---- Functions ----
 run() {

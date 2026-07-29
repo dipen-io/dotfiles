@@ -1,3 +1,5 @@
+local blink = require("blink.cmp")
+
 return {
     cmd = {
         "clangd",
@@ -6,12 +8,13 @@ return {
         "--header-insertion=never",
         "--fallback-style=llvm",
         "--query-driver=clang++",
+        "--function-arg-placeholders=false",
     },
     filetypes = { "c", "cpp" },
-    init_options = {
-        fallbackFlags = {
-            "-std=c++23",
-            "-stdlib=libc++",
-        },
-    },
+    -- init_options = {
+    --     fallbackFlags = {
+    --         "-std=c++23",
+    --         "-stdlib=libc++",
+    --     },
+    -- },
 }
